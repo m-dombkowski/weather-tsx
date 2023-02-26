@@ -1,7 +1,8 @@
 import axios from "axios";
+import { Search } from ".";
 
 interface SearchResultProps {
-  searchResult?: string[];
+  searchResult?: Search[] | undefined;
   isLoading: boolean;
   getCityPromise: (query: string, limit: string) => Promise<any>;
 }
@@ -29,17 +30,19 @@ const SearchResult: React.FC<SearchResultProps> = ({
   return (
     <div>
       {isLoading && <p>Loading...</p>}
-      <ul>
-        {searchResult?.map((element, index) => (
-          <li key={index}>
-            {!isLoading && (
-              <button value={element} onClick={onClickHandler}>
-                {element}
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
+      {searchResult && searchResult.length > 0 && (
+        <ul>
+          {searchResult.map((element, index) => (
+            <li key={index}>
+              {!isLoading && (
+                <button value={element.name} onClick={onClickHandler}>
+                  {element.name}, {element.country}
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

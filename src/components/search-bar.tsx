@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { debounce } from "lodash";
 import { useState } from "react";
 import SearchResult from "./search-result";
+import { Search } from ".";
 
 const SearchBar: React.FC = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
-  const [searchResult, setSearchResult] = useState<string[] | undefined>(
-    undefined
-  );
+  const [searchResult, setSearchResult] = useState<Search[] | undefined>([]);
 
   const getCityData = (query: string, limit: string) =>
     axios(
@@ -22,6 +20,7 @@ const SearchBar: React.FC = () => {
   useEffect(() => {
     if (!searchInput) {
       setIsLoading(false);
+      setSearchResult([]);
       return;
     }
 
@@ -31,13 +30,13 @@ const SearchBar: React.FC = () => {
       const data = Promise.resolve(getCityData(searchInput, "3"));
 
       data.then((value) =>
-        value.map((element: { name: string }) =>
-          setSearchResult((prevState) => [...(prevState ?? []), element.name])
-        )
+        value.map((element: { name: string; country: string }) => {
+          console.log(value);
+          setSearchResult((prevState) => [...(prevState ?? []), element]);
+          // setSearchResult((prevState) => [...(prevState ?? []), element.name]);
+        })
       );
-      // data.map((element: { name: string }) =>
-      //   setSearchResult((prevState) => [...(prevState ?? []), element.name])
-      // )
+
       setIsLoading(false);
     }, 1000);
 
