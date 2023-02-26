@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRef } from "react";
 import { Search } from ".";
 
 interface SearchResultProps {
@@ -15,16 +16,19 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const onClickHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    const value = (event.target as HTMLInputElement).value;
+    const value = (event.target as HTMLInputElement)?.value;
+    const tabIndex = (event.target as HTMLInputElement)?.tabIndex;
 
-    const test = await getCityPromise(value, "1");
-    const { lat, lon } = test[0];
+    const citiesArray = await getCityPromise(value, "5");
+    console.log(citiesArray);
 
-    const getCityData = axios(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
-    ).then((resp) => console.log(resp.data));
-
-    // console.log(getCityData);
+    citiesArray.forEach((element: Search, index: string) => {
+      if (element.name === value && tabIndex === +index) {
+        const getCityData = axios(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lon}&appid=${apiKey}&units=metric`
+        ).then((resp) => console.log(resp.data));
+      }
+    });
   };
 
   return (
@@ -35,8 +39,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
           {searchResult.map((element, index) => (
             <li key={index}>
               {!isLoading && (
-                <button value={element.name} onClick={onClickHandler}>
-                  {element.name}, {element.country}
+                <button
+                  tabIndex={index}
+                  value={element.name}
+                  onClick={onClickHandler}
+                >
+                  {element.name}, {element.state && element.state}.{" "}
+                  {element.country}
                 </button>
               )}
             </li>

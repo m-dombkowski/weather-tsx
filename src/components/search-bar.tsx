@@ -26,21 +26,20 @@ const SearchBar: React.FC = () => {
 
     setSearchResult([]);
     setIsLoading(true);
-    const getCity = setTimeout(() => {
-      const data = Promise.resolve(getCityData(searchInput, "3"));
+    const getCityName = setTimeout(() => {
+      const data = Promise.resolve(getCityData(searchInput, "5"));
 
       data.then((value) =>
-        value.map((element: { name: string; country: string }) => {
+        value.map((element: Search) => {
           console.log(value);
           setSearchResult((prevState) => [...(prevState ?? []), element]);
-          // setSearchResult((prevState) => [...(prevState ?? []), element.name]);
         })
       );
 
       setIsLoading(false);
     }, 1000);
 
-    return () => clearTimeout(getCity);
+    return () => clearTimeout(getCityName);
   }, [searchInput]);
 
   return (
