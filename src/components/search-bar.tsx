@@ -3,8 +3,13 @@ import axios from "axios";
 import { useState } from "react";
 import SearchResult from "./search-result";
 import { Search } from ".";
+import { useAppDispatch, useAppSelector } from "../state/hooks/hooks";
+import { decrement, increment } from "../state/slices/counter-slice";
 
 const SearchBar: React.FC = () => {
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
+
   const apiKey = import.meta.env.VITE_API_KEY;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -41,6 +46,9 @@ const SearchBar: React.FC = () => {
 
   return (
     <div>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <span>{count}</span>
+      <button onClick={() => dispatch(decrement())}>-</button>
       <input
         onChange={(event) => setSearchInput(event.target.value)}
         type="search"
