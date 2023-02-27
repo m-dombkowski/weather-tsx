@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useRef } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Search } from ".";
 
 interface SearchResultProps {
+  setSearchInput?: Dispatch<SetStateAction<string>>;
   searchResult?: Search[] | undefined;
   isLoading: boolean;
   getCityPromise: (query: string, limit: string) => Promise<any>;
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({
+  setSearchInput,
   searchResult,
   isLoading,
   getCityPromise,
@@ -24,11 +26,15 @@ const SearchResult: React.FC<SearchResultProps> = ({
 
     citiesArray.forEach((element: Search, index: string) => {
       if (element.name === value && tabIndex === +index) {
-        const getCityData = axios(
+        axios(
           `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lon}&appid=${apiKey}&units=metric`
-        ).then((resp) => console.log(resp.data));
+        ).then((resp) => resp.data);
       }
     });
+
+    if (setSearchInput) {
+      setSearchInput("");
+    }
   };
 
   return (

@@ -7,31 +7,28 @@ import { Search } from ".";
 const SearchBar: React.FC = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
+  const [searchInput, setSearchInput] = useState<string>("");
   const [searchResult, setSearchResult] = useState<Search[] | undefined>([]);
 
   const getCityData = (query: string, limit: string) =>
     axios(
       `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=${limit}&appid=${apiKey}`
-    ).then((resp) => {
-      return resp.data;
-    });
+    ).then((resp) => resp.data);
 
   useEffect(() => {
+    setSearchResult([]);
+
     if (!searchInput) {
       setIsLoading(false);
-      setSearchResult([]);
       return;
     }
 
-    setSearchResult([]);
     setIsLoading(true);
     const getCityName = setTimeout(() => {
       const data = Promise.resolve(getCityData(searchInput, "5"));
 
       data.then((value) =>
         value.map((element: Search) => {
-          console.log(value);
           setSearchResult((prevState) => [...(prevState ?? []), element]);
         })
       );
@@ -51,6 +48,7 @@ const SearchBar: React.FC = () => {
         placeholder="Search for a city"
       />
       <SearchResult
+        setSearchInput={setSearchInput}
         getCityPromise={getCityData}
         isLoading={isLoading}
         searchResult={searchResult}
