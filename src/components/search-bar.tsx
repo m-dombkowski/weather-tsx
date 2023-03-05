@@ -3,68 +3,61 @@ import axios from "axios";
 import { useState } from "react";
 import SearchResult from "./search-result";
 import { Search } from ".";
-import { useAppDispatch, useAppSelector } from "../state/hooks/hooks";
-import { decrement, increment } from "../state/slices/counter-slice";
+import { useGetCityByNameQuery } from "../services/cities";
+import useDebounce from "../hooks/useDebounce";
 
 const SearchBar: React.FC = () => {
-  const count = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
-
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [skip, setSkip] = useState<boolean>(true);
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchResult, setSearchResult] = useState<Search[] | undefined>([]);
 
-  const getCityData = (query: string, limit: string) =>
-    axios(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=${limit}&appid=${apiKey}`
-    ).then((resp) => resp.data);
+  const debounceSearchTerm = useDebounce(searchInput, 1500);
 
-  useEffect(() => {
+  const result = useGetCityByNameQuery(
+    {
+      debounceSearchTerm,
+      apiKey,
+    },
+    { skip }
+  );
+
+  const onChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+    setSkip(false);
     setSearchResult([]);
-
-    if (!searchInput) {
-      setIsLoading(false);
-      return;
+    console.log(searchInput);
+    if (searchInput === "") {
+      console.log("here");
+      setSkip(true);
     }
+  };
 
-    setIsLoading(true);
-    const getCityName = setTimeout(() => {
-      const data = Promise.resolve(getCityData(searchInput, "5"));
-
-      data.then((value) =>
-        value.map((element: Search) => {
-          setSearchResult((prevState) => [...(prevState ?? []), element]);
-        })
-      );
-
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(getCityName);
-  }, [searchInput]);
+  console.log(result);
 
   return (
     <div>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <span>{count}</span>
-      <button onClick={() => dispatch(decrement())}>-</button>
+      {/* <button>+</button>
+      <span></span>
+      <button>-</button> */}
       <input
-        onChange={(event) => setSearchInput(event.target.value)}
+        onChange={onChangeHandle}
         type="search"
         style={{ padding: "18px 36px", fontSize: "2rem" }}
         placeholder="Search for a city"
       />
+      <button onClick={() => setSkip((prevState) => !prevState)}>
+        Skip value: {skip.toString()}
+      </button>
       <SearchResult
         setSearchInput={setSearchInput}
-        getCityPromise={getCityData}
-        isLoading={isLoading}
+        // getCityPromise={getCityData}
+        // isFetching={result.status}
         searchResult={searchResult}
+        searchTerm={debounceSearchTerm}
       />
     </div>
   );
 };
 
 export default SearchBar;
-
-//1dd8639e06977072c7c8fcaea598d700
