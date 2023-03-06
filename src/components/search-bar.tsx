@@ -1,10 +1,5 @@
-import { useEffect } from "react";
-import axios from "axios";
 import { useState } from "react";
 import SearchResult from "./search-result";
-import { Search } from ".";
-import { useGetCityByNameQuery } from "../services/cities";
-import useDebounce from "../hooks/useDebounce";
 
 const SearchBar: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
