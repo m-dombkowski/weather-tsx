@@ -5,6 +5,10 @@ interface SelectedCityProps {
 }
 
 const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
+  const cityData = {
+    icon: selectedCityData.weather[0].icon,
+  };
+
   useEffect(() => {
     console.log(selectedCityData);
   }, []);
@@ -12,9 +16,7 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
   return (
     <div>
       <span>{selectedCityData.main.temp}°C</span>
-      <img
-        src={`http://openweathermap.org/img/wn/${selectedCityData.weather[0].icon}@2x.png`}
-      />
+      <img src={`http://openweathermap.org/img/wn/${cityData.icon}@2x.png`} />
       <span>{selectedCityData.name}</span>
     </div>
   );

@@ -51,15 +51,18 @@ const SearchResult: React.FC<SearchResultProps> = ({
       const response = await axios(
         `http://api.openweathermap.org/geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
       );
-
+      if (response.status >= 400) {
+        throw new Error("Error has occured, please try again.");
+      }
       const { data } = response;
       return data;
     } catch (err) {
-      throw new Error("Error has occured, please try again.");
+      console.error(err);
     }
   };
 
   useEffect(() => {
+    setSelectedCityData(undefined);
     const setSearchData = async () => {
       try {
         if (debounceSearchTerm) {
@@ -67,6 +70,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
           if (!data) {
             throw new Error("Error has occured, please try again.");
           }
+          console.log(data);
           setCitiesSearchResult(data);
         }
       } catch (err) {
