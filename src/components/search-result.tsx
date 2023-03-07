@@ -37,10 +37,10 @@ const SearchResult: React.FC<SearchResultProps> = ({
   searchInput,
 }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const debounceSearchTerm = useDebounce(searchInput, 1500);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const debounceSearchTerm = useDebounce(searchInput, 1500, setIsLoading);
   const [citiesSearchResult, setCitiesSearchResult] = useState<Search[]>([]);
-  const [selectedCityData, setSelectedCityData] =
-    useState<SelectedCityInterface>();
+  const [selectedCityData, setSelectedCityData] = useState<any>();
 
   const getCityDataByName = async (
     cityQuery: string,
@@ -48,12 +48,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
     apiKey: string
   ) => {
     try {
+      setIsLoading(true);
       const response = await axios(
         `http://api.openweathermap.org/geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
       );
       if (response.status >= 400) {
-        throw new Error("Error has occured, please try again.");
+        console.error("Error has occured, please try again.");
       }
+      setIsLoading(false);
       const { data } = response;
       return data;
     } catch (err) {
@@ -62,13 +64,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
   };
 
   useEffect(() => {
-    setSelectedCityData(undefined);
     const setSearchData = async () => {
       try {
         if (debounceSearchTerm) {
-          const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
+          setSelectedCityData(null);
+          const data = await getCityDataByName(debounceSearchTerm, "1", apiKey);
           if (!data) {
-            throw new Error("Error has occured, please try again.");
+            console.error("Error has occured, please try again.");
           }
           console.log(data);
           setCitiesSearchResult(data);
@@ -100,7 +102,8 @@ const SearchResult: React.FC<SearchResultProps> = ({
 
   return (
     <div>
-      {citiesSearchResult?.length > 0 && (
+      {isLoading && <div>Fetching data, please standby...</div>}
+      {citiesSearchResult?.length > 0 && !isLoading && (
         <ul>
           {citiesSearchResult.map((element, index) => (
             <li key={index}>

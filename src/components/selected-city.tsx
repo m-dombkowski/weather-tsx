@@ -11,11 +11,11 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
 
   useEffect(() => {
     console.log(selectedCityData);
-  }, []);
+  });
 
   return (
     <div>
-      <span>{selectedCityData.main.temp}°C</span>
+      <span>{Math.round(selectedCityData.main.temp)}°C</span>
       <img src={`http://openweathermap.org/img/wn/${cityData.icon}@2x.png`} />
       <span>{selectedCityData.name}</span>
     </div>
