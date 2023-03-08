@@ -53,7 +53,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
         `http://api.openweathermap.org/geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
       );
       if (response.status >= 400) {
-        console.error("Error has occured, please try again.");
+        throw new Error("Error has occured, please try again.");
       }
       setIsLoading(false);
       const { data } = response;
@@ -68,9 +68,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
       try {
         if (debounceSearchTerm) {
           setSelectedCityData(null);
-          const data = await getCityDataByName(debounceSearchTerm, "1", apiKey);
+          const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
           if (!data) {
-            console.error("Error has occured, please try again.");
+            throw new Error("Error has occured, please try again.");
           }
           console.log(data);
           setCitiesSearchResult(data);
