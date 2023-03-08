@@ -37,6 +37,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
   searchInput,
 }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
+  const baseURL = import.meta.env.VITE_BASE_URL;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const debounceSearchTerm = useDebounce(searchInput, 1500, setIsLoading);
   const [citiesSearchResult, setCitiesSearchResult] = useState<Search[]>([]);
@@ -50,7 +51,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
     try {
       setIsLoading(true);
       const response = await axios(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+        `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
       );
       if (!debounceSearchTerm) {
         setIsLoading(false);
@@ -71,7 +72,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
           setSelectedCityData(null);
           const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
           if (!data) {
-            throw new Error("Error has occured, please try again.");
+            throw new Error("Error has occurred, please try again.");
           }
           console.log(data);
           setCitiesSearchResult(data);
@@ -81,7 +82,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
         }
       } catch (err) {
         console.error(err);
-        // throw new Error("Error has occured, please try again.");
+        // throw new Error("Error has occurred, please try again.");
       }
     };
     setSearchData();
@@ -95,7 +96,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
       const cityData = citiesSearchResult[cityIndex];
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
         axios(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
+          `${baseURL}data/2.5/weather?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
         ).then(({ data }) => setSelectedCityData(data));
       }
     }

@@ -7,6 +7,7 @@ interface SelectedCityProps {
 
 const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
   const [favoriteCities, setFavoriteCities] = useState<any>([]);
+  const [flag, setFlag] = useState<boolean>(true);
   const cityData = {
     icon: selectedCityData.weather[0].icon,
     time: selectedCityData.dt,
@@ -33,37 +34,23 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
     if (button.classList.contains("liked")) {
       button.classList.remove("liked");
       setFavoriteCities((prevState: any) => {
-        return prevState.filter(
-          (city: any) => city.name !== selectedCityData.name
-        );
+        return prevState.filter((city: any) => city.id !== selectedCityData.id);
       });
     } else {
       button.classList.add("liked");
       if (favoriteCities.length > 0) {
-        for (const city of favoriteCities) {
-          if (city.name !== selectedCityData.name) {
-            setFavoriteCities((prevState: any) => [
+        const isAlreadyInFavorites = favoriteCities.find(
+          (city: any) => city.id === selectedCityData.id
+        );
+        !isAlreadyInFavorites
+          ? setFavoriteCities((prevState: any) => [
               ...prevState,
               selectedCityData,
-            ]);
-          }
-          break;
-        }
+            ])
+          : setFavoriteCities((prevState: any) => prevState);
       } else {
         setFavoriteCities((prevState: any) => [...prevState, selectedCityData]);
       }
-      // setFavoriteCities(
-      //   (prevState: any) => {
-      //     if (prevState.length > 0) {
-
-      //     } else {
-      //       return [...prevState, selectedCityData];
-      //     }
-      //   }
-      // prevState.includes(selectedCityData)
-      //   ? prevState
-      //   : [...prevState, selectedCityData]
-      // );
     }
   };
 
@@ -90,3 +77,8 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
 };
 
 export default SelectedCity;
+
+// setFavoriteCities((prevState: any) => [
+//   ...prevState,
+//   selectedCityData,
+// ]);
