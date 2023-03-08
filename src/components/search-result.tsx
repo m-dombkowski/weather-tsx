@@ -52,8 +52,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
       const response = await axios(
         `http://api.openweathermap.org/geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
       );
-      if (response.status >= 400) {
-        throw new Error("Error has occured, please try again.");
+      if (!debounceSearchTerm) {
+        setIsLoading(false);
+        setSelectedCityData(null);
       }
       setIsLoading(false);
       const { data } = response;
@@ -75,6 +76,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
           console.log(data);
           setCitiesSearchResult(data);
         }
+        if (setSearchInput && !debounceSearchTerm) {
+          setCitiesSearchResult([]);
+        }
       } catch (err) {
         console.error(err);
         // throw new Error("Error has occured, please try again.");
@@ -95,23 +99,27 @@ const SearchResult: React.FC<SearchResultProps> = ({
         ).then(({ data }) => setSelectedCityData(data));
       }
     }
-    if (setSearchInput) {
-      setSearchInput("");
-    }
   };
 
   return (
     <div>
-      {isLoading && <div>Fetching data, please standby...</div>}
+      {isLoading && (
+        <div style={{ marginTop: "20px" }}>
+          Fetching data, please standby...
+        </div>
+      )}
       {citiesSearchResult?.length > 0 && !isLoading && (
-        <ul>
+        <ul
+          style={{ listStyle: "none", textAlign: "left", paddingLeft: "unset" }}
+        >
           {citiesSearchResult.map((element, index) => (
-            <li key={index}>
+            <li key={index} style={{ marginBottom: "10px" }}>
               {/* {!isFetching && ( */}
               <button
                 tabIndex={index}
                 value={element.name}
                 onClick={onClickHandler}
+                style={{ minWidth: "465px" }}
               >
                 {element.name}, {element.state && element.state}.{" "}
                 {element.country}

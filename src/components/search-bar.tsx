@@ -7,7 +7,6 @@ const SearchBar: React.FC = () => {
 
   const toggleInfoHandler = () => {
     setShowInfo((prevState) => !prevState);
-    console.log(showInfo);
   };
 
   return (
@@ -24,7 +23,7 @@ const SearchBar: React.FC = () => {
         <input
           onChange={(event) => setSearchInput(event.target.value)}
           type="search"
-          style={{ padding: "18px 36px", fontSize: "2rem" }}
+          style={{ padding: "18px 36px", fontSize: "18px", minWidth: "400px" }}
           placeholder="Search for a city"
         />
 
@@ -41,7 +40,7 @@ const SearchBar: React.FC = () => {
               border: "3px solid #666eff",
               borderRadius: "15px",
               position: "absolute",
-              right: "-100%",
+              right: "-120%",
               color: "#000",
               background: "#666666",
             }}
