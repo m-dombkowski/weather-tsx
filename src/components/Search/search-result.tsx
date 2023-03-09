@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { Search } from ".";
-import useDebounce from "../hooks/useDebounce";
-import SelectedCity from "./selected-city";
+import useDebounce from "../../hooks/useDebounce";
+import SelectedCity from "../selected-city";
 
 interface SearchResultProps {
   setSearchInput?: Dispatch<SetStateAction<string>>;

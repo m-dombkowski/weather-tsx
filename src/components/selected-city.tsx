@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/rtk-hooks";
+import { removeFromFavorites } from "../state/slices/favorite-cities";
 import "./selected-city.css";
 
 interface SelectedCityProps {
@@ -6,8 +8,9 @@ interface SelectedCityProps {
 }
 
 const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
+  const cities = useAppSelector((state) => state.counter.favoriteCities);
+  const dispatch = useAppDispatch();
   const [favoriteCities, setFavoriteCities] = useState<any>([]);
-  const [flag, setFlag] = useState<boolean>(true);
   const cityData = {
     icon: selectedCityData.weather[0].icon,
     time: selectedCityData.dt,
@@ -30,7 +33,8 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const button = event.target as HTMLDivElement;
-
+    const test = dispatch(removeFromFavorites(selectedCityData));
+    console.log(test.payload);
     if (button.classList.contains("liked")) {
       button.classList.remove("liked");
       setFavoriteCities((prevState: any) => {
