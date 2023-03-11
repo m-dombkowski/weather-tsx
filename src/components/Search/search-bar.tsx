@@ -54,9 +54,9 @@ const SearchBar: React.FC = () => {
             >
               If you want to make sure your search is as precise as possible you
               can add name of the state and/or country that the city you are
-              searching for is. Example: "Chicago,Illinois,US" or just
+              searching for is in. Example: "Chicago,Illinois,US" or just
               "Chicago,US". It is highly recommended to search using as much
-              information as possible
+              information as possible.
             </p>
           </div>
         )}

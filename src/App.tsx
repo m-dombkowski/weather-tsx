@@ -1,11 +1,11 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import SearchBar from "./components/Search/search-bar";
+import SearchBar from "./components/search/search-bar";
+import FavoriteList from "./components/favorites/favorites-list";
 
 function App() {
   return (
     <div className="App">
+      <FavoriteList />
       <SearchBar />
     </div>
   );
