@@ -1,7 +1,9 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { Search } from ".";
+import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import useDebounce from "../../hooks/useDebounce";
+import { setSelectedCity } from "../../state/slices/selected-city";
 import SelectedCity from "../selected-city";
 
 interface SearchResultProps {
@@ -19,6 +21,8 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const debounceSearchTerm = useDebounce(searchInput, 1500, setIsLoading);
   const [citiesSearchResult, setCitiesSearchResult] = useState<Search[]>([]);
   const [selectedCityData, setSelectedCityData] = useState<any>();
+  const dispatch = useAppDispatch();
+  const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
 
   const getCityDataByName = async (
     cityQuery: string,
@@ -78,6 +82,10 @@ const SearchResult: React.FC<SearchResultProps> = ({
     }
   };
 
+  useEffect(() => {
+    dispatch(setSelectedCity(selectedCityData));
+  }, [selectedCityData]);
+
   return (
     <div>
       {isLoading && (
@@ -106,7 +114,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
           ))}
         </ul>
       )}
-      {selectedCityData && <SelectedCity selectedCityData={selectedCityData} />}
+      {selectedCityData && <SelectedCity />}
     </div>
   );
 };
@@ -115,3 +123,5 @@ export default SearchResult;
 
 // `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lon}&appid=${apiKey}&units=metric`
 // if (element.name === value && tabIndex === +index)
+
+//setSelectedCityData(data)

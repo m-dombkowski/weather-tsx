@@ -3,12 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { CityInterface } from "..";
 
 // Define a type for the slice state
-interface CounterState {
+interface FavCitiesState {
   favoriteCities: CityInterface[] | [] | any;
 }
 
 // Define the initial state using that type
-const initialState: CounterState = {
+const initialState: FavCitiesState = {
   favoriteCities: [],
 };
 

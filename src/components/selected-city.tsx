@@ -8,15 +8,16 @@ import { convertUnixToTime } from "../helpers";
 import { CityInterface } from "../state";
 
 interface SelectedCityProps {
-  selectedCityData: CityInterface;
+  selectedCityData?: CityInterface;
 }
 
 const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
-  const dispatch = useAppDispatch();
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
+  const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
   const isAlreadyInFavorites = cityList.find(
-    (city: CityInterface) => city.id === selectedCityData.id
+    (city: CityInterface) => city.id === cityData?.id
   );
+  const dispatch = useAppDispatch();
 
   const addToFavoriteHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -27,40 +28,37 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
     }
     if (button.classList.contains("liked")) {
       button.classList.remove("liked");
-      dispatch(removeFromFavorites(selectedCityData));
+      dispatch(removeFromFavorites(cityData));
     } else {
       button.classList.add("liked");
-      dispatch(addToFavorites(selectedCityData));
+      dispatch(addToFavorites(cityData));
     }
   };
 
   return (
     <>
-      <div>
-        <span>{Math.round(selectedCityData.main.temp)}°C</span>
-        <img
-          src={`http://openweathermap.org/img/wn/${selectedCityData.weather[0].icon}@2x.png`}
-        />
-        <span>{selectedCityData.name}</span>
-        <p>{convertUnixToTime(selectedCityData.dt, selectedCityData)}</p>
-        <div id="container">
-          <div
-            onClick={addToFavoriteHandler}
-            className={
-              !isAlreadyInFavorites
-                ? "heart-like-button"
-                : "heart-like-button liked"
-            }
-          ></div>
+      {cityData && (
+        <div>
+          <span>{Math.round(cityData.main.temp)}°C</span>
+          <img
+            src={`http://openweathermap.org/img/wn/${cityData.weather[0].icon}@2x.png`}
+          />
+          <span>{cityData.name}</span>
+          <p>{convertUnixToTime(cityData.dt, cityData)}</p>
+          <div id="container">
+            <div
+              onClick={addToFavoriteHandler}
+              className={
+                !isAlreadyInFavorites
+                  ? "heart-like-button"
+                  : "heart-like-button liked"
+              }
+            ></div>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
 export default SelectedCity;
-
-// setFavoriteCities((prevState: any) => [
-//   ...prevState,
-//   selectedCityData,
-// ]);

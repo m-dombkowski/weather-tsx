@@ -1,0 +1,23 @@
+.city-list .single-city:hover .button-close {
+  opacity: 1 !important;
+  pointer-events: all;
+  transform: translateX(0px) !important;
+}
+
+.button-close {
+  pointer-events: none;
+  transition: 0.3s all;
+}
+
+.single-city {
+  transition: 0.3s all;
+  border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+.single-city:hover {
+  /* background-color: white;   */
+  cursor: pointer;
+  background: #1a1a1a;
+  border-color: #646cff;
+}
