@@ -5,16 +5,17 @@ import {
 } from "../state/slices/favorite-cities";
 import "./selected-city.css";
 import { convertUnixToTime } from "../helpers";
+import { CityInterface } from "../state";
 
 interface SelectedCityProps {
-  selectedCityData: any;
+  selectedCityData: CityInterface;
 }
 
 const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
   const dispatch = useAppDispatch();
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
   const isAlreadyInFavorites = cityList.find(
-    (city: any) => city.id === selectedCityData.id
+    (city: CityInterface) => city.id === selectedCityData.id
   );
 
   const addToFavoriteHandler = (
@@ -32,8 +33,6 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
       dispatch(addToFavorites(selectedCityData));
     }
   };
-
-  console.log(selectedCityData);
 
   return (
     <>

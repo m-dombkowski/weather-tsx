@@ -10,13 +10,13 @@ const FavoriteList: React.FC = () => {
 
   return (
     <div>
-      <ul style={{ position: "fixed", top: "0", left: "0" }}>
+      <ul style={{ display: "flex", flexDirection: "column" }}>
         {citiesList.map((city: CityInterface, index: number) => (
           <li
             key={index}
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "space-around",
               alignItems: "center",
             }}
           >

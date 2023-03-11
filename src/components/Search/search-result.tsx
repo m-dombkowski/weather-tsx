@@ -9,29 +9,6 @@ interface SearchResultProps {
   searchInput: string;
 }
 
-export interface SelectedCityInterface {
-  cityName: string;
-  temp: {
-    min: number;
-    max: number;
-    feelsLike: number;
-    actual: number;
-  };
-  pressure: number;
-  humidity: number;
-  time: {
-    dt: number;
-    sunrise: number;
-    sunset: number;
-  };
-  weather: {
-    description: string;
-    iconID: string;
-    main: string;
-  };
-  country: string;
-}
-
 const SearchResult: React.FC<SearchResultProps> = ({
   setSearchInput,
   searchInput,
@@ -74,7 +51,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
           if (!data) {
             throw new Error("Error has occurred, please try again.");
           }
-          console.log(data);
           setCitiesSearchResult(data);
         }
         if (setSearchInput && !debounceSearchTerm) {
