@@ -4,7 +4,7 @@ import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import useDebounce from "../../hooks/useDebounce";
 import { setSelectedCity } from "../../state/slices/selected-city";
-import SelectedCity from "../selected-city";
+import SelectedCity from "../selected-city/selected-city";
 
 interface SearchResultProps {
   setSearchInput?: Dispatch<SetStateAction<string>>;

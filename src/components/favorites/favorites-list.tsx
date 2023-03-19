@@ -1,7 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import { CityInterface } from "../../state";
-import { convertUnixToTime } from "../../helpers";
-import { useEffect } from "react";
 import { removeFromFavorites } from "../../state/slices/favorite-cities";
 import "./favorites-list.css";
 import { setSelectedCity } from "../../state/slices/selected-city";
@@ -36,7 +34,7 @@ const FavoriteList: React.FC = () => {
               }}
               onClick={() => dispatch(setSelectedCity(city))}
             >
-              <span>
+              <span style={{ minWidth: "150px" }}>
                 {city.name}, {city.sys.country}.{" "}
               </span>
 

@@ -1,0 +1,40 @@
+.info-window {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 10px 30px;
+  border: 3px solid #666eff;
+  border-radius: 15px;
+  position: absolute;
+  color: #000;
+  background: #666666;
+  transition: all 0.5s;
+  cursor: default;
+  top: 0;
+  opacity: 0.2;
+}
+
+.info-window p {
+  text-align: justify;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.info-window-enter {
+  right: -170%;
+  opacity: 1;
+}
+
+.info-window-enter-active {
+  right: -125%;
+  opacity: 1;
+}
+
+.info-window.active {
+  opacity: 0;
+  right: -170%;
+}
+
+.info-window-enter-done {
+  right: -125%;
+  opacity: 1;
+}

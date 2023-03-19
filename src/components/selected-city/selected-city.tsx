@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../hooks/rtk-hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import {
   addToFavorites,
   removeFromFavorites,
-} from "../state/slices/favorite-cities";
+} from "../../state/slices/favorite-cities";
 import "./selected-city.css";
-import { convertUnixToTime } from "../helpers";
-import { CityInterface } from "../state";
+import { convertUnixToTime } from "../../helpers";
+import { CityInterface } from "../../state";
 
 interface SelectedCityProps {
   selectedCityData?: CityInterface;
@@ -38,7 +38,7 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
   return (
     <>
       {cityData && (
-        <div>
+        <div className="selected-city-container">
           <span>{Math.round(cityData.main.temp)}°C</span>
           <img
             src={`http://openweathermap.org/img/wn/${cityData.weather[0].icon}@2x.png`}
