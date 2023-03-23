@@ -22,7 +22,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const [citiesSearchResult, setCitiesSearchResult] = useState<Search[]>([]);
   const [selectedCityData, setSelectedCityData] = useState<any>();
   const dispatch = useAppDispatch();
-  const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
 
   const getCityDataByName = async (
     cityQuery: string,
@@ -80,6 +79,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
         ).then(({ data }) => setSelectedCityData(data));
       }
     }
+    setCitiesSearchResult([]);
   };
 
   useEffect(() => {
@@ -87,41 +87,40 @@ const SearchResult: React.FC<SearchResultProps> = ({
   }, [selectedCityData]);
 
   return (
-    <div>
-      {isLoading && (
-        <div style={{ marginTop: "20px" }}>
-          Fetching data, please standby...
-        </div>
-      )}
-      {citiesSearchResult?.length > 0 && !isLoading && (
-        <ul
-          style={{ listStyle: "none", textAlign: "left", paddingLeft: "unset" }}
-        >
-          {citiesSearchResult.map((element, index) => (
-            <li key={index} style={{ marginBottom: "10px" }}>
-              {/* {!isFetching && ( */}
-              <button
-                tabIndex={index}
-                value={element.name}
-                onClick={onClickHandler}
-                style={{ minWidth: "465px" }}
-              >
-                {element.name}, {element.state && element.state}.{" "}
-                {element.country}
-              </button>
-              {/* )} */}
-            </li>
-          ))}
-        </ul>
-      )}
-      {selectedCityData && <SelectedCity />}
-    </div>
+    <>
+      <div className="search-result-container">
+        {isLoading && (
+          <div style={{ marginTop: "20px" }}>
+            Fetching data, please standby...
+          </div>
+        )}
+        {citiesSearchResult?.length > 0 && !isLoading && (
+          <ul
+            style={{
+              listStyle: "none",
+              textAlign: "left",
+              paddingLeft: "unset",
+            }}
+          >
+            {citiesSearchResult.map((element, index) => (
+              <li key={index} style={{ marginBottom: "10px" }}>
+                <button
+                  tabIndex={index}
+                  value={element.name}
+                  onClick={onClickHandler}
+                  style={{ minWidth: "300px" }}
+                  className="search-result-city-btn"
+                >
+                  {element.name}, {element.state && element.state}.{" "}
+                  {element.country}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 };
 
 export default SearchResult;
-
-// `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lon}&appid=${apiKey}&units=metric`
-// if (element.name === value && tabIndex === +index)
-
-//setSelectedCityData(data)

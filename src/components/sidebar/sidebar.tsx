@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div style={{ position: "fixed", top: "0", left: "0", minWidth: "480px" }}>
+    <div style={{ position: "fixed", top: "2%", left: "0", minWidth: "400px" }}>
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         <button onClick={favHandler}>Fav</button>
         <button onClick={bHandler}>b</button>

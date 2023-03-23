@@ -43,7 +43,7 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
           <img
             src={`http://openweathermap.org/img/wn/${cityData.weather[0].icon}@2x.png`}
           />
-          <span>{cityData.name}</span>
+          <span>{cityData.name} </span>
           <p>{convertUnixToTime(cityData.dt, cityData)}</p>
           <div id="container">
             <div

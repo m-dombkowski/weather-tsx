@@ -1,13 +1,19 @@
 import "./App.css";
 import SearchBar from "./components/search/search-bar";
-import FavoriteList from "./components/favorites/favorites-list";
+import SelectedCity from "./components/selected-city/selected-city";
 import Sidebar from "./components/sidebar/sidebar";
+import { useAppSelector } from "./hooks/rtk-hooks";
 
 function App() {
+  const selectedCityData = useAppSelector(
+    (state) => state.selectedCity.selectedCity
+  );
+
   return (
     <div className="App">
       <Sidebar />
       <SearchBar />
+      {selectedCityData && <SelectedCity />}
     </div>
   );
 }

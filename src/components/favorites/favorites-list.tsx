@@ -28,23 +28,31 @@ const FavoriteList: React.FC = () => {
               className="single-city"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
-                padding: "0 20px",
+                justifyContent: "flex-start",
+                padding: "8px 20px",
                 alignItems: "center",
+                gap: "10px",
               }}
               onClick={() => dispatch(setSelectedCity(city))}
             >
-              <span style={{ minWidth: "150px" }}>
+              <span style={{ minWidth: "100px", fontSize: "14px" }}>
                 {city.name}, {city.sys.country}.{" "}
               </span>
 
               <img
+                style={{ width: "55px" }}
                 src={`http://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}
               />
-              <span>{Math.round(city.main.temp)}°C</span>
+              <span style={{ fontSize: "14px" }}>
+                {Math.round(city.main.temp)}°C
+              </span>
               <button
                 className="button-close"
-                style={{ transform: "translateX(40px)", opacity: "0" }}
+                style={{
+                  transform: "translateX(40px)",
+                  opacity: "0",
+                  marginLeft: "auto",
+                }}
                 onClick={() => dispatch(removeFromFavorites(city))}
               >
                 X

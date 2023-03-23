@@ -21,20 +21,30 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        position: "fixed",
+        top: "2%",
+        left: "25%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        gap: "30px",
+      }}
+    >
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           gap: "20px",
-          position: "relative",
         }}
       >
         <input
           onChange={(event) => setSearchInput(event.target.value)}
           type="search"
-          style={{ padding: "18px 36px", fontSize: "18px", minWidth: "400px" }}
+          style={{ padding: "12px 24px", fontSize: "16px", minWidth: "300px" }}
           placeholder="Search for a city"
         />
 
@@ -55,9 +65,9 @@ const SearchBar: React.FC = () => {
             <p>
               If you want to make sure your search is as precise as possible you
               can add name of the state and/or country that the city you are
-              searching for is in. Example: "Chicago,Illinois,US" or just
-              "Chicago,US". It is highly recommended to search using as much
-              information as possible.
+              searching for is located in. Example: "Chicago,Illinois,US" or
+              just "Chicago,US". It is highly recommended to search using as
+              much information as possible.
             </p>
           </div>
         </CSSTransition>

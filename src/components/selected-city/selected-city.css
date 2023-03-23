@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 }
 
 .heart-like-button {
@@ -13,6 +14,7 @@
   width: 75px;
   height: 65px;
   align-self: flex-start;
+  transform: scale(0.4);
 }
 .heart-like-button:before {
   position: absolute;
@@ -51,12 +53,12 @@
 }
 @keyframes liked {
   15% {
-    transform: scale(0.85);
+    transform: scale(0.35);
   }
   50% {
-    transform: scale(1.15);
+    transform: scale(0.55);
   }
   100% {
-    transform: scale(1);
+    transform: scale(0.4);
   }
 }
