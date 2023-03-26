@@ -20,7 +20,6 @@
 }
 
 .single-city:hover {
-  /* background-color: white;   */
   cursor: pointer;
   background: #1a1a1a;
   border-color: #646cff;
@@ -41,7 +40,7 @@
 }
 
 .single-city-description {
-  min-width: 100px;
+  min-width: 70px;
   font-size: 14px;
 }
 
@@ -53,6 +52,6 @@
   width: 55px;
 }
 
-.single-city-description.no-city {
+.city-list-description.no-city {
   margin-top: 40px;
 }

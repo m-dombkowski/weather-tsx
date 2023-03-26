@@ -19,34 +19,16 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: "2%",
-        left: "25%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        gap: "30px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "20px",
-        }}
-      >
+    <div className="search-container">
+      <div className="search-info-container">
         <input
           onChange={(event) => setSearchInput(event.target.value)}
+          className="search-bar"
           type="search"
-          style={{ padding: "12px 24px", fontSize: "16px", minWidth: "300px" }}
           placeholder="Search for a city"
         />
 
-        <button onClick={toggleInfoHandler} style={{ borderRadius: "100px" }}>
+        <button className="show-info-button" onClick={toggleInfoHandler}>
           {" "}
           i{" "}
         </button>

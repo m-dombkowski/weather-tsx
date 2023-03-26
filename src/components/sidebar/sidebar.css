@@ -1,0 +1,15 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 400px;
+  border-right: 1px solid #fff;
+  height: 100vh;
+}
+
+.sidebar-nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0;
+  border-bottom: 1px solid #fff;
+}

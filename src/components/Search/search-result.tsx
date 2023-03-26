@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "./search-result.css";
 import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
-import useDebounce from "../../hooks/useDebounce";
-import { database } from "../../services/firebase/firebaseAuth";
+import useDebounce from "../../hooks/use-debounce";
+import { database } from "../../services/firebase/firebase-auth";
 import { setSelectedCity } from "../../state/slices/selected-city";
 import { setError } from "../../state/slices/errors";
 

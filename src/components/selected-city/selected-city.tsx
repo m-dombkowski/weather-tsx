@@ -7,7 +7,7 @@ import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityInterface } from "../../state";
 import { ref, set } from "firebase/database";
-import { database } from "../../services/firebase/firebaseAuth";
+import { database } from "../../services/firebase/firebase-auth";
 
 interface SelectedCityProps {
   selectedCityData?: CityInterface;
@@ -36,7 +36,6 @@ const SelectedCity: React.FC<SelectedCityProps> = () => {
       dispatch(removeFromFavorites(cityData));
     } else {
       dispatch(addToFavorites(cityData));
-      button.classList.add("animated");
     }
   };
 

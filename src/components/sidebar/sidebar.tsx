@@ -1,5 +1,6 @@
 import FavoriteList from "../favorites/favorites-list";
 import { useState } from "react";
+import "./sidebar.css";
 
 const Sidebar: React.FC = () => {
   const [favFlag, setFavFlag] = useState<boolean>(false);
@@ -24,24 +25,8 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: "0",
-        left: "0",
-        minWidth: "400px",
-        borderRight: "1px solid #fff",
-        height: "100vh",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          padding: "20px 0",
-          borderBottom: "1px solid #fff",
-        }}
-      >
+    <div className="sidebar">
+      <div className="sidebar-nav">
         <button onClick={favHandler}>Fav</button>
         <button onClick={bHandler}>b</button>
         <button onClick={cHandler}>c</button>
