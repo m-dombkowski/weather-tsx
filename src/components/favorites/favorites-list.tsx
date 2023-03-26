@@ -11,48 +11,25 @@ const FavoriteList: React.FC = () => {
   return (
     <div>
       {citiesList.length > 0 && (
-        <ul
-          className="city-list"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            margin: "20px 0  0 15px",
-            overflowY: "auto",
-            overflowX: "hidden",
-            maxHeight: "calc(100vh - 100px)",
-          }}
-        >
+        <ul className="city-list">
           {citiesList.map((city: CityInterface, index: number) => (
             <li
               key={index}
               className="single-city"
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                padding: "8px 20px",
-                alignItems: "center",
-                gap: "10px",
-              }}
               onClick={() => dispatch(setSelectedCity(city))}
             >
-              <span style={{ minWidth: "100px", fontSize: "14px" }}>
+              <span className="single-city-description">
                 {city.name}, {city.sys.country}.{" "}
               </span>
 
               <img
-                style={{ width: "55px" }}
                 src={`http://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}
               />
-              <span style={{ fontSize: "14px" }}>
+              <span className="single-city-description no-width">
                 {Math.round(city.main.temp)}°C
               </span>
               <button
                 className="button-close"
-                style={{
-                  transform: "translateX(40px)",
-                  opacity: "0",
-                  marginLeft: "auto",
-                }}
                 onClick={() => dispatch(removeFromFavorites(city))}
               >
                 X
@@ -62,7 +39,7 @@ const FavoriteList: React.FC = () => {
         </ul>
       )}
       {citiesList.length === 0 && (
-        <p style={{ marginTop: "40px" }}>Your list is empty.</p>
+        <p className="city-list-description no-city">Your list is empty.</p>
       )}
     </div>
   );

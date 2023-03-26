@@ -14,7 +14,6 @@ const initialState: FavCitiesState = {
 
 export const citiesSlice = createSlice({
   name: "cities",
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     addToFavorites: (state, action: PayloadAction<CityInterface>) => {

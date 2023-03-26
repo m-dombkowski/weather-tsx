@@ -1,0 +1,17 @@
+.cities-search-result-list {
+  list-style: none;
+  text-align: left;
+  padding-left: unset;
+}
+
+.cities-search-result {
+  margin-bottom: 10px;
+}
+
+.search-result-city-btn {
+  min-width: 300px;
+}
+
+.fetching-message {
+  margin-top: 20px;
+}

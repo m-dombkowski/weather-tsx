@@ -1,18 +1,22 @@
-.city-list .single-city:hover .button-close {
-  opacity: 1 !important;
-  pointer-events: all;
-  transform: translateX(0px) !important;
-}
-
-.button-close {
-  pointer-events: none;
-  transition: 0.3s all;
+.city-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 100px);
+  border-radius: 12px;
+  padding: 20px 15px 15px 15px;
 }
 
 .single-city {
   transition: 0.3s all;
   border-radius: 8px;
   border: 2px solid transparent;
+  display: flex;
+  justify-content: center;
+  padding: 8px 20px;
+  align-items: center;
+  gap: 10px;
 }
 
 .single-city:hover {
@@ -20,4 +24,35 @@
   cursor: pointer;
   background: #1a1a1a;
   border-color: #646cff;
+}
+
+.button-close {
+  pointer-events: none;
+  transition: 0.3s all;
+  transform: translateX(40px);
+  opacity: 0;
+  margin-left: auto;
+}
+
+.city-list .single-city:hover .button-close {
+  opacity: 1 !important;
+  pointer-events: all;
+  transform: translateX(0px) !important;
+}
+
+.single-city-description {
+  min-width: 100px;
+  font-size: 14px;
+}
+
+.no-width {
+  min-width: unset;
+}
+
+.single-city img {
+  width: 55px;
+}
+
+.single-city-description.no-city {
+  margin-top: 40px;
 }

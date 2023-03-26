@@ -48,7 +48,7 @@
 .heart-like-button.liked::after {
   background-color: red;
 }
-.heart-like-button.liked {
+.heart-like-button.liked.animated {
   animation: liked 0.4s ease;
 }
 @keyframes liked {

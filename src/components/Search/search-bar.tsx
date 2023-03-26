@@ -16,8 +16,6 @@ const SearchBar: React.FC = () => {
     infoWindow?.classList.contains("active")
       ? infoWindow?.classList.remove("active")
       : infoWindow?.classList.add("active");
-
-    console.log(infoWindow);
   };
 
   return (

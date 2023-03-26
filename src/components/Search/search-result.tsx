@@ -1,10 +1,12 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import "./search-result.css";
 import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import useDebounce from "../../hooks/useDebounce";
+import { database } from "../../services/firebase/firebaseAuth";
 import { setSelectedCity } from "../../state/slices/selected-city";
-import SelectedCity from "../selected-city/selected-city";
+import { setError } from "../../state/slices/errors";
 
 interface SearchResultProps {
   setSearchInput?: Dispatch<SetStateAction<string>>;
@@ -22,46 +24,51 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const [citiesSearchResult, setCitiesSearchResult] = useState<Search[]>([]);
   const [selectedCityData, setSelectedCityData] = useState<any>();
   const dispatch = useAppDispatch();
+  const errMsg = useAppSelector((state) => state.errorMessage.errorMessage);
 
   const getCityDataByName = async (
     cityQuery: string,
     limit: string,
     apiKey: string
   ) => {
-    try {
-      setIsLoading(true);
-      const response = await axios(
-        `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
-      );
-      if (!debounceSearchTerm) {
-        setIsLoading(false);
-        setSelectedCityData(null);
+    const axiosResponse = await axios(
+      `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+    ).catch(({ response }) => {
+      console.log(response);
+      if (response.status >= 400) {
+        dispatch(
+          setError("There has been a problem with a request, please try again")
+        );
       }
-      setIsLoading(false);
-      const { data } = response;
-      return data;
-    } catch (err) {
-      console.error(err);
-    }
+    });
+
+    setIsLoading(false);
+    const data = axiosResponse?.data;
+    return data;
   };
 
   useEffect(() => {
     const setSearchData = async () => {
       try {
-        if (debounceSearchTerm) {
+        if (!debounceSearchTerm) {
+          setIsLoading(false);
+          setSelectedCityData(null);
+          setCitiesSearchResult([]);
+        } else {
+          dispatch(setError(""));
           setSelectedCityData(null);
           const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
-          if (!data) {
-            throw new Error("Error has occurred, please try again.");
+          console.log(data);
+          if (data.length <= 0) {
+            setCitiesSearchResult([]);
+            throw new Error(
+              "There is no city matching your search, please try again"
+            );
           }
           setCitiesSearchResult(data);
         }
-        if (setSearchInput && !debounceSearchTerm) {
-          setCitiesSearchResult([]);
-        }
-      } catch (err) {
-        console.error(err);
-        // throw new Error("Error has occurred, please try again.");
+      } catch (err: any) {
+        dispatch(setError(err.message));
       }
     };
     setSearchData();
@@ -76,10 +83,11 @@ const SearchResult: React.FC<SearchResultProps> = ({
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
         axios(
           `${baseURL}data/2.5/weather?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
-        ).then(({ data }) => setSelectedCityData(data));
+        )
+          .then(({ data }) => setSelectedCityData(data))
+          .catch((response) => {});
       }
     }
-    setCitiesSearchResult([]);
   };
 
   useEffect(() => {
@@ -90,29 +98,25 @@ const SearchResult: React.FC<SearchResultProps> = ({
     <>
       <div className="search-result-container">
         {isLoading && (
-          <div style={{ marginTop: "20px" }}>
+          <div className="fetching-message">
             Fetching data, please standby...
           </div>
         )}
+        {!isLoading && errMsg && (
+          <div className="fetching-message">{errMsg}</div>
+        )}
         {citiesSearchResult?.length > 0 && !isLoading && (
-          <ul
-            style={{
-              listStyle: "none",
-              textAlign: "left",
-              paddingLeft: "unset",
-            }}
-          >
+          <ul className="cities-search-result-list">
             {citiesSearchResult.map((element, index) => (
-              <li key={index} style={{ marginBottom: "10px" }}>
+              <li className="cities-search-result" key={index}>
                 <button
                   tabIndex={index}
                   value={element.name}
                   onClick={onClickHandler}
-                  style={{ minWidth: "300px" }}
                   className="search-result-city-btn"
                 >
-                  {element.name}, {element.state && element.state}.{" "}
-                  {element.country}
+                  {element.name}, {element.country}.{" "}
+                  {element.state && element.state}
                 </button>
               </li>
             ))}

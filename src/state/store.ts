@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import errorSlice from "./slices/errors";
 import citiesSlice from "./slices/favorite-cities";
 import selectedCitySlice from "./slices/selected-city";
 // ...
@@ -7,6 +8,7 @@ export const store = configureStore({
   reducer: {
     cities: citiesSlice.reducer,
     selectedCity: selectedCitySlice.reducer,
+    errorMessage: errorSlice.reducer,
   },
 });
 

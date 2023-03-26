@@ -6,12 +6,14 @@ import {
 import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityInterface } from "../../state";
+import { ref, set } from "firebase/database";
+import { database } from "../../services/firebase/firebaseAuth";
 
 interface SelectedCityProps {
   selectedCityData?: CityInterface;
 }
 
-const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
+const SelectedCity: React.FC<SelectedCityProps> = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
   const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
   const isAlreadyInFavorites = cityList.find(
@@ -19,19 +21,22 @@ const SelectedCity: React.FC<SelectedCityProps> = ({ selectedCityData }) => {
   );
   const dispatch = useAppDispatch();
 
+  const saveFavCityToDb = (cityObj: CityInterface) => {
+    set(ref(database, "city/"), {
+      cityObj,
+    });
+  };
+
   const addToFavoriteHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const button = event.target as HTMLDivElement;
-    if (isAlreadyInFavorites) {
-      button.classList.add("liked");
-    }
+
     if (button.classList.contains("liked")) {
-      button.classList.remove("liked");
       dispatch(removeFromFavorites(cityData));
     } else {
-      button.classList.add("liked");
       dispatch(addToFavorites(cityData));
+      button.classList.add("animated");
     }
   };
 
