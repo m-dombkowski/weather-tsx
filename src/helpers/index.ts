@@ -12,3 +12,8 @@ export const convertUnixToTime = (
 
   return `${hours}:${minutes}`;
 };
+
+export const validateSearchInput = (input: string): boolean => {
+  const regex = /^[a-zA-Z\s]*$/;
+  return regex.test(input);
+};

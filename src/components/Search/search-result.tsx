@@ -4,9 +4,9 @@ import "./search-result.css";
 import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import useDebounce from "../../hooks/use-debounce";
-import { database } from "../../services/firebase/firebase-auth";
 import { setSelectedCity } from "../../state/slices/selected-city";
 import { setError } from "../../state/slices/errors";
+import { validateSearchInput } from "../../helpers";
 
 interface SearchResultProps {
   setSearchInput?: Dispatch<SetStateAction<string>>;
@@ -31,26 +31,37 @@ const SearchResult: React.FC<SearchResultProps> = ({
     limit: string,
     apiKey: string
   ) => {
-    const axiosResponse = await axios(
-      `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
-    ).catch(({ response }) => {
-      console.log(response);
-      if (response.status >= 400) {
-        dispatch(
-          setError("There has been a problem with a request, please try again")
-        );
+    try {
+      if (validateSearchInput(cityQuery)) {
+        const axiosResponse = await axios(
+          `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+        ).catch(({ response }) => {
+          if (response.status >= 400) {
+            setIsLoading(false);
+            throw new Error(
+              "There has been a problem with a request, please try again"
+            );
+          }
+          return;
+        });
+        setIsLoading(false);
+        const data = axiosResponse?.data;
+        return data;
+      } else {
+        setIsLoading(false);
+        throw new Error("Don't be like that buddy, use only letters.");
       }
-    });
-
-    setIsLoading(false);
-    const data = axiosResponse?.data;
-    return data;
+    } catch (err: any) {
+      console.log(err.message);
+      dispatch(setError(err.message));
+    }
   };
 
   useEffect(() => {
     const setSearchData = async () => {
       try {
         if (!debounceSearchTerm) {
+          dispatch(setError(""));
           setIsLoading(false);
           setSelectedCityData(null);
           setCitiesSearchResult([]);
@@ -58,11 +69,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
           dispatch(setError(""));
           setSelectedCityData(null);
           const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
-          console.log(data);
+          if (!data) {
+            return;
+          }
+
           if (data.length <= 0) {
             setCitiesSearchResult([]);
             throw new Error(
-              "There is no city matching your search, please try again"
+              "There is no city matching your search. Please try again."
             );
           }
           setCitiesSearchResult(data);
@@ -85,7 +99,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
           `${baseURL}data/2.5/weather?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
         )
           .then(({ data }) => setSelectedCityData(data))
-          .catch((response) => {});
+          .catch((response) => {
+            if (response.status >= 400)
+              dispatch(
+                setError(
+                  "Oopsie, this should not happened. Please reach app creator"
+                )
+              );
+          });
       }
     }
   };
