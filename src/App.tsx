@@ -1,4 +1,5 @@
 import "./App.css";
+import LoginForm from "./components/forms/login-form";
 import SearchBar from "./components/search/search-bar";
 import SelectedCity from "./components/selected-city/selected-city";
 import Sidebar from "./components/sidebar/sidebar";
@@ -12,8 +13,9 @@ function App() {
   return (
     <div className="App">
       <Sidebar />
-      <SearchBar />
-      {selectedCityData && <SelectedCity />}
+      {/* <SearchBar /> */}
+      {/* {selectedCityData && <SelectedCity />} */}
+      <LoginForm />
     </div>
   );
 }
