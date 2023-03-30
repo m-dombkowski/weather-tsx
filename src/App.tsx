@@ -1,5 +1,5 @@
 import "./App.css";
-import LoginForm from "./components/forms/login-form";
+import RegisterForm from "./components/forms/register-form";
 import SearchBar from "./components/search/search-bar";
 import SelectedCity from "./components/selected-city/selected-city";
 import Sidebar from "./components/sidebar/sidebar";
@@ -15,7 +15,7 @@ function App() {
       <Sidebar />
       {/* <SearchBar /> */}
       {/* {selectedCityData && <SelectedCity />} */}
-      <LoginForm />
+      <RegisterForm />
     </div>
   );
 }

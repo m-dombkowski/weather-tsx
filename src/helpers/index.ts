@@ -17,3 +17,16 @@ export const validateSearchInput = (input: string): boolean => {
   const regex = /^[a-zA-Z\s]*$/;
   return regex.test(input);
 };
+
+export const floatingLabels = (
+  event: React.ChangeEvent<HTMLInputElement>,
+  classSelector: string
+) => {
+  const label = document.querySelector(classSelector);
+
+  if (event.target.value !== "") {
+    label?.classList.add("active");
+  } else {
+    label?.classList.remove("active");
+  }
+};
