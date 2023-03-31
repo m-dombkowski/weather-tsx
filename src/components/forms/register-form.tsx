@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { passwordStrength } from "check-password-strength";
 import { floatingLabels } from "../../helpers";
 import "./register-form.css";
 
@@ -14,19 +16,40 @@ const RegisterForm: React.FC = () => {
     watch,
     formState: { errors },
   } = useForm<FormInputs>();
+  const [passStrengthCheck, setPassStrengthCheck] = useState<boolean>(false);
 
-  const emailLabel = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     floatingLabels(event, ".register-form__email-input-label");
   };
 
-  const passLabel = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const passOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     floatingLabels(event, ".register-form__pass-input-label");
-    console.log(errors.password);
+
+    switch (passwordStrength(event.target.value).value) {
+      case "Too weak":
+        console.log("za slabe");
+        console.log(passwordStrength(event.target.value));
+        break;
+      case "Weak":
+        console.log("slabe");
+        console.log(passwordStrength(event.target.value));
+        break;
+      case "Medium":
+        console.log("sredniawka");
+        console.log(passwordStrength(event.target.value));
+        break;
+      case "Strong":
+        console.log("dobre");
+        console.log(passwordStrength(event.target.value));
+        break;
+      default:
+        console.log("default");
+        break;
+    }
   };
 
   const onSubmit = () => {
-    console.log(watch("email"));
-    // watch input value by passing the name of it
+    // console.log(watch("email"));
   };
 
   return (
@@ -36,12 +59,11 @@ const RegisterForm: React.FC = () => {
           <input
             className="register-form__email-input"
             {...register("email", {
-              required: true,
               pattern:
                 /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
             })}
             type="email"
-            onChange={emailLabel}
+            onChange={emailOnChange}
           />
           <span className="register-form__email-input-label">
             Email address
@@ -56,17 +78,17 @@ const RegisterForm: React.FC = () => {
             }
             {...register("password", {
               required: true,
-              minLength: 4,
-              maxLength: 16,
+              minLength: 8,
             })}
             type="password"
-            onChange={passLabel}
+            onChange={passOnChange}
           />
           <span className="register-form__pass-input-label">Password</span>
         </div>
+        {!passStrengthCheck && <div className="pass-str-check-container"></div>}
         {errors.email && <span>Wrong email format</span>}
         {errors.password && (
-          <span>Passwords needs between 4 and 10 characters</span>
+          <span>Passwords needs to have more than 8 characters</span>
         )}
         <input type="submit" />
       </form>
