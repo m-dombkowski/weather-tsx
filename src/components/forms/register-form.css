@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
+  position: relative;
 }
 
 .input-container {
@@ -39,4 +40,56 @@
 
 .register-form__pass-input valid {
   border: 2px solid green;
+}
+
+.pass-str-check-container {
+  width: 250px;
+  border: 3px solid #fff;
+  border-radius: 50px;
+  height: 20px;
+  z-index: 100;
+  opacity: 0.2;
+  position: absolute;
+  bottom: 30px;
+  transition: all 0.3s;
+}
+
+.pass-str-check-container-filling {
+  transition: all 0.3s;
+  width: 0;
+  /* width: 25%;
+  background-color: #ff444f; */
+  margin-left: 1px;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.pass-str-check-container-enter {
+  opacity: 1;
+  left: -75%;
+}
+
+.pass-str-check-container-enter-active {
+  opacity: 1;
+  left: 0%;
+}
+
+.pass-str-check-container-active {
+  opacity: 0;
+  left: -75%;
+}
+
+.pass-str-check-container-enter-done {
+  opacity: 1;
+  left: 0%;
+}
+
+.pass-str-check-container-exit {
+  opacity: 0.5;
+  left: -50%;
+}
+
+.pass-str-check-container-exit-active {
+  opacity: 0;
+  left: -75%;
 }
