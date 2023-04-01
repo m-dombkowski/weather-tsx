@@ -109,10 +109,33 @@
 .show-hide-button:hover {
   border-color: transparent;
   background: #b3b3b3;
-  /* border: ; */
 }
 
 .show-hide-button img {
   width: 24px;
   height: auto;
+}
+
+.show-hide-button:focus {
+  outline: none;
+}
+
+.password-very-weak {
+  width: 25%;
+  background-color: #ff444f;
+}
+
+.password-weak {
+  width: 50%;
+  background-color: #ffc107;
+}
+
+.password-medium {
+  width: 75%;
+  background-color: #17a2b8;
+}
+
+.password-strong {
+  width: 100%;
+  background-color: #28a745;
 }

@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";
 import { floatingLabels } from "../../helpers";
-import "./register-form.css";
 import { CSSTransition } from "react-transition-group";
 import hideIcon from "../../assets/hide.png";
 import showIcon from "../../assets/show.png";
 import RegisterError from "./register-error";
+import "./register-form.css";
 
 interface FormInputsInterface {
   email: string;
@@ -19,20 +19,20 @@ const RegisterForm: React.FC = () => {
     register,
     handleSubmit,
     watch,
-    trigger,
     formState: { errors },
   } = useForm<FormInputsInterface>();
-  const fillRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement | null>(null);
   const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
   const nodeRef = useRef(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const { ref, ...rest } = register("password");
+  const fillingBaseClass = "pass-str-check-container-filling";
 
   const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     floatingLabels(event, ".register-form__email-input-label");
   };
 
-  const passLoseFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const passwordOnFocusLose = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value === "") {
       setPasswordCheck(false);
     }
@@ -53,20 +53,16 @@ const RegisterForm: React.FC = () => {
     if (fillRef.current) {
       switch (passwordStrength(event.target.value).value) {
         case "Too weak":
-          fillRef.current.style.width = "25%";
-          fillRef.current.style.backgroundColor = "#ff444f";
+          fillRef.current.className = `${fillingBaseClass} password-very-weak`;
           break;
         case "Weak":
-          fillRef.current.style.width = "50%";
-          fillRef.current.style.backgroundColor = "#ffc107";
+          fillRef.current.className = `${fillingBaseClass} password-weak`;
           break;
         case "Medium":
-          fillRef.current.style.width = "75%";
-          fillRef.current.style.backgroundColor = "#17a2b8";
+          fillRef.current.className = `${fillingBaseClass} password-medium`;
           break;
         case "Strong":
-          fillRef.current.style.width = "100%";
-          fillRef.current.style.backgroundColor = "#28a745";
+          fillRef.current.className = `${fillingBaseClass} password-strong`;
           break;
         default:
           console.log("default");
@@ -129,7 +125,7 @@ const RegisterForm: React.FC = () => {
               minLength={4}
               required={true}
               onChange={passwordOnChange}
-              onBlur={passLoseFocus}
+              onBlur={passwordOnFocusLose}
               ref={(e) => {
                 ref(e);
                 passwordRef.current = e;
