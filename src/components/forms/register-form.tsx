@@ -11,7 +11,6 @@ import "./register-form.css";
 interface FormInputsInterface {
   email: string;
   password: string;
-  showPassword: boolean;
 }
 
 const RegisterForm: React.FC = () => {
@@ -19,16 +18,49 @@ const RegisterForm: React.FC = () => {
     register,
     handleSubmit,
     watch,
+    setError,
+    setValue,
     formState: { errors },
-  } = useForm<FormInputsInterface>();
+  } = useForm<FormInputsInterface>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const [showError, setShowError] = useState<boolean>(false);
   const fillRef = useRef<HTMLDivElement | null>(null);
   const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
   const nodeRef = useRef(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const { ref, ...rest } = register("password");
+  const emailRef = useRef<HTMLInputElement | null>(null);
+
+  const emailRegister = register("email", {
+    required: {
+      value: true,
+      message: `Can't leave this field empty`,
+    },
+    pattern: {
+      value:
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+      message: "Wrong email format",
+    },
+  });
+
+  const passRegister = register("password", {
+    required: {
+      value: true,
+      message: `You can't leave that field empty`,
+    },
+    minLength: {
+      value: 6,
+      message: "Password needs to have at least 6 characters",
+    },
+  });
+
   const fillingBaseClass = "pass-str-check-container-filling";
 
   const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowError(false);
     floatingLabels(event, ".register-form__email-input-label");
   };
 
@@ -40,6 +72,8 @@ const RegisterForm: React.FC = () => {
   };
 
   const passwordOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowError(false);
+    setValue("password", event.target.value);
     floatingLabels(event, ".register-form__pass-input-label");
 
     if (fillRef.current && event.target.value === "") {
@@ -69,13 +103,12 @@ const RegisterForm: React.FC = () => {
           break;
       }
     }
+    console.log(errors);
   };
 
   const togglePassHandler = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    console.log(passwordRef.current);
-
     const icon = event.target as HTMLImageElement;
 
     if (passwordRef.current?.getAttribute("type") === "password") {
@@ -87,49 +120,54 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  const onFormSubmit = () => {
+  const onSubmit = () => {
     console.log(watch("email"));
+  };
+
+  const onError = () => {
+    setShowError(true);
+
+    // if (emailRef.current?.value === "") {
+    //   setError("email", {
+    //     message: `Email input can't be empty`,
+    //   });
+    // }
+    console.log(errors);
   };
 
   return (
     <>
       <div className="register-form-container">
-        <form className="register-form" onSubmit={handleSubmit(onFormSubmit)}>
+        <form
+          className="register-form"
+          onSubmit={handleSubmit(onSubmit, onError)}
+          noValidate
+        >
           <div className="input-container register-form_email-container">
             <input
               className="register-form__email-input"
-              {...register("email", {
-                required: true,
-                pattern:
-                  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-                onChange: emailOnChange,
-              })}
+              {...emailRegister}
               type="email"
+              onChange={emailOnChange}
+              ref={(e) => {
+                emailRegister.ref(e);
+                emailRef.current = e;
+              }}
             />
             <span className="register-form__email-input-label">
               Email address
             </span>
           </div>
+
           <div className="input-container register-form-pass-container">
             <input
-              className={
-                !errors.password
-                  ? "register-form__pass-input valid"
-                  : "register-form__pass-input"
-              }
-              {...rest}
-              aria-required={true}
+              className="register-form__pass-input"
+              {...passRegister}
               type="password"
               onFocus={() => setPasswordCheck(true)}
               autoComplete="off"
-              minLength={4}
-              required={true}
               onChange={passwordOnChange}
               onBlur={passwordOnFocusLose}
-              ref={(e) => {
-                ref(e);
-                passwordRef.current = e;
-              }}
             />
             <span className="register-form__pass-input-label">Password</span>
             <button
@@ -153,10 +191,9 @@ const RegisterForm: React.FC = () => {
               <div ref={fillRef} className="pass-str-check-container-filling" />
             </div>
           </CSSTransition>
-
-          <input type="submit" />
+          <input type="submit" value="Submit" />
         </form>
-        <RegisterError />
+        {showError && <RegisterError errors={errors} />}
       </div>
     </>
   );
