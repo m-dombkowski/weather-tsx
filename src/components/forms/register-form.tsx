@@ -46,7 +46,7 @@ const RegisterForm: React.FC = () => {
     },
   });
 
-  const passRegister = register("password", {
+  const passwordRegister = register("password", {
     required: {
       value: true,
       message: `You can't leave that field empty`,
@@ -126,12 +126,6 @@ const RegisterForm: React.FC = () => {
 
   const onError = () => {
     setShowError(true);
-
-    // if (emailRef.current?.value === "") {
-    //   setError("email", {
-    //     message: `Email input can't be empty`,
-    //   });
-    // }
     console.log(errors);
   };
 
@@ -162,12 +156,16 @@ const RegisterForm: React.FC = () => {
           <div className="input-container register-form-pass-container">
             <input
               className="register-form__pass-input"
-              {...passRegister}
+              {...passwordRegister}
               type="password"
               onFocus={() => setPasswordCheck(true)}
               autoComplete="off"
               onChange={passwordOnChange}
               onBlur={passwordOnFocusLose}
+              ref={(e) => {
+                passwordRegister.ref(e);
+                passwordRef.current = e;
+              }}
             />
             <span className="register-form__pass-input-label">Password</span>
             <button
