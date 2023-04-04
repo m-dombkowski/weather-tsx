@@ -5,8 +5,8 @@ import { floatingLabels } from "../../helpers";
 import { CSSTransition } from "react-transition-group";
 import hideIcon from "../../assets/hide.png";
 import showIcon from "../../assets/show.png";
-import RegisterError from "./register-error";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import RegisterMessage from "./register-error";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
 import { auth } from "../../services/firebase/firebase-auth";
 
@@ -19,8 +19,6 @@ const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    setError,
     setValue,
     formState: { errors },
   } = useForm<FormInputsInterface>({
@@ -29,7 +27,7 @@ const RegisterForm: React.FC = () => {
       password: "",
     },
   });
-  const [showError, setShowError] = useState<boolean>(false);
+
   const fillRef = useRef<HTMLDivElement | null>(null);
   const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
   const nodeRef = useRef(null);
@@ -37,6 +35,7 @@ const RegisterForm: React.FC = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const descRef = useRef<HTMLParagraphElement | null>(null);
   const isFocused = document.activeElement === passwordRef.current;
+  const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const emailRegister = register("email", {
     required: {
@@ -64,7 +63,6 @@ const RegisterForm: React.FC = () => {
   const fillingBaseClass = "pass-str-check-container-filling";
 
   const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setShowError(false);
     floatingLabels(event, ".register-form__email-input-label");
   };
 
@@ -76,7 +74,6 @@ const RegisterForm: React.FC = () => {
   };
 
   const passwordOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setShowError(false);
     setValue("password", event.target.value);
     floatingLabels(event, ".register-form__pass-input-label");
 
@@ -149,6 +146,7 @@ const RegisterForm: React.FC = () => {
       )
         .then((userCredential) => {
           // Signed in
+          setIsLoggedIn(true);
           const user = userCredential.user;
           console.log(user);
         })
@@ -161,7 +159,6 @@ const RegisterForm: React.FC = () => {
   };
 
   const onError = () => {
-    setShowError(true);
     console.log(errors);
   };
 
@@ -229,8 +226,8 @@ const RegisterForm: React.FC = () => {
               ></p>
             </div>
           </CSSTransition>
-          <input type="submit" value="Submit" />
-          {showError && <RegisterError errors={errors} />}
+          <input className="submit-button" type="submit" value="Submit" />
+          {<RegisterMessage success={loggedIn} errors={errors} />}
         </form>
       </div>
     </>

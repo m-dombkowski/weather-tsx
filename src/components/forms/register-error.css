@@ -8,11 +8,19 @@
   bottom: -60%;
 }
 
-.error-message {
-  /* border: 1px solid #ff444f; */
+.error-message,
+.registered-message {
   padding: 12px 24px;
-  border-radius: 50px;
+  border-radius: 5px;
+
+  font-weight: 700;
+}
+
+.error-message {
   background-color: #ff444f;
   color: #383838;
-  font-weight: 700;
+}
+
+.registered-message {
+  background-color: #077a22;
 }
