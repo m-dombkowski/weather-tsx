@@ -58,8 +58,6 @@
 .pass-str-check-container-filling {
   transition: all 0.3s;
   width: 0;
-  /* width: 25%;
-  background-color: #ff444f; */
   margin-left: 1px;
   height: 100%;
   border-radius: inherit;
@@ -72,27 +70,27 @@
 
 .pass-str-check-container-enter-active {
   opacity: 1;
-  bottom: 22%;
+  bottom: 30%;
 }
 
 .pass-str-check-container-active {
   opacity: 0;
-  bottom: 12%;
+  bottom: 15%;
 }
 
 .pass-str-check-container-enter-done {
   opacity: 1;
-  bottom: 22%;
+  bottom: 30%;
 }
 
 .pass-str-check-container-exit {
   opacity: 0.5;
-  bottom: 15%;
+  bottom: 20%;
 }
 
 .pass-str-check-container-exit-active {
   opacity: 0;
-  bottom: 12%;
+  bottom: 15%;
 }
 
 .show-hide-button {
@@ -152,4 +150,5 @@
 .submit-button {
   padding: 12px 24px;
   cursor: pointer;
+  margin-top: 20px;
 }
