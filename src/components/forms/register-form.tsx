@@ -6,7 +6,9 @@ import { CSSTransition } from "react-transition-group";
 import hideIcon from "../../assets/hide.png";
 import showIcon from "../../assets/show.png";
 import RegisterError from "./register-error";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
+import { auth } from "../../services/firebase/firebase-auth";
 
 interface FormInputsInterface {
   email: string;
@@ -33,11 +35,13 @@ const RegisterForm: React.FC = () => {
   const nodeRef = useRef(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
+  const descRef = useRef<HTMLParagraphElement | null>(null);
+  const isFocused = document.activeElement === passwordRef.current;
 
   const emailRegister = register("email", {
     required: {
       value: true,
-      message: `Can't leave this field empty`,
+      message: `E-mail field can't be empty`,
     },
     pattern: {
       value:
@@ -49,7 +53,7 @@ const RegisterForm: React.FC = () => {
   const passwordRegister = register("password", {
     required: {
       value: true,
-      message: `You can't leave that field empty`,
+      message: `Password field can't be empty`,
     },
     minLength: {
       value: 6,
@@ -80,30 +84,46 @@ const RegisterForm: React.FC = () => {
       setPasswordCheck(false);
     }
 
+    if (
+      fillRef.current &&
+      descRef.current &&
+      isFocused &&
+      event.target.value === ""
+    ) {
+      setPasswordCheck(true);
+      fillRef.current.className = `${fillingBaseClass} password-empty`;
+      descRef.current.innerHTML = "";
+      return;
+    }
+
     if (event.target.value.length >= 1) {
       setPasswordCheck(true);
     }
 
-    if (fillRef.current) {
+    console.log(isFocused);
+    if (fillRef.current && descRef.current) {
       switch (passwordStrength(event.target.value).value) {
         case "Too weak":
           fillRef.current.className = `${fillingBaseClass} password-very-weak`;
+          descRef.current.innerHTML = "Your password sucks fam";
           break;
         case "Weak":
           fillRef.current.className = `${fillingBaseClass} password-weak`;
+          descRef.current.innerHTML = "Your password could be better";
           break;
         case "Medium":
           fillRef.current.className = `${fillingBaseClass} password-medium`;
+          descRef.current.innerHTML = "Your password is ok";
           break;
         case "Strong":
           fillRef.current.className = `${fillingBaseClass} password-strong`;
+          descRef.current.innerHTML = "Your password is amazing";
           break;
         default:
           console.log("default");
           break;
       }
     }
-    console.log(errors);
   };
 
   const togglePassHandler = async (
@@ -121,7 +141,23 @@ const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = () => {
-    console.log(watch("email"));
+    if (emailRef.current && passwordRef.current) {
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+    }
   };
 
   const onError = () => {
@@ -187,11 +223,15 @@ const RegisterForm: React.FC = () => {
           >
             <div ref={nodeRef} className="pass-str-check-container">
               <div ref={fillRef} className="pass-str-check-container-filling" />
+              <p
+                ref={descRef}
+                className="pass-str-check-filling-description"
+              ></p>
             </div>
           </CSSTransition>
           <input type="submit" value="Submit" />
+          {showError && <RegisterError errors={errors} />}
         </form>
-        {showError && <RegisterError errors={errors} />}
       </div>
     </>
   );

@@ -120,6 +120,10 @@
   outline: none;
 }
 
+.password-empty {
+  width: 0%;
+}
+
 .password-very-weak {
   width: 25%;
   background-color: #ff444f;
@@ -138,4 +142,9 @@
 .password-strong {
   width: 100%;
   background-color: #28a745;
+}
+
+.pass-str-check-filling-description {
+  font-size: 16px;
+  margin-top: 7px;
 }
