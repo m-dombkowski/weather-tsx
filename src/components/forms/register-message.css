@@ -5,14 +5,13 @@
   align-items: center;
   gap: 15px;
   position: absolute;
-  bottom: -60%;
+  transition: all 0.3s;
 }
 
 .error-message,
 .registered-message {
   padding: 12px 24px;
   border-radius: 5px;
-
   font-weight: 700;
 }
 

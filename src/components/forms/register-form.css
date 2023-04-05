@@ -3,8 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 60px;
   position: relative;
+  gap: 40px;
 }
 
 .input-container {
@@ -15,7 +15,6 @@
 .register-form__pass-input {
   padding: 12px 16px;
   font-size: 18px;
-  /* border: 2px solid #666eff; */
   border-radius: 5px;
   width: 400px;
 }
@@ -35,7 +34,7 @@
 .register-form__pass-input:focus ~ .register-form__pass-input-label,
 .register-form__pass-input-label.active {
   top: -25px;
-  left: 0;
+  left: 5px;
   font-size: 11px;
 }
 
@@ -150,5 +149,5 @@
 .submit-button {
   padding: 12px 24px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 30px;
 }

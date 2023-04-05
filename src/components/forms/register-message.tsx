@@ -1,5 +1,5 @@
 import { FieldError } from "react-hook-form";
-import "./register-error.css";
+import "./register-message.css";
 import { useEffect, useRef } from "react";
 
 interface RegisterMessageProps {
@@ -8,19 +8,29 @@ interface RegisterMessageProps {
     password?: FieldError | undefined;
   };
   success?: boolean;
+  registerError?: string;
 }
 
 const RegisterMessage: React.FC<RegisterMessageProps> = ({
   errors,
   success,
+  registerError,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (containerRef.current?.children.length === 1) {
-      containerRef.current.style.bottom = "-40%";
+    console.log(containerRef.current?.children.length);
+    if (containerRef.current) {
+      if (
+        containerRef.current?.children.length < 2 &&
+        containerRef.current?.children.length !== 0
+      ) {
+        containerRef.current.style.bottom = "-35%";
+      } else {
+        containerRef.current.style.bottom = "-55%";
+      }
     }
-  }, []);
+  });
 
   return (
     <div ref={containerRef} className="error-message-container">
@@ -42,6 +52,9 @@ const RegisterMessage: React.FC<RegisterMessageProps> = ({
           <br />
           You will be redirected in few seconds...
         </p>
+      )}
+      {registerError && (
+        <p className="error-message error-message__password">{registerError}</p>
       )}
     </div>
   );

@@ -5,10 +5,11 @@ import { floatingLabels } from "../../helpers";
 import { CSSTransition } from "react-transition-group";
 import hideIcon from "../../assets/hide.png";
 import showIcon from "../../assets/show.png";
-import RegisterMessage from "./register-error";
+import RegisterMessage from "./register-message";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
 import { auth } from "../../services/firebase/firebase-auth";
+import { handleSubmitError } from "./submit-error";
 
 interface FormInputsInterface {
   email: string;
@@ -36,6 +37,7 @@ const RegisterForm: React.FC = () => {
   const descRef = useRef<HTMLParagraphElement | null>(null);
   const isFocused = document.activeElement === passwordRef.current;
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [registerError, setRegisterError] = useState<string | undefined>("");
 
   const emailRegister = register("email", {
     required: {
@@ -138,6 +140,8 @@ const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = () => {
+    setRegisterError(undefined);
+    setIsLoggedIn(false);
     if (emailRef.current && passwordRef.current) {
       createUserWithEmailAndPassword(
         auth,
@@ -154,15 +158,18 @@ const RegisterForm: React.FC = () => {
           // TODO check firebase auth docs for error codes and make some switch
           // to handle "all" possible outcomes and set some error messages for them
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          console.log(error);
+          console.log(errorCode);
+
+          setRegisterError(handleSubmitError(errorCode));
         });
     }
   };
 
   const onError = () => {
     console.log(errors);
+    setIsLoggedIn(false);
+
+    setRegisterError(undefined);
   };
 
   return (
@@ -189,7 +196,7 @@ const RegisterForm: React.FC = () => {
             </span>
           </div>
 
-          <div className="input-container register-form-pass-container">
+          <div className="input-container register-form_pass-container">
             <input
               className="register-form__pass-input"
               {...passwordRegister}
@@ -230,7 +237,13 @@ const RegisterForm: React.FC = () => {
             </div>
           </CSSTransition>
           <input className="submit-button" type="submit" value="Submit" />
-          {<RegisterMessage success={loggedIn} errors={errors} />}
+          {
+            <RegisterMessage
+              success={loggedIn}
+              errors={errors}
+              registerError={registerError}
+            />
+          }
         </form>
       </div>
     </>
