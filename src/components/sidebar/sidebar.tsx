@@ -1,6 +1,7 @@
 import FavoriteList from "../favorites/favorites-list";
 import { useState } from "react";
 import "./sidebar.css";
+import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   const [favFlag, setFavFlag] = useState<boolean>(false);
@@ -28,8 +29,12 @@ const Sidebar: React.FC = () => {
     <div className="sidebar">
       <div className="sidebar-nav">
         <button onClick={favHandler}>Fav</button>
-        <button onClick={bHandler}>b</button>
-        <button onClick={cHandler}>c</button>
+        <Link to={"register"}>
+          <button onClick={bHandler}>Register</button>
+        </Link>
+        <Link to={"/"}>
+          <button onClick={cHandler}>Main</button>
+        </Link>
       </div>
       {favFlag && <FavoriteList />}
     </div>

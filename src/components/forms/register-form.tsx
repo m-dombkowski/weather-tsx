@@ -155,8 +155,6 @@ const RegisterForm: React.FC = () => {
           console.log(user);
         })
         .catch((error) => {
-          // TODO check firebase auth docs for error codes and make some switch
-          // to handle "all" possible outcomes and set some error messages for them
           const errorCode = error.code;
           console.log(errorCode);
 
@@ -166,9 +164,7 @@ const RegisterForm: React.FC = () => {
   };
 
   const onError = () => {
-    console.log(errors);
     setIsLoggedIn(false);
-
     setRegisterError(undefined);
   };
 

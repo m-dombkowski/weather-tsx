@@ -19,7 +19,6 @@ const RegisterMessage: React.FC<RegisterMessageProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    console.log(containerRef.current?.children.length);
     if (containerRef.current) {
       if (
         containerRef.current?.children.length < 2 &&

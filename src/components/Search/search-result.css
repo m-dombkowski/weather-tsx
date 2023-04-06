@@ -9,7 +9,10 @@
 }
 
 .search-result-city-btn {
-  min-width: 300px;
+  width: 300px;
+  line-height: 1.9;
+  height: 50px;
+  overflow: hidden;
 }
 
 .fetching-message {
