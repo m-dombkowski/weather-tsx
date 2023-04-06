@@ -15,12 +15,10 @@ const Sidebar: React.FC = () => {
   };
 
   const bHandler = () => {
-    setFavFlag(false);
     setBFlag(true);
     setCFlag(false);
   };
   const cHandler = () => {
-    setFavFlag(false);
     setBFlag(false);
     setCFlag(true);
   };

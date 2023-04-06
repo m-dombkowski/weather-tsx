@@ -33,7 +33,7 @@
 .register-form__email-input-label.active,
 .register-form__pass-input:focus ~ .register-form__pass-input-label,
 .register-form__pass-input-label.active {
-  top: -25px;
+  top: -20px;
   left: 5px;
   font-size: 11px;
 }
@@ -69,27 +69,27 @@
 
 .pass-str-check-container-enter-active {
   opacity: 1;
-  bottom: 30%;
+  bottom: 35%;
 }
 
 .pass-str-check-container-active {
   opacity: 0;
-  bottom: 15%;
+  bottom: 20%;
 }
 
 .pass-str-check-container-enter-done {
   opacity: 1;
-  bottom: 30%;
+  bottom: 35%;
 }
 
 .pass-str-check-container-exit {
   opacity: 0.5;
-  bottom: 20%;
+  bottom: 25%;
 }
 
 .pass-str-check-container-exit-active {
   opacity: 0;
-  bottom: 15%;
+  bottom: 20%;
 }
 
 .show-hide-button {
