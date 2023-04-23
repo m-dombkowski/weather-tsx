@@ -6,9 +6,6 @@ import {
 import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityForecastInterface } from "../../state";
-import { ref, set } from "firebase/database";
-import { database } from "../../services/firebase/firebase-auth";
-import { useEffect } from "react";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
@@ -32,10 +29,6 @@ const SelectedCity: React.FC = () => {
       dispatch(addToFavorites(cityData));
     }
   };
-
-  useEffect(() => {
-    console.log(cityData);
-  }, []);
 
   return (
     <>

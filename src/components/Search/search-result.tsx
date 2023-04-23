@@ -97,7 +97,6 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           .then(({ data }) => {
             dispatch(setSelectedCity(data));
             dispatch(setSelectedCityName(buttonValue));
-            console.log(data);
           })
           .catch((response) => {
             if (response.status >= 400)

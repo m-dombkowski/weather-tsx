@@ -27,7 +27,6 @@ export const selectedCitySlice = createSlice({
     setSelectedCityName: (state, action: PayloadAction<string>) => {
       let properCityName = action.payload;
       if (state.selectedCity) {
-        console.log(state.selectedCity);
         state.selectedCity.city.name = properCityName;
       }
     },

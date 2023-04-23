@@ -1,4 +1,4 @@
-import { CityForecastInterface, CityInterface } from "../state";
+import { CityForecastInterface } from "../state";
 
 export const convertUnixToTime = (
   unixTimestamp: number,

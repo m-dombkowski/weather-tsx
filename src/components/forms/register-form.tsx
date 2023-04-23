@@ -35,7 +35,7 @@ const RegisterForm: React.FC = () => {
   const nodeRef = useRef(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
-  const descRef = useRef<HTMLParagraphElement | null>(null);
+  const passStrengthRef = useRef<HTMLParagraphElement | null>(null);
   const isFocused = document.activeElement === passwordRef.current;
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [registerError, setRegisterError] = useState<string | undefined>("");
@@ -87,13 +87,13 @@ const RegisterForm: React.FC = () => {
 
     if (
       fillRef.current &&
-      descRef.current &&
+      passStrengthRef.current &&
       isFocused &&
       event.target.value === ""
     ) {
       setPasswordCheck(true);
       fillRef.current.className = `${fillingBaseClass} password-empty`;
-      descRef.current.innerHTML = "";
+      passStrengthRef.current.innerHTML = "";
       return;
     }
 
@@ -101,27 +101,25 @@ const RegisterForm: React.FC = () => {
       setPasswordCheck(true);
     }
 
-    console.log(isFocused);
-    if (fillRef.current && descRef.current) {
+    if (fillRef.current && passStrengthRef.current) {
       switch (passwordStrength(event.target.value).value) {
         case "Too weak":
           fillRef.current.className = `${fillingBaseClass} password-very-weak`;
-          descRef.current.innerHTML = "Your password sucks fam";
+          passStrengthRef.current.innerHTML = "Your password sucks fam";
           break;
         case "Weak":
           fillRef.current.className = `${fillingBaseClass} password-weak`;
-          descRef.current.innerHTML = "Your password could be better";
+          passStrengthRef.current.innerHTML = "Your password could be better";
           break;
         case "Medium":
           fillRef.current.className = `${fillingBaseClass} password-medium`;
-          descRef.current.innerHTML = "Your password is ok";
+          passStrengthRef.current.innerHTML = "Your password is ok";
           break;
         case "Strong":
           fillRef.current.className = `${fillingBaseClass} password-strong`;
-          descRef.current.innerHTML = "Your password is amazing";
+          passStrengthRef.current.innerHTML = "Your password is amazing";
           break;
         default:
-          console.log("default");
           break;
       }
     }
@@ -159,8 +157,6 @@ const RegisterForm: React.FC = () => {
         })
         .catch((error) => {
           const errorCode = error.code;
-          console.log(errorCode);
-
           setRegisterError(handleSubmitError(errorCode));
         });
     }
@@ -230,7 +226,7 @@ const RegisterForm: React.FC = () => {
             <div ref={nodeRef} className="pass-str-check-container">
               <div ref={fillRef} className="pass-str-check-container-filling" />
               <p
-                ref={descRef}
+                ref={passStrengthRef}
                 className="pass-str-check-filling-description"
               ></p>
             </div>
