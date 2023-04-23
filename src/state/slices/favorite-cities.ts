@@ -1,10 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { CityInterface } from "..";
+import { CityForecastInterface } from "..";
 
 // Define a type for the slice state
 interface FavCitiesState {
-  favoriteCities: CityInterface[] | [] | any;
+  favoriteCities: CityForecastInterface[] | [] | any;
 }
 
 // Define the initial state using that type
@@ -16,10 +16,14 @@ export const citiesSlice = createSlice({
   name: "cities",
   initialState,
   reducers: {
-    addToFavorites: (state, action: PayloadAction<CityInterface>) => {
+    addToFavorites: (
+      state,
+      action: PayloadAction<CityForecastInterface | undefined>
+    ) => {
       if (state.favoriteCities.length > 0) {
         const isAlreadyInFavorites = state.favoriteCities.find(
-          (city: any) => city.id === action.payload.id
+          (selectedCity: CityForecastInterface) =>
+            selectedCity.city.id === action.payload?.city.id
         );
         if (!isAlreadyInFavorites) {
           state.favoriteCities.push(action.payload);
@@ -29,9 +33,12 @@ export const citiesSlice = createSlice({
         state.favoriteCities.push(action.payload);
       }
     },
-    removeFromFavorites: (state, action: PayloadAction<CityInterface>) => {
+    removeFromFavorites: (
+      state,
+      action: PayloadAction<CityForecastInterface | undefined>
+    ) => {
       let filtered = state.favoriteCities.filter(
-        (city: any) => city.id !== action.payload.id
+        (city: any) => city.id !== action.payload?.city.id
       );
       state.favoriteCities = filtered;
     },

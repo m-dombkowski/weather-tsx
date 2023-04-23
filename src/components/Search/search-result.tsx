@@ -4,7 +4,10 @@ import "./search-result.css";
 import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import useDebounce from "../../hooks/use-debounce";
-import { setSelectedCity } from "../../state/slices/selected-city";
+import {
+  setSelectedCity,
+  setSelectedCityName,
+} from "../../state/slices/selected-city";
 import { setError } from "../../state/slices/errors";
 import { validateSearchInput } from "../../helpers";
 
@@ -13,16 +16,12 @@ interface SearchResultProps {
   searchInput: string;
 }
 
-const SearchResult: React.FC<SearchResultProps> = ({
-  setSearchInput,
-  searchInput,
-}) => {
+const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const baseURL = import.meta.env.VITE_BASE_URL;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const debounceSearchTerm = useDebounce(searchInput, 1500, setIsLoading);
   const [citiesSearchResult, setCitiesSearchResult] = useState<Search[]>([]);
-  const [selectedCityData, setSelectedCityData] = useState<any>();
   const dispatch = useAppDispatch();
   const errMsg = useAppSelector((state) => state.errorMessage.errorMessage);
 
@@ -49,30 +48,28 @@ const SearchResult: React.FC<SearchResultProps> = ({
         return data;
       } else {
         setIsLoading(false);
+        dispatch(setSelectedCity(undefined));
         throw new Error("Don't be like that buddy, use only letters.");
       }
     } catch (err: any) {
-      console.log(err.message);
       dispatch(setError(err.message));
     }
   };
 
   useEffect(() => {
     const setSearchData = async () => {
+      dispatch(setError(""));
+      dispatch(setSelectedCity(undefined));
+
       try {
         if (!debounceSearchTerm) {
-          dispatch(setError(""));
           setIsLoading(false);
-          setSelectedCityData(null);
           setCitiesSearchResult([]);
         } else {
-          dispatch(setError(""));
-          setSelectedCityData(null);
           const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
           if (!data) {
             return;
           }
-
           if (data.length <= 0) {
             setCitiesSearchResult([]);
             throw new Error(
@@ -91,29 +88,28 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const onClickHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const buttonValue = (event.target as HTMLInputElement)?.value;
     const tabIndex = (event.target as HTMLInputElement)?.tabIndex;
-
     for (const cityIndex in citiesSearchResult) {
       const cityData = citiesSearchResult[cityIndex];
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
         axios(
-          `${baseURL}data/2.5/weather?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
+          `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&cnt=10&appid=${apiKey}&units=metric`
         )
-          .then(({ data }) => setSelectedCityData(data))
+          .then(({ data }) => {
+            dispatch(setSelectedCity(data));
+            dispatch(setSelectedCityName(buttonValue));
+            console.log(data);
+          })
           .catch((response) => {
             if (response.status >= 400)
               dispatch(
                 setError(
-                  "Oopsie, this should not happened. Please reach app creator"
+                  "Oopsie, this should not have happened. Please reach app creator"
                 )
               );
           });
       }
     }
   };
-
-  useEffect(() => {
-    dispatch(setSelectedCity(selectedCityData));
-  }, [selectedCityData]);
 
   return (
     <>
@@ -135,9 +131,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
                   value={element.name}
                   onClick={onClickHandler}
                   className="search-result-city-btn"
+                  title={`${element.name}, ${element.country}. ${
+                    element.state ? element.state : ""
+                  }`}
                 >
-                  {element.name}, {element.country}.{" "}
-                  {element.state && element.state}
+                  <span>
+                    {element.name}, {element.country}.{" "}
+                    {element.state && element.state}
+                  </span>
                 </button>
               </li>
             ))}

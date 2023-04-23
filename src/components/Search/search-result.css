@@ -1,20 +1,56 @@
+:root {
+  --search-width: 298px;
+}
+
 .cities-search-result-list {
   list-style: none;
-  text-align: left;
-  padding-left: unset;
+  width: var(--search-width);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.cities-search-result:last-child,
+.cities-search-result:last-child button {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .cities-search-result {
-  margin-bottom: 10px;
+  border: 1px solid #000;
 }
 
 .search-result-city-btn {
-  width: 300px;
-  line-height: 1.9;
+  width: calc(var(--search-width) - 2px);
   height: 50px;
   overflow: hidden;
+  border-radius: 0;
+  background: #313131;
+  transition: all 0.3s;
 }
 
 .fetching-message {
   margin-top: 20px;
+}
+
+.search-result-city-btn span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  width: 75%;
+  pointer-events: none;
+}
+
+.search-result-city-btn:hover {
+  border-color: transparent;
+  background-color: #1a1a1a;
+}
+
+.search-result-city-btn:focus {
+  outline: none;
+}
+
+.search-result-container {
+  border: 1px solid #000;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }

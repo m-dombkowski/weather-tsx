@@ -10,6 +10,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
 import { auth } from "../../services/firebase/firebase-auth";
 import { handleSubmitError } from "./submit-error";
+import { useNavigate } from "react-router-dom";
 
 interface FormInputsInterface {
   email: string;
@@ -38,6 +39,7 @@ const RegisterForm: React.FC = () => {
   const isFocused = document.activeElement === passwordRef.current;
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [registerError, setRegisterError] = useState<string | undefined>("");
+  const navigate = useNavigate();
 
   const emailRegister = register("email", {
     required: {
@@ -149,10 +151,11 @@ const RegisterForm: React.FC = () => {
         passwordRef.current.value
       )
         .then((userCredential) => {
-          // Signed in
           setIsLoggedIn(true);
           const user = userCredential.user;
-          console.log(user);
+          setTimeout(() => {
+            navigate("/");
+          }, 5000);
         })
         .catch((error) => {
           const errorCode = error.code;

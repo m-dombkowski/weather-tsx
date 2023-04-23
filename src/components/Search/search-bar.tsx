@@ -52,6 +52,7 @@ const SearchBar: React.FC = () => {
           </div>
         </CSSTransition>
       </div>
+
       <SearchResult setSearchInput={setSearchInput} searchInput={searchInput} />
     </div>
   );

@@ -1,10 +1,10 @@
-import { CityInterface } from "../state";
+import { CityForecastInterface, CityInterface } from "../state";
 
 export const convertUnixToTime = (
   unixTimestamp: number,
-  cityData: CityInterface
+  cityData: CityForecastInterface
 ) => {
-  const date = new Date((unixTimestamp + cityData.timezone - 7200) * 1000);
+  const date = new Date((unixTimestamp + cityData.city.timezone - 7200) * 1000);
   const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
   const minutes =
     date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
