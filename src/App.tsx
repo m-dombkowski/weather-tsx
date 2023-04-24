@@ -13,8 +13,6 @@ function App() {
   );
   return (
     <div className="App">
-      <Sidebar />
-
       <Routes>
         <Route
           path="register"
@@ -25,6 +23,7 @@ function App() {
           path="/"
           element={
             <>
+              <Sidebar />
               <SearchBar />
               {selectedCityData && <SelectedCity />}
             </>

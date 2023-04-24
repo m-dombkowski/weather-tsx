@@ -1,3 +1,10 @@
+.register-form-container {
+  background-color: #3a3a3a;
+  padding: 100px 75px 50px 75px;
+  border-radius: 8px;
+  position: relative;
+}
+
 .register-form {
   display: flex;
   flex-direction: column;
@@ -5,6 +12,35 @@
   justify-content: center;
   position: relative;
   gap: 40px;
+}
+
+.register-form.arrow-back-container {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  border-radius: 50%;
+  padding: 5px;
+  transition: all 0.3s;
+}
+
+.register-form.arrow-back-container:hover {
+  background-color: #5a5a5a;
+}
+
+.register-form-title {
+  font-size: 2.4rem;
+}
+
+.register-form-title.subtitle {
+  display: block;
+  margin-top: 20px;
+  font-size: 2rem;
+}
+
+.register-form-title.subtitle.emoji {
+  transform: rotate(90deg);
+  display: inline-block;
+  margin: 0 0 0 20px;
 }
 
 .input-container {
@@ -50,7 +86,7 @@
   z-index: 100;
   opacity: 0.2;
   position: absolute;
-  bottom: 30px;
+  bottom: 15%;
   transition: all 0.3s;
 }
 
@@ -64,32 +100,32 @@
 
 .pass-str-check-container-enter {
   opacity: 1;
-  bottom: 5%;
+  bottom: 15%;
 }
 
 .pass-str-check-container-enter-active {
   opacity: 1;
-  bottom: 35%;
+  bottom: 22%;
 }
 
 .pass-str-check-container-active {
   opacity: 0;
-  bottom: 20%;
+  bottom: 15%;
 }
 
 .pass-str-check-container-enter-done {
   opacity: 1;
-  bottom: 35%;
+  bottom: 22%;
 }
 
 .pass-str-check-container-exit {
   opacity: 0.5;
-  bottom: 25%;
+  bottom: 15%;
 }
 
 .pass-str-check-container-exit-active {
   opacity: 0;
-  bottom: 20%;
+  bottom: 15%;
 }
 
 .show-hide-button {

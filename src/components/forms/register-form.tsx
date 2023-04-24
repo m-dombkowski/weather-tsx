@@ -5,12 +5,14 @@ import { floatingLabels } from "../../helpers";
 import { CSSTransition } from "react-transition-group";
 import hideIcon from "../../assets/hide.png";
 import showIcon from "../../assets/show.png";
+import pencilSvg from "../../assets/pencil-box-svgrepo-com.svg";
+import arrowBackSvg from "../../assets/arrow-go-back-svgrepo-com.svg";
 import RegisterMessage from "./register-message";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
 import { auth } from "../../services/firebase/firebase-auth";
 import { handleSubmitError } from "./submit-error";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 interface FormInputsInterface {
   email: string;
@@ -170,11 +172,25 @@ const RegisterForm: React.FC = () => {
   return (
     <>
       <div className="register-form-container">
+        <Link to={"/"} className="register-form arrow-back-container">
+          <img src={arrowBackSvg} />
+        </Link>
         <form
           className="register-form"
           onSubmit={handleSubmit(onSubmit, onError)}
           noValidate
         >
+          <div>
+            <img src={pencilSvg} />
+          </div>
+          <h1 className="register-form-title">
+            New here?{" "}
+            <span className="register-form-title subtitle">
+              No worries{" "}
+              <span className="register-form-title subtitle emoji">=)</span>
+            </span>
+          </h1>
+
           <div className="input-container register-form_email-container">
             <input
               className="register-form__email-input"
