@@ -86,7 +86,7 @@
   z-index: 100;
   opacity: 0.2;
   position: absolute;
-  bottom: 15%;
+  bottom: 12%;
   transition: all 0.3s;
 }
 
@@ -100,32 +100,32 @@
 
 .pass-str-check-container-enter {
   opacity: 1;
-  bottom: 15%;
+  bottom: 12%;
 }
 
 .pass-str-check-container-enter-active {
   opacity: 1;
-  bottom: 22%;
+  bottom: 17%;
 }
 
 .pass-str-check-container-active {
   opacity: 0;
-  bottom: 15%;
+  bottom: 12%;
 }
 
 .pass-str-check-container-enter-done {
   opacity: 1;
-  bottom: 22%;
+  bottom: 17%;
 }
 
 .pass-str-check-container-exit {
   opacity: 0.5;
-  bottom: 15%;
+  bottom: 12%;
 }
 
 .pass-str-check-container-exit-active {
   opacity: 0;
-  bottom: 15%;
+  bottom: 12%;
 }
 
 .show-hide-button {
