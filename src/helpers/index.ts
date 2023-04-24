@@ -4,7 +4,9 @@ export const convertUnixToTime = (
   unixTimestamp: number,
   cityData: CityForecastInterface
 ) => {
-  const date = new Date((unixTimestamp + cityData.city.timezone - 7200) * 1000);
+  const date = new Date(
+    (unixTimestamp + cityData.city.timezone - 10800) * 1000
+  );
   const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
   const minutes =
     date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
