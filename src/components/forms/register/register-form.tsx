@@ -5,7 +5,6 @@ import { floatingLabels } from "../../../helpers";
 import { CSSTransition } from "react-transition-group";
 import hideIcon from "../../../assets/hide.png";
 import showIcon from "../../../assets/show.png";
-import pencilSvg from "../../../assets/pencil-box-svgrepo-com.svg";
 import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
 import mountainPhoto from "../../../assets/mountain-near-green-tress-at-night.jpg";
 import RegisterMessage from "./register-message";
@@ -14,6 +13,7 @@ import "./register-form.css";
 import { auth } from "../../../services/firebase/firebase-auth";
 import { handleSubmitError } from "./submit-error";
 import { useNavigate, Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface FormInputsInterface {
   email: string;
@@ -42,6 +42,7 @@ const RegisterForm: React.FC = () => {
   const isFocused = document.activeElement === passwordRef.current;
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [registerError, setRegisterError] = useState<string | undefined>("");
+  const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const emailRegister = register("email", {
@@ -108,19 +109,19 @@ const RegisterForm: React.FC = () => {
       switch (passwordStrength(event.target.value).value) {
         case "Too weak":
           fillRef.current.className = `${fillingBaseClass} password-very-weak`;
-          passStrengthRef.current.innerHTML = "Your password sucks fam";
+          passStrengthRef.current.innerHTML = "Too weak";
           break;
         case "Weak":
           fillRef.current.className = `${fillingBaseClass} password-weak`;
-          passStrengthRef.current.innerHTML = "Your password could be better";
+          passStrengthRef.current.innerHTML = "Could be better";
           break;
         case "Medium":
           fillRef.current.className = `${fillingBaseClass} password-medium`;
-          passStrengthRef.current.innerHTML = "Your password is ok";
+          passStrengthRef.current.innerHTML = "Almost there!";
           break;
         case "Strong":
           fillRef.current.className = `${fillingBaseClass} password-strong`;
-          passStrengthRef.current.innerHTML = "Your password is amazing";
+          passStrengthRef.current.innerHTML = "Your password is amazing!";
           break;
         default:
           break;
@@ -128,17 +129,13 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  const togglePassHandler = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    const icon = event.target as HTMLImageElement;
+  const togglePassHandler = () => {
+    setTogglePassword((prevState) => !prevState);
 
     if (passwordRef.current?.getAttribute("type") === "password") {
       passwordRef.current?.setAttribute("type", "text");
-      icon.setAttribute("src", `${hideIcon}`);
     } else {
       passwordRef.current?.setAttribute("type", "password");
-      icon.setAttribute("src", `${showIcon}`);
     }
   };
 
@@ -182,7 +179,7 @@ const RegisterForm: React.FC = () => {
           noValidate
         >
           <div>
-            <img src={pencilSvg} alt="icon of pencil on paper sheet" />
+            <FontAwesomeIcon size={"3x"} icon={["fas", "pen-to-square"]} />
           </div>
           <h1 className="register-form-title">
             New here?{" "}
@@ -203,6 +200,9 @@ const RegisterForm: React.FC = () => {
                 emailRef.current = e;
               }}
             />
+            <div className="input-icon">
+              <FontAwesomeIcon size={"lg"} icon={["fas", "envelope"]} />
+            </div>
             <span className="register-form__email-input-label">
               Email address
             </span>
@@ -222,17 +222,33 @@ const RegisterForm: React.FC = () => {
                 passwordRef.current = e;
               }}
             />
+            <div className="input-icon">
+              <FontAwesomeIcon size={"lg"} icon={["fas", "lock"]} />
+            </div>
             <span className="register-form__pass-input-label">Password</span>
             <button
               type="button"
               onClick={togglePassHandler}
               className="show-hide-button"
             >
-              <img
+              {/* <img
                 className="show-hide-button__icon"
                 src={showIcon}
                 alt="eye button for showing/hiding password"
-              />
+              /> */}
+              {togglePassword ? (
+                <FontAwesomeIcon
+                  size={"lg"}
+                  icon={["fas", "eye-slash"]}
+                  title="Hide Password"
+                />
+              ) : (
+                <FontAwesomeIcon
+                  size={"lg"}
+                  icon={["fas", "eye"]}
+                  title="Show Password"
+                />
+              )}
             </button>
           </div>
           <CSSTransition
