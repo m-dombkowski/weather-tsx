@@ -1,16 +1,17 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";
-import { floatingLabels } from "../../helpers";
+import { floatingLabels } from "../../../helpers";
 import { CSSTransition } from "react-transition-group";
-import hideIcon from "../../assets/hide.png";
-import showIcon from "../../assets/show.png";
-import pencilSvg from "../../assets/pencil-box-svgrepo-com.svg";
-import arrowBackSvg from "../../assets/arrow-go-back-svgrepo-com.svg";
+import hideIcon from "../../../assets/hide.png";
+import showIcon from "../../../assets/show.png";
+import pencilSvg from "../../../assets/pencil-box-svgrepo-com.svg";
+import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
+import mountainPhoto from "../../../assets/mountain-near-green-tress-at-night.jpg";
 import RegisterMessage from "./register-message";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
-import { auth } from "../../services/firebase/firebase-auth";
+import { auth } from "../../../services/firebase/firebase-auth";
 import { handleSubmitError } from "./submit-error";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -170,10 +171,10 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="register-form-main-container">
       <div className="register-form-container">
         <Link to={"/"} className="register-form arrow-back-container">
-          <img src={arrowBackSvg} />
+          <img src={arrowBackSvg} alt="icon of arrow" />
         </Link>
         <form
           className="register-form"
@@ -181,7 +182,7 @@ const RegisterForm: React.FC = () => {
           noValidate
         >
           <div>
-            <img src={pencilSvg} />
+            <img src={pencilSvg} alt="icon of pencil on paper sheet" />
           </div>
           <h1 className="register-form-title">
             New here?{" "}
@@ -227,7 +228,11 @@ const RegisterForm: React.FC = () => {
               onClick={togglePassHandler}
               className="show-hide-button"
             >
-              <img className="show-hide-button__icon" src={showIcon} />
+              <img
+                className="show-hide-button__icon"
+                src={showIcon}
+                alt="eye button for showing/hiding password"
+              />
             </button>
           </div>
           <CSSTransition
@@ -247,7 +252,10 @@ const RegisterForm: React.FC = () => {
               ></p>
             </div>
           </CSSTransition>
-          <input className="submit-button" type="submit" value="Submit" />
+          <div className="register-form__bottom-buttons">
+            <input className="submit-button" type="submit" value="Submit" />
+            <Link to={"/"} className="login-redirect-button"></Link>
+          </div>
           {
             <RegisterMessage
               success={loggedIn}
@@ -257,7 +265,15 @@ const RegisterForm: React.FC = () => {
           }
         </form>
       </div>
-    </>
+      <div className="register-form__img-container">
+        <img
+          loading="lazy"
+          className="register-form__img"
+          src={mountainPhoto}
+          alt=""
+        />
+      </div>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import RegisterForm from "./components/forms/register-form";
+import RegisterForm from "./components/forms/register/register-form";
 import SearchBar from "./components/search/search-bar";
 import SelectedCity from "./components/selected-city/selected-city";
 import Sidebar from "./components/sidebar/sidebar";

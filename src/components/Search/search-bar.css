@@ -1,7 +1,7 @@
 .search-container {
   position: fixed;
   top: 3%;
-  left: 25%;
+  left: 450px;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -24,9 +24,9 @@ const RegisterMessage: React.FC<RegisterMessageProps> = ({
         containerRef.current?.children.length < 2 &&
         containerRef.current?.children.length !== 0
       ) {
-        containerRef.current.style.bottom = "-35%";
+        containerRef.current.style.bottom = "-15%";
       } else {
-        containerRef.current.style.bottom = "-55%";
+        containerRef.current.style.bottom = "-30%";
       }
     }
   });

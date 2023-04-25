@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,7 +7,7 @@
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Lato", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;

@@ -1,7 +1,12 @@
+.register-form-main-container {
+  display: flex;
+}
+
 .register-form-container {
   background-color: #3a3a3a;
   padding: 100px 75px 50px 75px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   position: relative;
 }
 
@@ -86,7 +91,7 @@
   z-index: 100;
   opacity: 0.2;
   position: absolute;
-  bottom: 12%;
+  bottom: 10%;
   transition: all 0.3s;
 }
 
@@ -100,32 +105,32 @@
 
 .pass-str-check-container-enter {
   opacity: 1;
-  bottom: 12%;
+  bottom: 10%;
 }
 
 .pass-str-check-container-enter-active {
   opacity: 1;
-  bottom: 17%;
+  bottom: 16%;
 }
 
 .pass-str-check-container-active {
   opacity: 0;
-  bottom: 12%;
+  bottom: 10%;
 }
 
 .pass-str-check-container-enter-done {
   opacity: 1;
-  bottom: 17%;
+  bottom: 16%;
 }
 
 .pass-str-check-container-exit {
   opacity: 0.5;
-  bottom: 12%;
+  bottom: 10%;
 }
 
 .pass-str-check-container-exit-active {
   opacity: 0;
-  bottom: 12%;
+  bottom: 10%;
 }
 
 .show-hide-button {
@@ -182,8 +187,75 @@
   margin-top: 7px;
 }
 
+.register-form__bottom-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.submit-button,
+.login-redirect-button {
+  border-radius: 5px;
+}
+
 .submit-button {
   padding: 12px 24px;
   cursor: pointer;
-  margin-top: 30px;
+  background-color: #646464;
+  border: none;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+.login-redirect-button {
+  position: relative;
+  width: 200px;
+  height: 43px;
+  color: #e6e6e6;
+  background-color: #646464;
+}
+
+.login-redirect-button::before {
+  content: "Already have account?";
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 10px;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+.login-redirect-button::after {
+  content: "Login here";
+  color: #e6e6e6;
+  position: absolute;
+  bottom: -30px;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.login-redirect-button:hover::after {
+  bottom: 10px;
+  opacity: 1;
+}
+
+.login-redirect-button:hover::before {
+  top: -30px;
+  opacity: 0;
+}
+
+.register-form__img-container {
+  display: flex;
+}
+
+.register-form__img {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
