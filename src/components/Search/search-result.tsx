@@ -112,12 +112,10 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
 
   return (
     <>
+      {isLoading && (
+        <div className="fetching-message">Fetching data, please standby...</div>
+      )}
       <div className="search-result-container">
-        {isLoading && (
-          <div className="fetching-message">
-            Fetching data, please standby...
-          </div>
-        )}
         {!isLoading && errMsg && (
           <div className="fetching-message">{errMsg}</div>
         )}

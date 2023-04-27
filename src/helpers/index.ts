@@ -7,12 +7,21 @@ export const convertUnixToTime = (
   const date = new Date(
     (unixTimestamp + cityData.city.timezone - 10800) * 1000
   );
-  const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-  const minutes =
-    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-  // const seconds = "0" + date.getSeconds();
+  // const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+  // const minutes =
+  //   date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  // const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
 
-  return `${hours}:${minutes}`;
+  const formatedDate = date
+    .toLocaleString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      day: "2-digit",
+      month: "long",
+    })
+    .replace(" at", "");
+
+  return formatedDate;
 };
 
 export const validateSearchInput = (input: string): boolean => {
