@@ -12,7 +12,7 @@ export const convertUnixToTime = (
   //   date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
   // const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
 
-  const formatedDate = date
+  const formattedDate = date
     .toLocaleString("en-GB", {
       hour: "2-digit",
       minute: "2-digit",
@@ -21,7 +21,7 @@ export const convertUnixToTime = (
     })
     .replace(" at", "");
 
-  return formatedDate;
+  return formattedDate;
 };
 
 export const validateSearchInput = (input: string): boolean => {

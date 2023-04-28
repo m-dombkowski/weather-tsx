@@ -7,6 +7,7 @@ import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityForecastInterface } from "../../state";
 import { useEffect } from "react";
+import SelectedCityChart from "./selected-city-chart";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
@@ -38,7 +39,7 @@ const SelectedCity: React.FC = () => {
   return (
     <>
       {cityData && (
-        <>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <div className="selected-city-container">
             <span>{cityData.city.name}</span>
             <span>{Math.round(cityData.list[0].main.temp)}°C</span>
@@ -57,7 +58,8 @@ const SelectedCity: React.FC = () => {
               ></div>
             </div>
           </div>
-          <div
+          <SelectedCityChart cityData={cityData} />
+          {/* <div
             className="selected-city-chart"
             style={{ display: "flex", flexDirection: "row", gap: "10px" }}
           >
@@ -67,8 +69,8 @@ const SelectedCity: React.FC = () => {
                 <p>{Math.round(record.main.temp)}</p>
               </li>
             ))}
-          </div>
-        </>
+          </div> */}
+        </div>
       )}
     </>
   );
