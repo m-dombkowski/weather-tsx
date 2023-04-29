@@ -36,7 +36,7 @@ const SelectedCityChart: React.FC<ChartProps> = ({ cityData }) => {
       },
       title: {
         display: true,
-        text: `${cityData.city.name} 30 hours forecast`,
+        text: `${cityData.city.name}, ${cityData.city.country} 24 hours forecast`,
       },
     },
   };
@@ -61,7 +61,7 @@ const SelectedCityChart: React.FC<ChartProps> = ({ cityData }) => {
 
   return (
     <div className="chart-container">
-      <Line data={data} options={options} height={400} width={700} />
+      <Line data={data} options={options} height={550} width={900} />
     </div>
   );
 };

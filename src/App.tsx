@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import SelectedCityDetails from "./components/selected-city/selected-city-details";
 
 function App() {
   library.add(fas, faPenToSquare, faEnvelope, faLock, faEye, faEyeSlash);
@@ -40,8 +41,7 @@ function App() {
             </>
           }
         />
-
-        {/* {selectedCityData && <SelectedCity />} */}
+        <Route path="/city/:cityId" element={<SelectedCityDetails />} />
       </Routes>
     </div>
   );

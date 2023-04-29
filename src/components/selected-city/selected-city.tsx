@@ -8,6 +8,7 @@ import { convertUnixToTime } from "../../helpers";
 import { CityForecastInterface } from "../../state";
 import { useEffect } from "react";
 import SelectedCityChart from "./selected-city-chart";
+import { useNavigate } from "react-router-dom";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
@@ -20,6 +21,8 @@ const SelectedCity: React.FC = () => {
   );
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const addToFavoriteHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -30,6 +33,10 @@ const SelectedCity: React.FC = () => {
     } else {
       dispatch(addToFavorites(cityData));
     }
+  };
+
+  const detailedForecastOnClick = () => {
+    navigate(`/city/${cityData?.city.id}`);
   };
 
   useEffect(() => {
@@ -58,7 +65,12 @@ const SelectedCity: React.FC = () => {
               ></div>
             </div>
           </div>
-          <SelectedCityChart cityData={cityData} />
+          <div>
+            <button onClick={detailedForecastOnClick}>
+              Check detailed forecast
+            </button>
+          </div>
+          {/* <SelectedCityChart cityData={cityData} /> */}
           {/* <div
             className="selected-city-chart"
             style={{ display: "flex", flexDirection: "row", gap: "10px" }}

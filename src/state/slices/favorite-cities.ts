@@ -38,7 +38,8 @@ export const citiesSlice = createSlice({
       action: PayloadAction<CityForecastInterface | undefined>
     ) => {
       let filtered = state.favoriteCities.filter(
-        (city: any) => city.city.id !== action.payload?.city.id
+        (city: CityForecastInterface) =>
+          city.city.id !== action.payload?.city.id
       );
       state.favoriteCities = filtered;
     },

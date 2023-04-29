@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import errorSlice from "./slices/errors";
 import citiesSlice from "./slices/favorite-cities";
 import selectedCitySlice from "./slices/selected-city";
+import selectedCityAirPollutionSlice from "./slices/air-pollution";
 // ...
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     cities: citiesSlice.reducer,
     selectedCity: selectedCitySlice.reducer,
     errorMessage: errorSlice.reducer,
+    airPollution: selectedCityAirPollutionSlice.reducer,
   },
 });
 
