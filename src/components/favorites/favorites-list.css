@@ -17,6 +17,7 @@
   padding: 8px 20px;
   align-items: center;
   gap: 10px;
+  text-align: left;
 }
 
 .single-city:hover {
@@ -40,12 +41,16 @@
 }
 
 .single-city-description {
-  min-width: 70px;
+  width: 120px;
   font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .no-width {
-  min-width: unset;
+  width: unset;
 }
 
 .single-city img {
