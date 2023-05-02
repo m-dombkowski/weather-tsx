@@ -1,4 +1,4 @@
-import { CityForecastInterface } from "../../state";
+import { CityForecastInterface } from "../../../state";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { convertUnixToTime } from "../../helpers";
+import { convertUnixToTime } from "../../../helpers";
+
 
 interface ChartProps {
   cityData: CityForecastInterface;

@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useAppSelector } from "../../hooks/rtk-hooks";
+import { useAppSelector } from "../../../../hooks/rtk-hooks";
 import SingleAirPollution from "./single-air-pollution";
 
 interface SelectedCityAirPollutionProps {

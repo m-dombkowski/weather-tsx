@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { aqiChecker, pollutionChecker } from ".";
+import { aqiChecker, pollutionChecker } from "../..";
 
 interface SingleAirPollutionProps {
   name: string;

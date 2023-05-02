@@ -22,7 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import SelectedCityDetails from "./components/selected-city/selected-city-details";
+import SelectedCityDetails from "./components/selected-city/selected-city-details/selected-city-details";
 
 function App() {
   library.add(
