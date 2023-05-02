@@ -3,17 +3,15 @@ import { convertUnixToTime } from "../../../helpers";
 import { useAppSelector } from "../../../hooks/rtk-hooks";
 import SelectedCityChart from "./selected-city-chart";
 import { useEffect, useRef, useState } from "react";
-
 import Legend from "./legend/legend";
 import "./selected-city-details.css";
 import { CSSTransition } from "react-transition-group";
 import AirPollutionBlock from "./air-pollution/air-pollution-block";
-import atmosphericPressureSvg from "../../assets/atmospheric-pressure.svg";
-import sunriseSvg from "../../assets/sunrise-up-svgrepo-com.svg";
-import sunsetSvg from "../../assets/sunset-down-svgrepo-com.svg";
-import humiditySvg from "../../assets/humidity-svgrepo-com.svg";
+import atmosphericPressureSvg from "../../../assets/atmospheric-pressure.svg";
+import sunriseSvg from "../../../assets/sunrise-up-svgrepo-com.svg";
+import sunsetSvg from "../../../assets/sunset-down-svgrepo-com.svg";
+import humiditySvg from "../../../assets/humidity-svgrepo-com.svg";
 import SelectedCityAirPollution from "./air-pollution/selected-city-air-pollution";
-
 
 const SelectedCityDetails: React.FC = () => {
   const selectedCityData = useAppSelector(
@@ -27,6 +25,7 @@ const SelectedCityDetails: React.FC = () => {
   const cityCurrentData = selectedCityData?.list[0];
 
   useEffect(() => {
+    console.log(cityCurrentData?.dt);
     if (!cityCurrentData) {
       navigate("/");
     }

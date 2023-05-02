@@ -5,7 +5,7 @@ import SearchBar from "./components/search/search-bar";
 import SelectedCity from "./components/selected-city/selected-city";
 import Sidebar from "./components/sidebar/sidebar";
 import { useAppSelector } from "./hooks/rtk-hooks";
-import ErrorBoundary from "./components/errorBoundry/error-boundry";
+import ErrorBoundary from "./components/errorBoundary/errorBoundary";
 import {
   faLock,
   fas,

@@ -4,13 +4,13 @@ export const convertUnixToTime = (
   unixTimestamp: number,
   cityData: CityForecastInterface
 ) => {
-  const date = new Date(
-    (unixTimestamp + cityData.city.timezone - 10800) * 1000
-  );
-  // const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-  // const minutes =
-  //   date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-  // const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
+  let date;
+  if (cityData.city.timezone !== 7200) {
+    date = new Date((unixTimestamp + cityData.city.timezone - 14400) * 1000);
+  } else {
+    date = new Date((unixTimestamp - 7200) * 1000);
+  }
+  console.log(date);
 
   const formattedDate = date
     .toLocaleString("en-GB", {
