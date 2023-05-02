@@ -7,7 +7,6 @@ import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityForecastInterface } from "../../state";
 import { useEffect } from "react";
-import SelectedCityChart from "./selected-city-chart";
 import { useNavigate } from "react-router-dom";
 
 const SelectedCity: React.FC = () => {
@@ -70,18 +69,6 @@ const SelectedCity: React.FC = () => {
               Check detailed forecast
             </button>
           </div>
-          {/* <SelectedCityChart cityData={cityData} /> */}
-          {/* <div
-            className="selected-city-chart"
-            style={{ display: "flex", flexDirection: "row", gap: "10px" }}
-          >
-            {cityData.list.map((record, index) => (
-              <li key={index} style={{ listStyle: "none" }}>
-                <p>{convertUnixToTime(record.dt, cityData)}</p>
-                <p>{Math.round(record.main.temp)}</p>
-              </li>
-            ))}
-          </div> */}
         </div>
       )}
     </>

@@ -3,13 +3,7 @@ import LegendColorBlock from "./legend-color-block";
 
 const Legend: React.FC = () => {
   return (
-    <div
-      style={{
-        textAlign: "left",
-        overflowY: "scroll",
-        maxHeight: "calc(100vh - 64px)",
-      }}
-    >
+    <>
       <h2 style={{ marginBottom: "20px" }}>Legend:</h2>
       <LegendColorBlock />
       <LegendBlock
@@ -82,7 +76,7 @@ const Legend: React.FC = () => {
           "15400+ = Very Poor",
         ]}
       />
-    </div>
+    </>
   );
 };
 

@@ -12,16 +12,38 @@ import {
   faPenToSquare,
   faEye,
   faEyeSlash,
+  faTemperatureFull,
+  faTemperatureArrowDown,
+  faTemperatureArrowUp,
+  faWind,
+  faLocationDot,
+  faClock,
+  faCloudRain,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import SelectedCityDetails from "./components/selected-city/selected-city-details";
 
 function App() {
-  library.add(fas, faPenToSquare, faEnvelope, faLock, faEye, faEyeSlash);
+  library.add(
+    fas,
+    faPenToSquare,
+    faEnvelope,
+    faLock,
+    faEye,
+    faEyeSlash,
+    faTemperatureFull,
+    faTemperatureArrowDown,
+    faTemperatureArrowUp,
+    faWind,
+    faLocationDot,
+    faClock,
+    faCloudRain
+  );
 
   const selectedCityData = useAppSelector(
-    (state) => state.selectedCity.selectedCity
+    (state: { selectedCity: { selectedCity: any } }) =>
+      state.selectedCity.selectedCity
   );
   return (
     <div className="App">

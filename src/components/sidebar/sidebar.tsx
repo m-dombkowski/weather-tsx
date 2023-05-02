@@ -5,22 +5,9 @@ import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   const [favFlag, setFavFlag] = useState<boolean>(false);
-  const [bFlag, setBFlag] = useState<boolean>(false);
-  const [cFlag, setCFlag] = useState<boolean>(false);
 
   const favHandler = () => {
     setFavFlag(true);
-    setBFlag(false);
-    setCFlag(false);
-  };
-
-  const bHandler = () => {
-    setBFlag(true);
-    setCFlag(false);
-  };
-  const cHandler = () => {
-    setBFlag(false);
-    setCFlag(true);
   };
 
   return (
@@ -28,10 +15,10 @@ const Sidebar: React.FC = () => {
       <div className="sidebar-nav">
         <button onClick={favHandler}>Fav</button>
         <Link to={"register"}>
-          <button onClick={bHandler}>Register</button>
+          <button>Register</button>
         </Link>
         <Link to={"/"}>
-          <button onClick={cHandler}>Main</button>
+          <button>Main</button>
         </Link>
       </div>
       {favFlag && <FavoriteList />}

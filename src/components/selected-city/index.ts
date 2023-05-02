@@ -1,4 +1,4 @@
-export const pollutionColors = {
+const pollutionColors = {
   good: "#4cd137",
   fair: "#3498db",
   moderate: "#fbc531",
@@ -6,7 +6,7 @@ export const pollutionColors = {
   veryPoor: "#EA2027",
 };
 
-export type QualityBrackets = {
+type QualityBrackets = {
   first: number;
   second: number;
   third: number;

@@ -24,7 +24,7 @@ const LegendColorBlock: React.FC = () => {
               display: "flex",
               alignItems: "center",
               gap: "20px",
-              maxWidth: "150px",
+              width: "80%",
               justifyContent: "space-between",
             }}
             key={index}

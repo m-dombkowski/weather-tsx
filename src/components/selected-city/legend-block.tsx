@@ -1,7 +1,3 @@
-import { useEffect, useRef } from "react";
-import { QualityBrackets, pollutionChecker } from ".";
-import { useAppSelector } from "../../hooks/rtk-hooks";
-
 interface LegendBlockProps {
   title: string;
   brackets: string[];

@@ -1,12 +1,24 @@
+import { forwardRef } from "react";
 import { useAppSelector } from "../../hooks/rtk-hooks";
 import SingleAirPollution from "./single-air-pollution";
 
-const SelectedCityAirPollution: React.FC = () => {
+interface SelectedCityAirPollutionProps {
+  toggleLegend: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SelectedCityAirPollution = forwardRef<
+  HTMLDivElement,
+  SelectedCityAirPollutionProps
+>((props, ref) => {
   const airPollution = useAppSelector(
     (state) => state.airPollution.airPollution
   );
 
   const airPollutionData = airPollution?.list[0];
+
+  const handleLegendVisibility = () => {
+    props.toggleLegend((prevState) => !prevState);
+  };
 
   return (
     <>
@@ -20,7 +32,7 @@ const SelectedCityAirPollution: React.FC = () => {
         >
           <div style={{ display: "flex", gap: "20px" }}>
             <h2>Air pollution</h2>
-            <button>i</button>
+            <button onClick={handleLegendVisibility}>i</button>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <SingleAirPollution
@@ -75,6 +87,6 @@ const SelectedCityAirPollution: React.FC = () => {
       )}
     </>
   );
-};
+});
 
 export default SelectedCityAirPollution;

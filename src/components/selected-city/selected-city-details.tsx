@@ -4,14 +4,20 @@ import { useAppSelector } from "../../hooks/rtk-hooks";
 import SelectedCityChart from "./selected-city-chart";
 import { useEffect, useRef, useState } from "react";
 import SelectedCityAirPollution from "./selected-city-air-pollution";
-import LegendBlock from "./legend-block";
 import Legend from "./legend";
+import "./selected-city-details.css";
+import { CSSTransition } from "react-transition-group";
+import AirPollutionBlock from "./air-pollution-block";
+import atmosphericPressureSvg from "../../assets/atmospheric-pressure.svg";
+import sunriseSvg from "../../assets/sunrise-up-svgrepo-com.svg";
+import sunsetSvg from "../../assets/sunset-down-svgrepo-com.svg";
+import humiditySvg from "../../assets/humidity-svgrepo-com.svg";
 
 const SelectedCityDetails: React.FC = () => {
   const selectedCityData = useAppSelector(
     (state) => state.selectedCity.selectedCity
   );
-  const legendRef = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [showLegend, setShowLegend] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -24,66 +30,120 @@ const SelectedCityDetails: React.FC = () => {
     }
   }, []);
 
-  const toggleLegend = () => {
-    setShowLegend((prevState) => !prevState);
-  };
-
   return (
     <>
-      <div style={{ display: "flex", gap: "100px" }}>
-        <div
-          className={`legend ${
-            !showLegend ? "legend-hidden" : "legend-visible"
-          }`}
+      <div className="main-container" style={{ display: "flex", gap: "50px" }}>
+        <CSSTransition
+          in={showLegend}
+          nodeRef={ref}
+          classNames="legend"
+          timeout={500}
+          unmountOnExit
+          onEnter={() => setShowLegend(true)}
+          onExited={() => setShowLegend(false)}
         >
-          <Legend />
-        </div>
+          <div ref={ref} className="legend">
+            <Legend />
+          </div>
+        </CSSTransition>
+
         {cityCurrentData && (
           <div
+            className="air-pollution-data"
             style={{
               display: "flex",
               flexDirection: "column",
+              justifyContent: "center",
+              gap: "30px",
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <p>
-                {selectedCityData.city.name}, {selectedCityData.city.country}
-              </p>
-              <p>{Math.round(cityCurrentData.main.temp)}</p>
-              <p>
-                {Math.round(cityCurrentData.main.temp_max)}/
-                {Math.round(cityCurrentData.main.temp_min)}
-              </p>
-              <p>{convertUnixToTime(cityCurrentData.dt, selectedCityData)}</p>
+              <AirPollutionBlock
+                data={
+                  selectedCityData.city.name +
+                  "," +
+                  selectedCityData.city.country
+                }
+                title="Location"
+                iconSize="xl"
+                prefix="fas"
+                iconName="location-dot"
+                cutDescription={true}
+              />
+
+              <AirPollutionBlock
+                data={Math.round(cityCurrentData.main.temp) + "°C"}
+                title="Current Temp"
+                iconSize="xl"
+                prefix="fas"
+                iconName="temperature-full"
+              />
+              <AirPollutionBlock
+                data={Math.round(cityCurrentData.main.temp_max) + "°C"}
+                title="Max temp current day"
+                iconSize="xl"
+                prefix="fas"
+                iconName="temperature-arrow-up"
+              />
+              <AirPollutionBlock
+                data={Math.round(cityCurrentData.main.temp_min) + "°C"}
+                title="Min temp current day"
+                iconSize="xl"
+                prefix="fas"
+                iconName="temperature-arrow-down"
+              />
+              <AirPollutionBlock
+                data={convertUnixToTime(cityCurrentData.dt, selectedCityData)}
+                title="Local Time"
+                iconSize="xl"
+                prefix="fas"
+                iconName="clock"
+              />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div>
-                <p>{cityCurrentData.main.humidity}%</p>
-              </div>
-              <div>
-                <p>{cityCurrentData.main.pressure}hPa</p>
-              </div>
-              <div>
-                <p>{cityCurrentData.wind.speed}km/h</p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <p>
-                  Sunrise:
-                  {convertUnixToTime(
-                    selectedCityData.city.sunrise,
-                    selectedCityData
-                  )}
-                </p>
-                <p>
-                  Sunset:
-                  {convertUnixToTime(
-                    selectedCityData.city.sunset,
-                    selectedCityData
-                  )}
-                </p>
-              </div>
+              <AirPollutionBlock
+                data={cityCurrentData.main.humidity + "%"}
+                title="Humidity"
+                svgSrc={humiditySvg}
+              />
+              <AirPollutionBlock
+                data={`${cityCurrentData.main.pressure}
+                 hPa`}
+                title="Atmospheric Pressure"
+                svgSrc={atmosphericPressureSvg}
+              />
+              <AirPollutionBlock
+                data={Math.round(cityCurrentData.wind.speed * 10) / 10 + "km/h"}
+                title="Wind Speed"
+                iconSize="xl"
+                prefix="fas"
+                iconName="wind"
+              />
+              <AirPollutionBlock
+                data={Math.round(cityCurrentData.pop * 100) + "%"}
+                title="Rain possibility"
+                iconSize="xl"
+                prefix="fas"
+                iconName="cloud-rain"
+              />
+              <AirPollutionBlock
+                data={convertUnixToTime(
+                  selectedCityData.city.sunrise,
+                  selectedCityData
+                )}
+                title="Sunrise"
+                svgSrc={sunriseSvg}
+              />
+              <AirPollutionBlock
+                data={convertUnixToTime(
+                  selectedCityData.city.sunset,
+                  selectedCityData
+                )}
+                title="Sunset"
+                svgSrc={sunsetSvg}
+              />
             </div>
-            <SelectedCityAirPollution />
+            <SelectedCityAirPollution ref={ref} toggleLegend={setShowLegend} />
             <div style={{ display: "flex" }}>
               <div>
                 <SelectedCityChart cityData={selectedCityData} />
