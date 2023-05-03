@@ -19,17 +19,34 @@ const SelectedCityDetails: React.FC = () => {
   );
   const ref = useRef<HTMLDivElement | null>(null);
   const [showLegend, setShowLegend] = useState<boolean>(false);
+  const cityCurrentData = selectedCityData?.list[0];
+  const [lowest, setLowest] = useState<number | undefined>(
+    cityCurrentData?.main.temp_min
+  );
+  const [highest, setHighest] = useState<number | undefined>(
+    cityCurrentData?.main.temp_max
+  );
 
   const navigate = useNavigate();
 
-  const cityCurrentData = selectedCityData?.list[0];
-
   useEffect(() => {
-    console.log(cityCurrentData?.dt);
     if (!cityCurrentData) {
       navigate("/");
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedCityData && lowest && highest) {
+      for (const { main } of selectedCityData.list) {
+        if (main.temp_min < lowest) {
+          setLowest(main.temp_min);
+        }
+        if (main.temp_max > highest) {
+          setHighest(main.temp_max);
+        }
+      }
+    }
+  }, [selectedCityData, lowest, highest]);
 
   return (
     <>
@@ -79,20 +96,25 @@ const SelectedCityDetails: React.FC = () => {
                 prefix="fas"
                 iconName="temperature-full"
               />
-              <AirPollutionBlock
-                data={Math.round(cityCurrentData.main.temp_max) + "°C"}
-                title="Max temp current day"
-                iconSize="xl"
-                prefix="fas"
-                iconName="temperature-arrow-up"
-              />
-              <AirPollutionBlock
-                data={Math.round(cityCurrentData.main.temp_min) + "°C"}
-                title="Min temp current day"
-                iconSize="xl"
-                prefix="fas"
-                iconName="temperature-arrow-down"
-              />
+              {highest && (
+                <AirPollutionBlock
+                  data={Math.round(highest) + "°C"}
+                  title="Max temp"
+                  iconSize="xl"
+                  prefix="fas"
+                  iconName="temperature-arrow-up"
+                />
+              )}
+              {lowest && (
+                <AirPollutionBlock
+                  data={Math.round(lowest) + "°C"}
+                  title="Min temp"
+                  iconSize="xl"
+                  prefix="fas"
+                  iconName="temperature-arrow-down"
+                />
+              )}
+
               <AirPollutionBlock
                 data={convertUnixToTime(cityCurrentData.dt, selectedCityData)}
                 title="Local Time"

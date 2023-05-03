@@ -10,7 +10,6 @@ export const convertUnixToTime = (
   } else {
     date = new Date((unixTimestamp - 7200) * 1000);
   }
-  console.log(date);
 
   const formattedDate = date
     .toLocaleString("en-GB", {
