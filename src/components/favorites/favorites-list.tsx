@@ -19,7 +19,7 @@ const FavoriteList: React.FC = () => {
               className="single-city"
               onClick={() => dispatch(setSelectedCity(city))}
             >
-              <span className="single-city-description">
+              <span title={city.city.name} className="single-city-description">
                 {city.city.name}, {city.city.country}.{" "}
               </span>
 

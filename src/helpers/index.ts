@@ -4,15 +4,23 @@ export const convertUnixToTime = (
   unixTimestamp: number,
   cityData: CityForecastInterface
 ) => {
-  const date = new Date(
-    (unixTimestamp + cityData.city.timezone - 10800) * 1000
-  );
-  const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-  const minutes =
-    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-  // const seconds = "0" + date.getSeconds();
+  let date;
+  if (cityData.city.timezone !== 7200) {
+    date = new Date((unixTimestamp + cityData.city.timezone - 14400) * 1000);
+  } else {
+    date = new Date((unixTimestamp - 7200) * 1000);
+  }
 
-  return `${hours}:${minutes}`;
+  const formattedDate = date
+    .toLocaleString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      day: "2-digit",
+      month: "long",
+    })
+    .replace(" at", "");
+
+  return formattedDate;
 };
 
 export const validateSearchInput = (input: string): boolean => {

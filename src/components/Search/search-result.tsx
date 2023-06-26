@@ -10,6 +10,7 @@ import {
 } from "../../state/slices/selected-city";
 import { setError } from "../../state/slices/errors";
 import { validateSearchInput } from "../../helpers";
+import { setSelectedCityAirPollution } from "../../state/slices/air-pollution";
 
 interface SearchResultProps {
   setSearchInput?: Dispatch<SetStateAction<string>>;
@@ -92,7 +93,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
       const cityData = citiesSearchResult[cityIndex];
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
         axios(
-          `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&cnt=10&appid=${apiKey}&units=metric`
+          `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&cnt=9&appid=${apiKey}&units=metric`
         )
           .then(({ data }) => {
             dispatch(setSelectedCity(data));
@@ -105,6 +106,17 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
                   "Oopsie, this should not have happened. Please reach app creator"
                 )
               );
+          });
+
+        axios(
+          `${baseURL}data/2.5/air_pollution?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}`
+        )
+          .then(({ data }) => {
+            dispatch(setSelectedCityAirPollution(data));
+            console.log(data);
+          })
+          .catch((response) => {
+            console.log(response);
           });
       }
     }

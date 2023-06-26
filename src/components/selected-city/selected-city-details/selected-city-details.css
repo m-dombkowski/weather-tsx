@@ -1,0 +1,51 @@
+.legend {
+  text-align: left;
+  overflow-y: scroll;
+  max-height: calc(100vh - 64px);
+  width: 225px;
+  transition: all 0.5s;
+  opacity: 0.2;
+  position: absolute;
+  top: 3%;
+}
+
+.legend.legend-enter ~ .air-pollution-data,
+.legend.legend-enter-active ~ .air-pollution-data,
+.legend.legend-active ~ .air-pollution-data,
+.legend.legend-enter-done ~ .air-pollution-data {
+  transform: translateX(10%);
+}
+
+.legend-enter {
+  left: 0%;
+  opacity: 1;
+}
+
+.legend-enter-active {
+  left: 10%;
+  opacity: 1;
+}
+
+.legend.active {
+  opacity: 0;
+  left: 0%;
+}
+
+.legend-enter-done {
+  left: 10%;
+  opacity: 1;
+}
+
+.legend-exit {
+  opacity: 1;
+  left: 10%;
+}
+
+.legend-exit-active {
+  opacity: 0;
+  left: 0%;
+}
+
+.air-pollution-data {
+  transition: all 0.5s;
+}

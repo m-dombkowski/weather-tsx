@@ -6,6 +6,8 @@ import {
 import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityForecastInterface } from "../../state";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
@@ -17,6 +19,8 @@ const SelectedCity: React.FC = () => {
       selectedCity.city.id === cityData?.city.id
   );
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const addToFavoriteHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -30,25 +34,40 @@ const SelectedCity: React.FC = () => {
     }
   };
 
+  const detailedForecastOnClick = () => {
+    navigate(`/city/${cityData?.city.id}`);
+  };
+
+  useEffect(() => {
+    console.log(cityData);
+  });
+
   return (
     <>
       {cityData && (
-        <div className="selected-city-container">
-          <span>{cityData.city.name}</span>
-          <span>{Math.round(cityData.list[0].main.temp)}°C</span>
-          <img
-            src={`http://openweathermap.org/img/wn/${cityData.list[0].weather[0].icon}@2x.png`}
-          />
-          <p>{convertUnixToTime(cityData.list[0].dt, cityData)}</p>
-          <div id="container">
-            <div
-              onClick={addToFavoriteHandler}
-              className={
-                !isAlreadyInFavorites
-                  ? "heart-like-button"
-                  : "heart-like-button liked"
-              }
-            ></div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="selected-city-container">
+            <span>{cityData.city.name}</span>
+            <span>{Math.round(cityData.list[0].main.temp)}°C</span>
+            <img
+              src={`http://openweathermap.org/img/wn/${cityData.list[0].weather[0].icon}@2x.png`}
+            />
+            <p>{convertUnixToTime(cityData.list[0].dt, cityData)}</p>
+            <div id="container">
+              <div
+                onClick={addToFavoriteHandler}
+                className={
+                  !isAlreadyInFavorites
+                    ? "heart-like-button"
+                    : "heart-like-button liked"
+                }
+              ></div>
+            </div>
+          </div>
+          <div>
+            <button onClick={detailedForecastOnClick}>
+              Check detailed forecast
+            </button>
           </div>
         </div>
       )}
