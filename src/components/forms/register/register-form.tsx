@@ -167,6 +167,14 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className="register-form-main-container">
+      <div className="register-form__img-container">
+        <img
+          loading="lazy"
+          className="register-form__img"
+          src={mountainPhoto}
+          alt=""
+        />
+      </div>
       <div className="register-form-container">
         <Link to={"/"} className="register-form arrow-back-container">
           <img src={arrowBackSvg} alt="icon of arrow" />
@@ -278,14 +286,6 @@ const RegisterForm: React.FC = () => {
             />
           }
         </form>
-      </div>
-      <div className="register-form__img-container">
-        <img
-          loading="lazy"
-          className="register-form__img"
-          src={mountainPhoto}
-          alt=""
-        />
       </div>
     </div>
   );
