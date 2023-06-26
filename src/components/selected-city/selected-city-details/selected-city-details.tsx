@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { convertUnixToTime } from "../../../helpers";
 import { useAppSelector } from "../../../hooks/rtk-hooks";
 import SelectedCityChart from "./selected-city-chart";
@@ -9,6 +9,7 @@ import { CSSTransition } from "react-transition-group";
 import AirPollutionBlock from "./air-pollution/air-pollution-block";
 import atmosphericPressureSvg from "../../../assets/atmospheric-pressure.svg";
 import sunriseSvg from "../../../assets/sunrise-up-svgrepo-com.svg";
+import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
 import sunsetSvg from "../../../assets/sunset-down-svgrepo-com.svg";
 import humiditySvg from "../../../assets/humidity-svgrepo-com.svg";
 import SelectedCityAirPollution from "./air-pollution/selected-city-air-pollution";
@@ -75,6 +76,9 @@ const SelectedCityDetails: React.FC = () => {
               gap: "30px",
             }}
           >
+            <Link to={"/"} className="arrow-back-container">
+              <img src={arrowBackSvg} alt="icon of an arrow" />
+            </Link>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <AirPollutionBlock
                 data={
