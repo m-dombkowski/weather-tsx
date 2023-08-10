@@ -45,14 +45,14 @@ const RegisterMessage: React.FC<RegisterMessageProps> = ({
         </p>
       )}
 
-      {success && (
+      {(success === true) && (
         <p className="registered-message">
           Registered successfully.
           <br />
           You will be redirected in few seconds...
         </p>
       )}
-      {registerError && (
+      {registerError !== "" && (
         <p className="error-message error-message__password">{registerError}</p>
       )}
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";

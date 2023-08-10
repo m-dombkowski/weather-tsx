@@ -34,10 +34,15 @@ const SelectedCityDetails: React.FC = () => {
     if (!cityCurrentData) {
       navigate("/");
     }
-  }, []);
+  }, [cityCurrentData, navigate]);
 
   useEffect(() => {
-    if (selectedCityData && lowest && highest) {
+    if (
+      selectedCityData &&
+      !Number.isNaN(lowest) &&
+      lowest !== 0 &&
+      highest != null
+    ) {
       for (const { main } of selectedCityData.list) {
         if (main.temp_min < lowest) {
           setLowest(main.temp_min);
@@ -100,7 +105,7 @@ const SelectedCityDetails: React.FC = () => {
                 prefix="fas"
                 iconName="temperature-full"
               />
-              {highest && (
+              {highest != null && (
                 <AirPollutionBlock
                   data={Math.round(highest) + "°C"}
                   title="Max temp"
@@ -109,7 +114,7 @@ const SelectedCityDetails: React.FC = () => {
                   iconName="temperature-arrow-up"
                 />
               )}
-              {lowest && (
+              {lowest !== 0 && (
                 <AirPollutionBlock
                   data={Math.round(lowest) + "°C"}
                   title="Min temp"

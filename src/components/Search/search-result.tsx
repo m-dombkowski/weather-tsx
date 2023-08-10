@@ -1,5 +1,11 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import "./search-result.css";
 import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
@@ -26,48 +32,49 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
   const dispatch = useAppDispatch();
   const errMsg = useAppSelector((state) => state.errorMessage.errorMessage);
 
-  const getCityDataByName = async (
-    cityQuery: string,
-    limit: string,
-    apiKey: string
-  ) => {
-    try {
-      if (validateSearchInput(cityQuery)) {
-        const axiosResponse = await axios(
-          `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
-        ).catch(({ response }) => {
-          if (response.status >= 400) {
-            setIsLoading(false);
-            throw new Error(
-              "There has been a problem with a request, please try again"
-            );
-          }
-          return;
-        });
-        setIsLoading(false);
-        const data = axiosResponse?.data;
-        return data;
-      } else {
-        setIsLoading(false);
-        dispatch(setSelectedCity(undefined));
-        throw new Error("Don't be like that buddy, use only letters.");
+  const getCityDataByName = useCallback(
+    async (cityQuery: string, limit: string, apiKey: string) => {
+      try {
+        if (validateSearchInput(cityQuery)) {
+          const axiosResponse = await axios(
+            `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+          ).catch(({ response }) => {
+            if (response.status >= 400) {
+              setIsLoading(false);
+              throw new Error(
+                "There has been a problem with a request, please try again"
+              );
+            }
+            return;
+          });
+          setIsLoading(false);
+          const data = axiosResponse?.data;
+          console.log("odpalam");
+          return data;
+        } else {
+          setIsLoading(false);
+          dispatch(setSelectedCity(undefined));
+          throw new Error("Don't be like that buddy, use only letters.");
+        }
+      } catch (err: unknown) {
+        if (err instanceof Error) dispatch(setError(err.message));
       }
-    } catch (err: any) {
-      dispatch(setError(err.message));
-    }
-  };
+    },
+    [baseURL, dispatch]
+  );
 
   useEffect(() => {
     const setSearchData = async () => {
       dispatch(setError(""));
       dispatch(setSelectedCity(undefined));
-
+      console.log("jazda");
       try {
-        if (!debounceSearchTerm) {
+        if (debounceSearchTerm !== "") {
           setIsLoading(false);
           setCitiesSearchResult([]);
         } else {
           const data = await getCityDataByName(debounceSearchTerm, "5", apiKey);
+          // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
           if (!data) {
             return;
           }
@@ -79,18 +86,19 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           }
           setCitiesSearchResult(data);
         }
-      } catch (err: any) {
-        dispatch(setError(err.message));
+      } catch (err: unknown) {
+        if (err instanceof Error) dispatch(setError(err.message));
       }
     };
     setSearchData();
-  }, [debounceSearchTerm]);
+  }, [apiKey, debounceSearchTerm, dispatch, getCityDataByName]);
 
   const onClickHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const buttonValue = (event.target as HTMLInputElement)?.value;
     const tabIndex = (event.target as HTMLInputElement)?.tabIndex;
     for (const cityIndex in citiesSearchResult) {
       const cityData = citiesSearchResult[cityIndex];
+
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
         axios(
           `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&cnt=9&appid=${apiKey}&units=metric`
@@ -128,7 +136,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
         <div className="fetching-message">Fetching data, please standby...</div>
       )}
       <div className="search-result-container">
-        {!isLoading && errMsg && (
+        {!isLoading && errMsg !== "" && (
           <div className="fetching-message">{errMsg}</div>
         )}
         {citiesSearchResult?.length > 0 && !isLoading && (
@@ -141,12 +149,11 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
                   onClick={onClickHandler}
                   className="search-result-city-btn"
                   title={`${element.name}, ${element.country}. ${
-                    element.state ? element.state : ""
+                    element.state ?? ""
                   }`}
                 >
                   <span>
-                    {element.name}, {element.country}.{" "}
-                    {element.state && element.state}
+                    {element.name}, {element.country}. {element.state ?? ""}
                   </span>
                 </button>
               </li>

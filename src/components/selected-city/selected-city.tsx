@@ -37,10 +37,7 @@ const SelectedCity: React.FC = () => {
   const detailedForecastOnClick = () => {
     navigate(`/city/${cityData?.city.id}`);
   };
-
-  useEffect(() => {
-    console.log(cityData);
-  });
+  console.log(cityData);
 
   return (
     <>
@@ -57,7 +54,7 @@ const SelectedCity: React.FC = () => {
               <div
                 onClick={addToFavoriteHandler}
                 className={
-                  !isAlreadyInFavorites
+                  isAlreadyInFavorites === false
                     ? "heart-like-button"
                     : "heart-like-button liked"
                 }

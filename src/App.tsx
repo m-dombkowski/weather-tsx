@@ -42,7 +42,7 @@ function App() {
   );
 
   const selectedCityData = useAppSelector(
-    (state: { selectedCity: { selectedCity: any } }) =>
+    (state: { selectedCity: { selectedCity: unknown } }) =>
       state.selectedCity.selectedCity
   );
   return (

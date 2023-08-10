@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState, useRef } from "react";
 import SearchResult from "./search-result";
 import "./search-bar.css";
@@ -13,7 +14,7 @@ const SearchBar: React.FC = () => {
 
     const infoWindow = document.querySelector(".info-window");
 
-    infoWindow?.classList.contains("active")
+    infoWindow?.classList.contains("active") ?? false
       ? infoWindow?.classList.remove("active")
       : infoWindow?.classList.add("active");
   };
