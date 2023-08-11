@@ -59,7 +59,7 @@ function App() {
             <>
               <Sidebar />
               <SearchBar />
-              {selectedCityData && <SelectedCity />}
+              {selectedCityData != null && <SelectedCity />}
             </>
           }
         />

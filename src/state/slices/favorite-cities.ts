@@ -4,7 +4,7 @@ import { CityForecastInterface } from "..";
 
 // Define a type/interface for the slice state
 interface FavCitiesState {
-  favoriteCities: CityForecastInterface[] | [] | any;
+  favoriteCities: CityForecastInterface[] | [] | undefined | never;
 }
 
 // Define the initial state using that type
@@ -20,28 +20,31 @@ export const citiesSlice = createSlice({
       state,
       action: PayloadAction<CityForecastInterface | undefined>
     ) => {
-      if (state.favoriteCities.length > 0) {
-        const isAlreadyInFavorites = state.favoriteCities.find(
-          (selectedCity: CityForecastInterface) =>
-            selectedCity.city.id === action.payload?.city.id
-        );
+      if (state.favoriteCities && state.favoriteCities.length > 0) {
+        const isAlreadyInFavorites: object | undefined =
+          state.favoriteCities.find(
+            (selectedCity: CityForecastInterface) =>
+              selectedCity.city.id === action.payload?.city.id
+          );
         if (!isAlreadyInFavorites) {
-          state.favoriteCities.push(action.payload);
+          state.favoriteCities.push(action.payload as never);
         }
         return;
-      } else {
-        state.favoriteCities.push(action.payload);
+      } else if (state.favoriteCities) {
+        state.favoriteCities.push(action.payload as never);
       }
     },
     removeFromFavorites: (
       state,
       action: PayloadAction<CityForecastInterface | undefined>
     ) => {
-      let filtered = state.favoriteCities.filter(
-        (city: CityForecastInterface) =>
-          city.city.id !== action.payload?.city.id
-      );
-      state.favoriteCities = filtered;
+      if (state.favoriteCities) {
+        const filtered = state.favoriteCities.filter(
+          (city: CityForecastInterface) =>
+            city.city.id !== action.payload?.city.id
+        );
+        state.favoriteCities = filtered;
+      }
     },
   },
 });

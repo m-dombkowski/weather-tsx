@@ -1,13 +1,14 @@
 {
   "root": true,
+
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended"
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": { "project": ["./tsconfig.json"] },
+  "parserOptions": { "project": ["./tsconfig.eslint.json"] },
   "plugins": ["@typescript-eslint", "react-hooks", "react"],
   "rules": {
     "@typescript-eslint/strict-boolean-expressions": [
@@ -17,8 +18,11 @@
         "allowNumber": false
       }
     ],
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "off",
     "react/prop-types": "off",
     "react/jsx-uses-vars": "error",
+
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off"
   },

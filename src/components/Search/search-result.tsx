@@ -67,9 +67,9 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
     const setSearchData = async () => {
       dispatch(setError(""));
       dispatch(setSelectedCity(undefined));
-      console.log("jazda");
+
       try {
-        if (debounceSearchTerm !== "") {
+        if (debounceSearchTerm === "") {
           setIsLoading(false);
           setCitiesSearchResult([]);
         } else {
@@ -80,10 +80,12 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           }
           if (data.length <= 0) {
             setCitiesSearchResult([]);
+
             throw new Error(
               "There is no city matching your search. Please try again."
             );
           }
+
           setCitiesSearchResult(data);
         }
       } catch (err: unknown) {

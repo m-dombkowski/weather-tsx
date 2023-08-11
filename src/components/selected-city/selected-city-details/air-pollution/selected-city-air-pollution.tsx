@@ -9,7 +9,8 @@ interface SelectedCityAirPollutionProps {
 const SelectedCityAirPollution = forwardRef<
   HTMLDivElement,
   SelectedCityAirPollutionProps
->((props, ref) => {
+>(function CityAirPollution(props, ref) {
+  
   const airPollution = useAppSelector(
     (state) => state.airPollution.airPollution
   );

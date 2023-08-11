@@ -21,11 +21,11 @@ export const selectedCitySlice = createSlice({
       state,
       action: PayloadAction<CityForecastInterface | undefined>
     ) => {
-      let selectedCityData = action.payload;
+      const selectedCityData = action.payload;
       state.selectedCity = selectedCityData;
     },
     setSelectedCityName: (state, action: PayloadAction<string>) => {
-      let properCityName = action.payload;
+      const properCityName = action.payload;
       if (state.selectedCity) {
         state.selectedCity.city.name = properCityName;
       }

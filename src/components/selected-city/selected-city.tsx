@@ -6,7 +6,7 @@ import {
 import "./selected-city.css";
 import { convertUnixToTime } from "../../helpers";
 import { CityForecastInterface } from "../../state";
-import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const SelectedCity: React.FC = () => {
@@ -14,7 +14,7 @@ const SelectedCity: React.FC = () => {
 
   const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
 
-  const isAlreadyInFavorites = cityList.find(
+  const isAlreadyInFavorites: object | undefined = cityList?.find(
     (selectedCity: CityForecastInterface) =>
       selectedCity.city.id === cityData?.city.id
   );
@@ -37,7 +37,6 @@ const SelectedCity: React.FC = () => {
   const detailedForecastOnClick = () => {
     navigate(`/city/${cityData?.city.id}`);
   };
-  console.log(cityData);
 
   return (
     <>
@@ -54,7 +53,7 @@ const SelectedCity: React.FC = () => {
               <div
                 onClick={addToFavoriteHandler}
                 className={
-                  isAlreadyInFavorites === false
+                  isAlreadyInFavorites === undefined
                     ? "heart-like-button"
                     : "heart-like-button liked"
                 }

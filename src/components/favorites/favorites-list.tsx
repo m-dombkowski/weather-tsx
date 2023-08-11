@@ -11,7 +11,7 @@ const FavoriteList: React.FC = () => {
 
   return (
     <div>
-      {citiesList.length > 0 && (
+      {citiesList != undefined && citiesList.length > 0 && (
         <ul className="city-list">
           {citiesList.map((city: CityForecastInterface, index: number) => (
             <li
@@ -39,7 +39,7 @@ const FavoriteList: React.FC = () => {
           ))}
         </ul>
       )}
-      {citiesList.length === 0 && (
+      {citiesList != undefined && citiesList.length === 0 && (
         <p className="city-list-description no-city">Your list is empty.</p>
       )}
     </div>

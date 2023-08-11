@@ -37,12 +37,7 @@ const SelectedCityDetails: React.FC = () => {
   }, [cityCurrentData, navigate]);
 
   useEffect(() => {
-    if (
-      selectedCityData &&
-      !Number.isNaN(lowest) &&
-      lowest !== 0 &&
-      highest != null
-    ) {
+    if (selectedCityData && lowest != null && highest != null) {
       for (const { main } of selectedCityData.list) {
         if (main.temp_min < lowest) {
           setLowest(main.temp_min);
@@ -51,6 +46,12 @@ const SelectedCityDetails: React.FC = () => {
           setHighest(main.temp_max);
         }
       }
+      console.log(
+        convertUnixToTime(selectedCityData.city.sunset, selectedCityData)
+      );
+      console.log(
+        convertUnixToTime(selectedCityData.city.sunrise, selectedCityData)
+      );
     }
   }, [selectedCityData, lowest, highest]);
 
@@ -114,7 +115,7 @@ const SelectedCityDetails: React.FC = () => {
                   iconName="temperature-arrow-up"
                 />
               )}
-              {lowest !== 0 && (
+              {lowest != null && (
                 <AirPollutionBlock
                   data={Math.round(lowest) + "°C"}
                   title="Min temp"

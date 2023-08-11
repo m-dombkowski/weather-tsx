@@ -30,7 +30,7 @@ const AirPollutionBlock: React.FC<AirPollutionBlockProps> = ({
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100px",
+        height: "130px",
         width: "120px",
         justifyContent: "center",
         padding: "20px 30px",
@@ -39,17 +39,27 @@ const AirPollutionBlock: React.FC<AirPollutionBlockProps> = ({
         gap: "10px",
       }}
       title={
-        cutDescription && typeof data === "string" ? "Location: " + data : title
+        cutDescription === true && typeof data === "string"
+          ? "Location: " + data
+          : title
       }
     >
-      {iconSize && prefix && iconName && (
+      {iconSize != null && prefix != null && iconName != null && (
         <FontAwesomeIcon size={iconSize} icon={[prefix, iconName]} />
       )}
-      {svgSrc && <img src={svgSrc} alt="icon of arrow" />}
-      {!cutDescription ? (
+      {svgSrc != null && <img src={svgSrc} alt="icon of arrow" />}
+      {cutDescription === false ? (
         <p>{data}</p>
       ) : (
-        <p style={{ textOverflow: "ellipsis", overflow: "hidden" }}>{data}</p>
+        <p
+          style={
+            cutDescription === true
+              ? { textOverflow: "ellipsis", overflow: "hidden" }
+              : undefined
+          }
+        >
+          {data}
+        </p>
       )}
       {/* <p>{data}</p> */}
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { aqiChecker, pollutionChecker } from "../..";
 
 interface SingleAirPollutionProps {
@@ -18,7 +18,7 @@ const SingleAirPollution: React.FC<SingleAirPollutionProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const qualityChecker = () => {
+  const qualityChecker = useCallback(() => {
     if (ref.current) {
       switch (qualityCheckerValue) {
         case "AQI":
@@ -82,10 +82,10 @@ const SingleAirPollution: React.FC<SingleAirPollutionProps> = ({
           console.log("nie ma");
       }
     }
-  };
+  }, [qualityCheckerValue, value]);
   useEffect(() => {
     qualityChecker();
-  }, []);
+  }, [qualityChecker]);
   return (
     <div
       style={{
@@ -99,13 +99,13 @@ const SingleAirPollution: React.FC<SingleAirPollutionProps> = ({
       title={title}
       ref={ref}
     >
-      {!sub && (
+      {sub == null && (
         <>
           <p>{name}</p>
           <span>{value}</span>
         </>
       )}
-      {sub && (
+      {sub != null && (
         <>
           <p>
             {name}

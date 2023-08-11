@@ -16,15 +16,17 @@ export const convertUnixToTime = (
       hour: "2-digit",
       minute: "2-digit",
       day: "2-digit",
-      month: "long",
+      month: "2-digit",
     })
-    .replace(" at", "");
+    .replace(" at", "")
+    .replace("/", ".");
 
   return formattedDate;
 };
 
 export const validateSearchInput = (input: string): boolean => {
   const regex = /^[a-zA-Z\s]*$/;
+  console.log(regex.test(input));
   return regex.test(input);
 };
 
