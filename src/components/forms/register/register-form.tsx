@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";
-import { floatingLabels } from "../../../helpers";
+import { floatingLabels } from "../../../utils";
 import { CSSTransition } from "react-transition-group";
 import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
 import mountainPhoto from "../../../assets/mountain-near-green-tress-at-night.jpg";

@@ -26,5 +26,10 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off"
   },
-  "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+  "ignorePatterns": [
+    "src/**/*.test.ts",
+    "src/frontend/generated/*",
+    "tailwind.config.js",
+    "postcss.config.js"
+  ]
 }

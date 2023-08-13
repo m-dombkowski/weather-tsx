@@ -20,16 +20,16 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="search-container">
-      <div className="search-info-container">
+    <div className="fixed top-5 left-1/4 flex justify-center items-end">
+      <div className="flex gap-5 items-center justify-center">
         <input
           onChange={(event) => setSearchInput(event.target.value)}
-          className="search-bar"
+          className="py-3 px-6 min-w-[300px]"
           type="search"
           placeholder="Search for a city"
         />
 
-        <button className="show-info-button" onClick={toggleInfoHandler}>
+        <button className="rounded-full" onClick={toggleInfoHandler}>
           {" "}
           i{" "}
         </button>
@@ -42,8 +42,11 @@ const SearchBar: React.FC = () => {
           onEnter={() => setShowInfo(true)}
           onExited={() => setShowInfo(false)}
         >
-          <div ref={nodeRef} className="info-window">
-            <p>
+          <div
+            ref={nodeRef}
+            className="info-window max-w-[500px] py-2 px-7 mx-auto my-0 border-solid border-[#666eff] border-2 rounded-xl absolute top-0 cursor-default bg-[#3b3b3b]  text-white transition-all duration-500 "
+          >
+            <p className="text-base text-justify">
               If you want to make sure your search is as precise as possible you
               can add name of the state and/or country that the city you are
               searching for is located in. Example: "Chicago,Illinois,US" or

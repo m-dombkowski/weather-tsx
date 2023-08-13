@@ -4,7 +4,7 @@ import {
   removeFromFavorites,
 } from "../../state/slices/favorite-cities";
 import "./selected-city.css";
-import { convertUnixToTime } from "../../helpers";
+import { convertUnixToTime } from "../../utils";
 import { CityForecastInterface } from "../../state";
 
 import { useNavigate } from "react-router-dom";

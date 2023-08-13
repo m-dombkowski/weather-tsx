@@ -15,7 +15,7 @@ import {
   setSelectedCityName,
 } from "../../state/slices/selected-city";
 import { setError } from "../../state/slices/errors";
-import { validateSearchInput } from "../../helpers";
+import { validateSearchInput } from "../../utils";
 import { setSelectedCityAirPollution } from "../../state/slices/air-pollution";
 
 interface SearchResultProps {

@@ -1,10 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import RegisterForm from "./components/forms/register/register-form";
-import SearchBar from "./components/search/search-bar";
-import SelectedCity from "./components/selected-city/selected-city";
-import Sidebar from "./components/sidebar/sidebar";
-import { useAppSelector } from "./hooks/rtk-hooks";
+
 import ErrorBoundary from "./components/errorBoundary/errorBoundary";
 import {
   faLock,
@@ -22,7 +18,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import SelectedCityDetails from "./components/selected-city/selected-city-details/selected-city-details";
+import SelectedCityDetailsPage from "./pages/selected-city-details";
+import RegisterFormPage from "./pages/register-page";
+import MainPage from "./pages/main-page";
 
 function App() {
   library.add(
@@ -41,29 +39,16 @@ function App() {
     faCloudRain
   );
 
-  const selectedCityData = useAppSelector(
-    (state: { selectedCity: { selectedCity: unknown } }) =>
-      state.selectedCity.selectedCity
-  );
   return (
     <div className="App">
       <Routes>
         <Route
           path="register"
-          element={<RegisterForm />}
+          element={<RegisterFormPage />}
           errorElement={<ErrorBoundary />}
         />
-        <Route
-          path="/"
-          element={
-            <>
-              <Sidebar />
-              <SearchBar />
-              {selectedCityData != null && <SelectedCity />}
-            </>
-          }
-        />
-        <Route path="/city/:cityId" element={<SelectedCityDetails />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/city/:cityId" element={<SelectedCityDetailsPage />} />
       </Routes>
     </div>
   );

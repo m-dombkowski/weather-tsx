@@ -26,29 +26,18 @@
 }
 
 .info-window {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 10px 30px;
-  border: 3px solid #666eff;
-  border-radius: 15px;
-  position: absolute;
-  color: #000;
-  background: #666666;
-  transition: all 0.5s;
-  cursor: default;
-  top: 0;
   opacity: 0.2;
 }
 
-.info-window p {
+/* .info-window p {
   text-align: left;
   font-size: 14px;
   font-weight: 500;
-}
+} */
 
 .info-window-enter {
   right: -180%;
-  opacity: 1;
+  opacity: 0.2;
 }
 
 .info-window-enter-active {
