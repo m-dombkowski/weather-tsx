@@ -3,10 +3,17 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     minWidth: {
-      "300px": "300",
+      "300px": "300px",
     },
     maxWidth: {
-      "500px": "500",
+      "500px": "500px",
+    },
+    width: {
+      "296px": "296px",
+      "300px": "300px",
+    },
+    height: {
+      "50px": "50px",
     },
     borderWidth: {
       DEFAULT: "1px",
@@ -21,8 +28,9 @@ export default {
       colors: {
         blueishBorder: "#666eff",
         grayBg: "#666666",
+        darkGrayBg: "#313131",
+        veryDarkBg: "#1a1a1a",
       },
-
       backgroundColor: {
         dark: "#1a1a1a",
       },

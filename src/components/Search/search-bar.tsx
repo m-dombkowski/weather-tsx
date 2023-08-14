@@ -20,11 +20,11 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-5 left-1/4 flex justify-center items-end">
+    <div className="fixed top-5 left-1/4 flex flex-col justify-center items-start">
       <div className="flex gap-5 items-center justify-center">
         <input
           onChange={(event) => setSearchInput(event.target.value)}
-          className="py-3 px-6 min-w-[300px]"
+          className="py-3 px-6 min-w-300px"
           type="search"
           placeholder="Search for a city"
         />
@@ -44,7 +44,7 @@ const SearchBar: React.FC = () => {
         >
           <div
             ref={nodeRef}
-            className="info-window max-w-[500px] py-2 px-7 mx-auto my-0 border-solid border-[#666eff] border-2 rounded-xl absolute top-0 cursor-default bg-[#3b3b3b]  text-white transition-all duration-500 "
+            className="info-window max-w-500px py-2 px-7 mx-auto my-0 border-solid border-[#666eff] border-2 rounded-xl absolute top-0 cursor-default bg-[#3b3b3b]  text-white transition-all duration-500 "
           >
             <p className="text-base text-justify">
               If you want to make sure your search is as precise as possible you

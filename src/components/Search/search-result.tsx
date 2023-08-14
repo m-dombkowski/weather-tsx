@@ -135,26 +135,24 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
   return (
     <>
       {isLoading && (
-        <div className="fetching-message">Fetching data, please standby...</div>
+        <div className="mt-5 ml-5">Fetching data, please standby...</div>
       )}
-      <div className="search-result-container">
-        {!isLoading && errMsg !== "" && (
-          <div className="fetching-message">{errMsg}</div>
-        )}
+      <div>
+        {!isLoading && errMsg !== "" && <div className="mt-5">{errMsg}</div>}
         {citiesSearchResult?.length > 0 && !isLoading && (
-          <ul className="cities-search-result-list">
+          <ul className="list-none w-300px test [&>*:not(:last-child)]:border-b-0 ">
             {citiesSearchResult.map((element, index) => (
-              <li className="cities-search-result" key={index}>
+              <li className="border-solid border-2 border-black" key={index}>
                 <button
                   tabIndex={index}
                   value={element.name}
                   onClick={onClickHandler}
-                  className="search-result-city-btn"
+                  className="hover:border-transparent hover:bg-veryDarkBg focus:outline-none w-296px h-50px rounded-none bg-darkGrayBg overflow-hidden transition-all duration-300 "
                   title={`${element.name}, ${element.country}. ${
                     element.state ?? ""
                   }`}
                 >
-                  <span>
+                  <span className="whitespace-nowrap text-ellipsis overflow-hidden inline-block pointer-events-none w-9/12">
                     {element.name}, {element.country}. {element.state ?? ""}
                   </span>
                 </button>

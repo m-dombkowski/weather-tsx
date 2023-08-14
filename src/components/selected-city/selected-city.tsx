@@ -41,8 +41,8 @@ const SelectedCity: React.FC = () => {
   return (
     <>
       {cityData && (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div className="selected-city-container">
+        <div className="flex flex-col">
+          <div className="selected-city-container flex justify-center items-center gap-2.5">
             <span>{cityData.city.name}</span>
             <span>{Math.round(cityData.list[0].main.temp)}°C</span>
             <img

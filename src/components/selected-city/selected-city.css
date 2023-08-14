@@ -2,13 +2,6 @@
   margin-left: auto;
 }
 
-.selected-city-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
 .heart-like-button {
   position: relative;
   width: 75px;
