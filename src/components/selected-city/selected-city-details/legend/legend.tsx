@@ -5,7 +5,7 @@ import legends from "./index";
 const Legend: React.FC = () => {
   return (
     <>
-      <h2 style={{ marginBottom: "20px" }}>Legend:</h2>
+      <h2 className="mb-8 text-2xl uppercase font-bold">Legend</h2>
       <LegendColorBlock />
       {legends.map((legendBlock, index) => (
         <LegendBlock

@@ -9,32 +9,14 @@ const colorsArray = [
 const LegendColorBlock: React.FC = () => {
   return (
     <>
-      <h3 style={{ marginBottom: "20px" }}>Colors:</h3>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginBottom: "20px",
-          gap: "10px",
-        }}
-      >
+      <h3 className="mb-5 text-xl font-bold">Colors:</h3>
+      <div className="flex flex-col gap-4 justify-center">
         {colorsArray.map((color, index) => (
-          <span
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-              width: "80%",
-              justifyContent: "space-between",
-            }}
-            key={index}
-          >
+          <span className="flex justify-between" key={index}>
             {color.name}:
             <div
+              className="block rounded-full basis-6 mr-5"
               style={{
-                width: "20px",
-                height: "20px",
-                borderRadius: "50%",
                 backgroundColor: color.hexCode,
               }}
             ></div>
@@ -46,29 +28,3 @@ const LegendColorBlock: React.FC = () => {
 };
 
 export default LegendColorBlock;
-
-{
-  /* <span style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-Good:{" "}
-<div
-  style={{
-    width: "20px",
-    height: "20px",
-    borderRadius: "50%",
-    backgroundColor: pollutionColors.good,
-  }}
-></div>
-</span>
-<span>
-Fair: <div></div>
-</span>
-<span>
-Moderate: <div></div>
-</span>
-<span>
-Poor: <div></div>
-</span>
-<span>
-Very Poor: <div></div>
-</span> */
-}

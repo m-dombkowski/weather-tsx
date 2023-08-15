@@ -49,7 +49,7 @@ const SelectedCity: React.FC = () => {
               src={`http://openweathermap.org/img/wn/${cityData.list[0].weather[0].icon}@2x.png`}
             />
             <p>{convertUnixToTime(cityData.list[0].dt, cityData)}</p>
-            <div id="container">
+            <div className="ml-auto">
               <div
                 onClick={addToFavoriteHandler}
                 className={

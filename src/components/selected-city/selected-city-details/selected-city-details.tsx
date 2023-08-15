@@ -57,7 +57,7 @@ const SelectedCityDetails: React.FC = () => {
 
   return (
     <>
-      <div className="main-container" style={{ display: "flex", gap: "50px" }}>
+      <div className="main-container flex">
         <CSSTransition
           in={showLegend}
           nodeRef={ref}
@@ -67,7 +67,10 @@ const SelectedCityDetails: React.FC = () => {
           onEnter={() => setShowLegend(true)}
           onExited={() => setShowLegend(false)}
         >
-          <div ref={ref} className="legend">
+          <div
+            ref={ref}
+            className="text-left overflow-y-scroll absolute   width-[225px] max-h-[calc(100vh-64px)] legend"
+          >
             <Legend />
           </div>
         </CSSTransition>

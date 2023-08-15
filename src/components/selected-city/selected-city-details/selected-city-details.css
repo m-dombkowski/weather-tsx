@@ -12,14 +12,16 @@
 }
 
 .legend {
-  text-align: left;
+  /* text-align: left;
   overflow-y: scroll;
   max-height: calc(100vh - 64px);
   width: 225px;
-  transition: all 0.5s;
+  transition: all 0.5s; */
   opacity: 0.2;
-  position: absolute;
+
+  /* left: 0; */
   top: 3%;
+  transition: all 0.5s;
 }
 
 .legend.legend-enter ~ .air-pollution-data,
@@ -34,7 +36,7 @@
   opacity: 1;
 }
 
-.legend-enter-active {
+.legend-enter.legend-enter-active {
   left: 10%;
   opacity: 1;
 }

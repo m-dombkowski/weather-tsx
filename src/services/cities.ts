@@ -9,7 +9,7 @@ export const cityApi = createApi({
   }),
   endpoints: (builder) => ({
     getCityByName: builder.query<
-      Promise<>,
+      Promise<undefined>,
       { debounceSearchTerm?: string; apiKey: string }
     >({
       query: ({ debounceSearchTerm, apiKey }) =>

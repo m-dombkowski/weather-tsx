@@ -6,7 +6,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import "./search-result.css";
 import { Search } from ".";
 import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
 import useDebounce from "../../hooks/use-debounce";
@@ -147,7 +146,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
                   tabIndex={index}
                   value={element.name}
                   onClick={onClickHandler}
-                  className="hover:border-transparent hover:bg-veryDarkBg focus:outline-none w-296px h-50px rounded-none bg-darkGrayBg overflow-hidden transition-all duration-300 "
+                  className="hover:bg-[#1a1a1a] hover:border-transparent focus:outline-0 focus-visible:outline-0 active:bg-[#1a1a1a] w-296px h-50px rounded-none bg-[#313131] overflow-hidden transition-all duration-300"
                   title={`${element.name}, ${element.country}. ${
                     element.state ?? ""
                   }`}
