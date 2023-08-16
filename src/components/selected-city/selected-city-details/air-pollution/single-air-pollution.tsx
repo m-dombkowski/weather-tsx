@@ -88,14 +88,7 @@ const SingleAirPollution: React.FC<SingleAirPollutionProps> = ({
   }, [qualityChecker]);
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "20px 30px",
-        borderRadius: "8px",
-        background: "#1a1a1a",
-      }}
+      className="flex flex-col items-center justify-between py-5 px-7 rounded-xl bg-[#1a1a1a] text-[#333] text-bold w-100px"
       title={title}
       ref={ref}
     >

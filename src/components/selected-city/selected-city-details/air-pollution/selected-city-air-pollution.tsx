@@ -10,7 +10,6 @@ const SelectedCityAirPollution = forwardRef<
   HTMLDivElement,
   SelectedCityAirPollutionProps
 >(function CityAirPollution(props, ref) {
-  
   const airPollution = useAppSelector(
     (state) => state.airPollution.airPollution
   );
@@ -24,18 +23,12 @@ const SelectedCityAirPollution = forwardRef<
   return (
     <>
       {airPollutionData && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-          }}
-        >
-          <div style={{ display: "flex", gap: "20px" }}>
+        <div className="flex flex-col gap-5">
+          <div className="flex gap-5 items-center">
             <h2>Air pollution</h2>
             <button onClick={handleLegendVisibility}>i</button>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="flex justify-between items-center">
             <SingleAirPollution
               name="AQI"
               value={airPollutionData.main.aqi}

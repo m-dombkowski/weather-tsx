@@ -76,19 +76,14 @@ const SelectedCityDetails: React.FC = () => {
         </CSSTransition>
 
         {cityCurrentData && (
-          <div
-            className="air-pollution-data"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: "30px",
-            }}
-          >
-            <Link to={"/"} className="arrow-back-container">
+          <div className="air-pollution-data flex flex-col justify-center gap-8 transition duration-500">
+            <Link
+              to={"/"}
+              className="arrow-back-container mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
+            >
               <img src={arrowBackSvg} alt="icon of an arrow" />
             </Link>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="flex justify-between">
               <AirPollutionBlock
                 data={
                   selectedCityData.city.name +

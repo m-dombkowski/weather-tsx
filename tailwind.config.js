@@ -7,6 +7,7 @@ export default {
   ],
   theme: {
     minWidth: {
+      "120px": "120px",
       "300px": "300px",
     },
     maxWidth: {
@@ -14,6 +15,7 @@ export default {
     },
     width: {
       unset: "unset",
+      "100px": "100px",
       "120px": "120px",
       "225px": "225px",
       "296px": "296px",
@@ -54,6 +56,7 @@ export default {
       veryDarkBg: "#1a1a1a",
     },
     spacing: {
+      "-65": "65px",
       40: "40px",
       46: "46px",
       48: "48px",
