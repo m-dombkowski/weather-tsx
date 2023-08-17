@@ -16,7 +16,7 @@ const legendsObjects = [
       "21-80 = Fair",
       "81-250 = Moderate",
       "251-350 = Poor",
-      "351+ = Very Poor",
+      ">350 = Very Poor",
     ],
   },
   {
@@ -66,7 +66,7 @@ const legendsObjects = [
       "4401-9400 = Fair",
       "9401-12400 = Moderate",
       "12401-15400 = Poor",
-      "15400+ = Very Poor",
+      ">15400 = Very Poor",
     ],
   },
 ];

@@ -57,7 +57,7 @@ const SelectedCityDetails: React.FC = () => {
 
   return (
     <>
-      <div className="main-container flex">
+      <div className="main-container flex justify-center items-center">
         <CSSTransition
           in={showLegend}
           nodeRef={ref}
@@ -69,17 +69,17 @@ const SelectedCityDetails: React.FC = () => {
         >
           <div
             ref={ref}
-            className="text-left overflow-y-scroll absolute   width-[225px] max-h-[calc(100vh-64px)] legend"
+            className="flex flex-col text-left overflow-y-scroll absolute max-h-[95vh] legend"
           >
             <Legend />
           </div>
         </CSSTransition>
 
         {cityCurrentData && (
-          <div className="air-pollution-data flex flex-col justify-center gap-8 transition duration-500">
+          <div className="air-pollution-data relative flex flex-col justify-center gap-8 transition duration-500">
             <Link
               to={"/"}
-              className="arrow-back-container mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
+              className="arrow-back absolute top-0 left-0 mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
             >
               <img src={arrowBackSvg} alt="icon of an arrow" />
             </Link>
@@ -131,7 +131,7 @@ const SelectedCityDetails: React.FC = () => {
                 iconName="clock"
               />
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="flex justify-between">
               <AirPollutionBlock
                 data={cityCurrentData.main.humidity + "%"}
                 title="Humidity"
@@ -175,7 +175,7 @@ const SelectedCityDetails: React.FC = () => {
               />
             </div>
             <SelectedCityAirPollution ref={ref} toggleLegend={setShowLegend} />
-            <div style={{ display: "flex" }}>
+            <div className="flex">
               <div>
                 <SelectedCityChart cityData={selectedCityData} />
               </div>

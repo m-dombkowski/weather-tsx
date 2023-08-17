@@ -9,6 +9,7 @@
 .legend.legend-active ~ .air-pollution-data,
 .legend.legend-enter-done ~ .air-pollution-data {
   transform: translateX(10%);
+  -webkit-transform: translateX(10%);
 }
 
 .legend-enter {
