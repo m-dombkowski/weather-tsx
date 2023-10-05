@@ -13,6 +13,7 @@ import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
 import sunsetSvg from "../../../assets/sunset-down-svgrepo-com.svg";
 import humiditySvg from "../../../assets/humidity-svgrepo-com.svg";
 import SelectedCityAirPollution from "./air-pollution/selected-city-air-pollution";
+import SelectedCityForecast from "./selected-city-forecast";
 
 const SelectedCityDetails: React.FC = () => {
   const selectedCityData = useAppSelector(
@@ -37,6 +38,7 @@ const SelectedCityDetails: React.FC = () => {
   }, [cityCurrentData, navigate]);
 
   useEffect(() => {
+    console.log(selectedCityData);
     if (selectedCityData && lowest != null && highest != null) {
       for (const { main } of selectedCityData.list) {
         if (main.temp_min < lowest) {
@@ -46,14 +48,8 @@ const SelectedCityDetails: React.FC = () => {
           setHighest(main.temp_max);
         }
       }
-      console.log(
-        convertUnixToTime(selectedCityData.city.sunset, selectedCityData)
-      );
-      console.log(
-        convertUnixToTime(selectedCityData.city.sunrise, selectedCityData)
-      );
     }
-  }, [selectedCityData, lowest, highest]);
+  }, [selectedCityData, lowest, highest, cityCurrentData]);
 
   return (
     <>
@@ -79,7 +75,7 @@ const SelectedCityDetails: React.FC = () => {
           <div className="air-pollution-data flex flex-col justify-center gap-8 transition duration-500">
             <Link
               to={"/"}
-              className="arrow-back-container mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
+              className="arrow-back-container absolute top-0 mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
             >
               <img src={arrowBackSvg} alt="icon of an arrow" />
             </Link>
@@ -175,10 +171,9 @@ const SelectedCityDetails: React.FC = () => {
               />
             </div>
             <SelectedCityAirPollution ref={ref} toggleLegend={setShowLegend} />
-            <div style={{ display: "flex" }}>
-              <div>
-                <SelectedCityChart cityData={selectedCityData} />
-              </div>
+            <div className="flex w-[900px] overflow-x-scroll border-4 border-[#3498DB] rounded-xl">
+              <SelectedCityForecast cityData={selectedCityData} />
+              {/* <SelectedCityChart cityData={selectedCityData} /> */}
             </div>
           </div>
         )}

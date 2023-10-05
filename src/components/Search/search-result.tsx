@@ -102,7 +102,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
 
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
         axios(
-          `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&cnt=9&appid=${apiKey}&units=metric`
+          `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
         )
           .then(({ data }) => {
             dispatch(setSelectedCity(data));
