@@ -60,9 +60,9 @@ const SelectedCityChart: React.FC<ChartProps> = ({ cityData }) => {
   };
 
   return (
-    <div className="chart-container">
+    <>
       <Line data={data} options={options} height={450} width={900} />
-    </div>
+    </>
   );
 };
 

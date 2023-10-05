@@ -24,6 +24,7 @@ export default {
     },
     height: {
       "50px": "50px",
+      "95vh": "95vh",
       "100vh": "100vh",
     },
     borderWidth: {

@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { convertUnixToTime } from "../../../utils";
 import { useAppSelector } from "../../../hooks/rtk-hooks";
-import SelectedCityChart from "./selected-city-chart";
 import { useEffect, useRef, useState } from "react";
 import Legend from "./legend/legend";
 import "./selected-city-details.css";
@@ -53,7 +52,7 @@ const SelectedCityDetails: React.FC = () => {
 
   return (
     <>
-      <div className="main-container flex">
+      <div className="main-container flex justify-center items-center">
         <CSSTransition
           in={showLegend}
           nodeRef={ref}
@@ -65,14 +64,14 @@ const SelectedCityDetails: React.FC = () => {
         >
           <div
             ref={ref}
-            className="text-left overflow-y-scroll absolute   width-[225px] max-h-[calc(100vh-64px)] legend"
+            className="flex flex-col text-left overflow-y-scroll absolute max-h-[95vh] legend"
           >
             <Legend />
           </div>
         </CSSTransition>
 
         {cityCurrentData && (
-          <div className="air-pollution-data flex flex-col justify-center gap-8 transition duration-500">
+          <div className="air-pollution-data relative flex flex-col justify-center gap-8 transition duration-500">
             <Link
               to={"/"}
               className="arrow-back-container absolute top-0 mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
@@ -127,7 +126,7 @@ const SelectedCityDetails: React.FC = () => {
                 iconName="clock"
               />
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="flex justify-between">
               <AirPollutionBlock
                 data={cityCurrentData.main.humidity + "%"}
                 title="Humidity"
