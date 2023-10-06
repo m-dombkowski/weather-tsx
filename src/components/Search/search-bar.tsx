@@ -21,7 +21,7 @@ const SearchBar: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-start items-start relative mt-5 ml-10">
+      <div className="flex flex-col justify-start items-start relative ">
         <div className="flex gap-5 items-center justify-center">
           <input
             onChange={(event) => setSearchInput(event.target.value)}

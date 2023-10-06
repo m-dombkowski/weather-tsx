@@ -10,11 +10,13 @@ const MainPage: React.FC = () => {
   );
 
   return (
-    <main className="flex justify-start">
+    <section className="fixed top-0 left-0 flex justify-center align-center">
       <Sidebar />
-      <SearchBar />
-      {selectedCityData != null && <SelectedCity />}
-    </main>
+      <div className="mt-5 ml-10">
+        <SearchBar />
+        {selectedCityData != null && <SelectedCity />}
+      </div>
+    </section>
   );
 };
 

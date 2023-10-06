@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 
 import ErrorBoundary from "./components/errorBoundary/errorBoundary";
 import {
@@ -42,7 +41,7 @@ function App() {
   );
 
   return (
-    <>
+    <main className="flex">
       <Routes>
         <Route
           path="register"
@@ -52,7 +51,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/city/:cityId" element={<SelectedCityDetailsPage />} />
       </Routes>
-    </>
+    </main>
   );
 }
 
