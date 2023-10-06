@@ -21,7 +21,7 @@ export const selectedCityAirPollutionSlice = createSlice({
       state,
       action: PayloadAction<AirPollutionInterface | undefined>
     ) => {
-      let data = action.payload;
+      const data = action.payload;
       state.airPollution = data;
     },
   },
