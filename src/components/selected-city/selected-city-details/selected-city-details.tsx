@@ -52,7 +52,7 @@ const SelectedCityDetails: React.FC = () => {
 
   return (
     <>
-      <div className="main-container flex justify-center items-center">
+      <div className="main-container flex justify-center items-center max-w-[900px]">
         <CSSTransition
           in={showLegend}
           nodeRef={ref}
@@ -71,14 +71,14 @@ const SelectedCityDetails: React.FC = () => {
         </CSSTransition>
 
         {cityCurrentData && (
-          <div className="air-pollution-data relative flex flex-col justify-center gap-8 transition duration-500">
+          <div className="air-pollution-data relative flex flex-col justify-center gap-8 transition duration-500 max-w-[900px]">
             <Link
               to={"/"}
               className="arrow-back-container absolute top-0 mr-auto ml-[-65px] rounded-full py-1 px-1 transition-all duration-300 hover:bg-[#5a5a5a]"
             >
               <img src={arrowBackSvg} alt="icon of an arrow" />
             </Link>
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-wrap gap-6">
               <AirPollutionBlock
                 data={
                   selectedCityData.city.name +
@@ -91,7 +91,6 @@ const SelectedCityDetails: React.FC = () => {
                 iconName="location-dot"
                 cutDescription={true}
               />
-
               <AirPollutionBlock
                 data={Math.round(cityCurrentData.main.temp) + "°C"}
                 title="Current Temp"
@@ -125,8 +124,7 @@ const SelectedCityDetails: React.FC = () => {
                 prefix="fas"
                 iconName="clock"
               />
-            </div>
-            <div className="flex justify-between">
+
               <AirPollutionBlock
                 data={cityCurrentData.main.humidity + "%"}
                 title="Humidity"

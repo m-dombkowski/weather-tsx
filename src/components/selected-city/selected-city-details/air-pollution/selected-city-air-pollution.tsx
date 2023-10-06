@@ -9,6 +9,7 @@ interface SelectedCityAirPollutionProps {
 const SelectedCityAirPollution = forwardRef<
   HTMLDivElement,
   SelectedCityAirPollutionProps
+  // eslint-disable-next-line no-unused-vars
 >(function CityAirPollution(props, ref) {
   const airPollution = useAppSelector(
     (state) => state.airPollution.airPollution

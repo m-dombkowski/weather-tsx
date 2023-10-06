@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/rtk-hooks";
-import { CityForecastInterface } from "../../state";
-import { removeFromFavorites } from "../../state/slices/favorite-cities";
-import { setSelectedCity } from "../../state/slices/selected-city";
+import { useAppDispatch, useAppSelector } from "../../../hooks/rtk-hooks";
+import { CityForecastInterface } from "../../../state";
+import { removeFromFavorites } from "../../../state/slices/favorite-cities";
+import { setSelectedCity } from "../../../state/slices/selected-city";
 
 const FavoriteList: React.FC = () => {
   const citiesList = useAppSelector((state) => state.cities.favoriteCities);
@@ -43,7 +43,7 @@ const FavoriteList: React.FC = () => {
         </ul>
       )}
       {citiesList != undefined && citiesList.length === 0 && (
-        <p className="mt-10">Your list is empty.</p>
+        <p className="mt-10 text-center">Your list is empty.</p>
       )}
     </div>
   );

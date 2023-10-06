@@ -42,7 +42,7 @@ function App() {
   );
 
   return (
-    <div className="App">
+    <>
       <Routes>
         <Route
           path="register"
@@ -52,7 +52,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/city/:cityId" element={<SelectedCityDetailsPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

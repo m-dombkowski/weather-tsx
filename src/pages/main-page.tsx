@@ -10,11 +10,11 @@ const MainPage: React.FC = () => {
   );
 
   return (
-    <>
+    <main className="flex justify-start">
       <Sidebar />
       <SearchBar />
       {selectedCityData != null && <SelectedCity />}
-    </>
+    </main>
   );
 };
 

@@ -27,7 +27,7 @@ const AirPollutionBlock: React.FC<AirPollutionBlockProps> = ({
 }) => {
   return (
     <div
-      className="flex flex-col  justify-center py-5 px-8 gap-4 bg-[#1a1a1a] basis-32 rounded-lg"
+      className="flex flex-col  justify-center py-5 px-8 gap-4 bg-[#1a1a1a] basis-32 rounded-lg text-center"
       title={
         cutDescription === true && typeof data === "string"
           ? "Location: " + data
