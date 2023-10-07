@@ -168,7 +168,7 @@ const SelectedCityDetails: React.FC = () => {
               />
             </div>
             <SelectedCityAirPollution ref={ref} toggleLegend={setShowLegend} />
-            <div className="flex w-[900px] overflow-x-scroll border-4 border-[#3498DB] rounded-xl">
+            <div className="flex w-[900px] overflow-x-scroll  rounded-xl bg-[#1a1a1a]">
               <SelectedCityForecast cityData={selectedCityData} />
               {/* <SelectedCityChart cityData={selectedCityData} /> */}
             </div>

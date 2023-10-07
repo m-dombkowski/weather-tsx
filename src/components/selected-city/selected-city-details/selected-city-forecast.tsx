@@ -7,7 +7,7 @@ interface ForecastProps {
 }
 const SelectedCityForecast: React.FC<ForecastProps> = ({ cityData }) => {
   return (
-    <div className="flex gap-[75px] p-[50px] pr-[60px] pl-[60px]">
+    <div className="flex gap-[80px] p-[50px] pr-[60px] pl-[60px] ">
       {cityData.list.map((object, index) => (
         <div key={index} className="flex flex-col justify-center items-center ">
           <p className="mb-[30px]">{convertUnixToTime(object.dt, cityData)}</p>

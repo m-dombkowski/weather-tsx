@@ -27,7 +27,9 @@ const SelectedCityAirPollution = forwardRef<
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 items-center">
             <h2>Air pollution</h2>
-            <button onClick={handleLegendVisibility}>i</button>
+            <button title="Toggle Legend" onClick={handleLegendVisibility}>
+              i
+            </button>
           </div>
           <div className="flex justify-between items-center">
             <SingleAirPollution

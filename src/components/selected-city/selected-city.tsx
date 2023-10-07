@@ -41,14 +41,16 @@ const SelectedCity: React.FC = () => {
   return (
     <>
       {cityData && (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-[100%] ml-[100%]">
           <div className="selected-city-container flex justify-center items-center gap-2.5">
             <span>{cityData.city.name}</span>
             <span>{Math.round(cityData.list[0].main.temp)}°C</span>
             <img
               src={`http://openweathermap.org/img/wn/${cityData.list[0].weather[0].icon}@2x.png`}
             />
-            <p>{convertUnixToTime(cityData.list[0].dt, cityData)}</p>
+            <p className="w-[50px]">
+              {convertUnixToTime(cityData.list[0].dt, cityData)}
+            </p>
             <div className="ml-auto">
               <div
                 onClick={addToFavoriteHandler}
@@ -61,7 +63,7 @@ const SelectedCity: React.FC = () => {
             </div>
           </div>
           <div>
-            <button onClick={detailedForecastOnClick}>
+            <button className="w-[150px]" onClick={detailedForecastOnClick}>
               Check detailed forecast
             </button>
           </div>
