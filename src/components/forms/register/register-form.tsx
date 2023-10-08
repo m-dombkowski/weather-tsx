@@ -7,9 +7,9 @@ import { CSSTransition } from "react-transition-group";
 import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
 import mountainPhoto from "../../../assets/mountain-near-green-tress-at-night.jpg";
 import RegisterMessage from "./register-message";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
-import { auth } from "../../../services/firebase/firebase-auth";
+// import { auth } from "../../../services/firebase/firebase-auth";
 import { handleSubmitError } from "./submit-error";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -141,24 +141,24 @@ const RegisterForm: React.FC = () => {
   const onSubmit = () => {
     setRegisterError(undefined);
     setIsLoggedIn(false);
-    if (emailRef.current && passwordRef.current) {
-      createUserWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-        .then((userCredential) => {
-          setIsLoggedIn(true);
-          const user = userCredential.user;
-          setTimeout(() => {
-            navigate("/");
-          }, 5000);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          setRegisterError(handleSubmitError(errorCode));
-        });
-    }
+    // if (emailRef.current && passwordRef.current) {
+    //   createUserWithEmailAndPassword(
+    //     auth,
+    //     emailRef.current.value,
+    //     passwordRef.current.value
+    //   )
+    //     .then((userCredential) => {
+    //       setIsLoggedIn(true);
+    //       const user = userCredential.user;
+    //       setTimeout(() => {
+    //         navigate("/");
+    //       }, 5000);
+    //     })
+    //     .catch((error) => {
+    //       const errorCode = error.code;
+    //       setRegisterError(handleSubmitError(errorCode));
+    //     });
+    // }
   };
 
   const onError = () => {

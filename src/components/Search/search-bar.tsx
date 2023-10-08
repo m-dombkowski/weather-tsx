@@ -3,13 +3,14 @@ import { useState, useRef } from "react";
 import SearchResult from "./search-result";
 import "./search-bar.css";
 import { CSSTransition } from "react-transition-group";
+import { supabase } from "../../services/supabase";
 
 const SearchBar: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const nodeRef = useRef(null);
 
-  const toggleInfoHandler = () => {
+  const toggleInfoHandler = async () => {
     setShowInfo((prevState) => !prevState);
 
     const infoWindow = document.querySelector(".info-window");
@@ -17,6 +18,10 @@ const SearchBar: React.FC = () => {
     infoWindow?.classList.contains("active") ?? false
       ? infoWindow?.classList.remove("active")
       : infoWindow?.classList.add("active");
+
+    const data = await supabase.from("favs").select("city_name");
+
+    console.log(data);
   };
 
   return (
