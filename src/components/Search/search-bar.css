@@ -9,21 +9,21 @@
 } */
 
 .info-window-enter {
-  right: -165%;
+  right: -185%;
   opacity: 0.2;
 }
 
 .info-window-enter-active {
-  right: -120%;
+  right: -145%;
   opacity: 1;
 }
 
 .info-window.active {
-  right: -145%;
+  right: -165%;
   opacity: 0;
 }
 
 .info-window-enter-done {
-  right: -120%;
+  right: -145%;
   opacity: 1;
 }
