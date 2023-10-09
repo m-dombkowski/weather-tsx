@@ -8,7 +8,7 @@ function useDebounce(
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
-    if (value) {
+    if (value.length > 0) {
       setIsLoading(true);
     }
     const handler = setTimeout(() => {
@@ -18,7 +18,7 @@ function useDebounce(
     return () => {
       clearTimeout(handler);
     };
-  }, [value, delay]);
+  }, [value, delay, setIsLoading]);
 
   return debouncedValue;
 }

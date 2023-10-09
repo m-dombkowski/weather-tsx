@@ -9,6 +9,7 @@ const SearchBar: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const nodeRef = useRef(null);
+  const [testState, setTestState] = useState();
 
   const toggleInfoHandler = async () => {
     setShowInfo((prevState) => !prevState);
@@ -19,9 +20,11 @@ const SearchBar: React.FC = () => {
       ? infoWindow?.classList.remove("active")
       : infoWindow?.classList.add("active");
 
-    const data = await supabase.from("favs").select("city_name");
-
-    console.log(data);
+    // const {
+    //   data: { user },
+    // } = await supabase.auth.getUser();
+    // let metadata = user?.user_metadata;
+    // console.log(metadata);
   };
 
   return (

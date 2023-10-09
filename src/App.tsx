@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import ErrorBoundary from "./components/errorBoundary/errorBoundary";
+import ErrorBoundary from "./components/error-boundry/error-boundry";
 import {
   faLock,
   fas,
@@ -21,6 +21,7 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import SelectedCityDetailsPage from "./pages/selected-city-details";
 import RegisterFormPage from "./pages/register-page";
 import MainPage from "./pages/main-page";
+import LoginForm from "./components/forms/login/login-form";
 
 function App() {
   library.add(
@@ -48,6 +49,7 @@ function App() {
           element={<RegisterFormPage />}
           errorElement={<ErrorBoundary />}
         />
+        <Route path="login" element={<LoginForm />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/city/:cityId" element={<SelectedCityDetailsPage />} />
       </Routes>

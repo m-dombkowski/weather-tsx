@@ -13,6 +13,7 @@ import "./register-form.css";
 import { handleSubmitError } from "./submit-error";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { supabase } from "../../../services/supabase";
 
 interface FormInputsInterface {
   email: string;
@@ -138,27 +139,41 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setRegisterError(undefined);
     setIsLoggedIn(false);
-    // if (emailRef.current && passwordRef.current) {
-    //   createUserWithEmailAndPassword(
-    //     auth,
-    //     emailRef.current.value,
-    //     passwordRef.current.value
-    //   )
-    //     .then((userCredential) => {
-    //       setIsLoggedIn(true);
-    //       const user = userCredential.user;
-    //       setTimeout(() => {
-    //         navigate("/");
-    //       }, 5000);
-    //     })
-    //     .catch((error) => {
-    //       const errorCode = error.code;
-    //       setRegisterError(handleSubmitError(errorCode));
-    //     });
-    // }
+    if (emailRef.current && passwordRef.current) {
+      const { data, error } = await supabase.auth.signUp({
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+      console.log(data, error);
+      if (error == null) {
+        setIsLoggedIn(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 5000);
+      } else {
+        setRegisterError(error.message);
+      }
+
+      // createUserWithEmailAndPassword(
+      //   auth,
+      //   emailRef.current.value,
+      //   passwordRef.current.value
+      // )
+      // .then((userCredential) => {
+      //   setIsLoggedIn(true);
+      //   const user = userCredential.user;
+      //   setTimeout(() => {
+      //     navigate("/");
+      //   }, 5000);
+      // })
+      // .catch((error) => {
+      //   const errorCode = error.code;
+      //   setRegisterError(handleSubmitError(errorCode));
+      // });
+    }
   };
 
   const onError = () => {
@@ -168,14 +183,14 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className="register-form-main-container">
-      <div className="register-form__img-container">
+      {/* <div className="register-form__img-container">
         <img
           loading="lazy"
           className="register-form__img"
           src={mountainPhoto}
           alt=""
         />
-      </div>
+      </div> */}
       <div className="register-form-container">
         <Link to={"/"} className="register-form arrow-back-container">
           <img src={arrowBackSvg} alt="icon of arrow" />
@@ -276,8 +291,12 @@ const RegisterForm: React.FC = () => {
             </div>
           </CSSTransition>
           <div className="register-form__bottom-buttons">
-            <input className="submit-button" type="submit" value="Submit" />
-            <Link to={"/"} className="login-redirect-button"></Link>
+            <input
+              className="submit-button bg-[#646464]"
+              type="submit"
+              value="Submit"
+            />
+            <Link to={"/login"} className="login-redirect-button"></Link>
           </div>
           {
             <RegisterMessage
