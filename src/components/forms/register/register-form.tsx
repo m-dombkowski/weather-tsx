@@ -140,8 +140,6 @@ const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = async () => {
-    setRegisterError(undefined);
-    setIsLoggedIn(false);
     if (emailRef.current && passwordRef.current) {
       const { data, error } = await supabase.auth.signUp({
         email: emailRef.current.value,
@@ -156,43 +154,22 @@ const RegisterForm: React.FC = () => {
       } else {
         setRegisterError(error.message);
       }
-
-      // createUserWithEmailAndPassword(
-      //   auth,
-      //   emailRef.current.value,
-      //   passwordRef.current.value
-      // )
-      // .then((userCredential) => {
-      //   setIsLoggedIn(true);
-      //   const user = userCredential.user;
-      //   setTimeout(() => {
-      //     navigate("/");
-      //   }, 5000);
-      // })
-      // .catch((error) => {
-      //   const errorCode = error.code;
-      //   setRegisterError(handleSubmitError(errorCode));
-      // });
     }
   };
 
   const onError = () => {
-    setIsLoggedIn(false);
     setRegisterError(undefined);
+
+    setIsLoggedIn(false);
   };
 
   return (
-    <div className="register-form-main-container">
-      {/* <div className="register-form__img-container">
-        <img
-          loading="lazy"
-          className="register-form__img"
-          src={mountainPhoto}
-          alt=""
-        />
-      </div> */}
-      <div className="register-form-container">
-        <Link to={"/"} className="register-form arrow-back-container">
+    <div className="register-form-main-container flex rounded-lg shadow-[6px_6px_18px_-2px_rgba(0,0,0,1)]">
+      <div className="register-form-container bg-[#171717] rounded-lg relative p-[100px_75px_50px_75px]">
+        <Link
+          to={"/"}
+          className="absolute top-[5%] left-[5%] rounded-[50%] transition-all duration-300 p-1.5 hover:bg-[#5a5a5a]"
+        >
           <img src={arrowBackSvg} alt="icon of arrow" />
         </Link>
         <form
@@ -203,17 +180,16 @@ const RegisterForm: React.FC = () => {
           <div>
             <FontAwesomeIcon size={"3x"} icon={["fas", "pen-to-square"]} />
           </div>
-          <h1 className="register-form-title">
+          <h1 className="text-4xl flex flex-col justify-center items-center">
             New here?{" "}
-            <span className="register-form-title subtitle">
-              No worries{" "}
-              <span className="register-form-title subtitle emoji">=)</span>
+            <span className="block mt-[20px] text-3xl flex gap-6 mb-[20px]">
+              No worries <span className="inline-block rotate-90">=)</span>
             </span>
           </h1>
 
-          <div className="input-container register-form_email-container">
+          <div className="relative">
             <input
-              className="register-form__email-input"
+              className="register-form__email-input w-[400px] py-[14px] pl-[46px] pr-[16px] text-lg rounded-md"
               {...emailRegister}
               type="email"
               onChange={emailOnChange}
@@ -222,17 +198,17 @@ const RegisterForm: React.FC = () => {
                 emailRef.current = e;
               }}
             />
-            <div className="input-icon">
+            <div className="absolute inline top-[25%] left-[4%]">
               <FontAwesomeIcon size={"lg"} icon={["fas", "envelope"]} />
             </div>
-            <span className="register-form__email-input-label">
+            <span className="register-form__email-input-label absolute top-[12px] left-[12%] pointer-events-none transition-all duration-500">
               Email address
             </span>
           </div>
 
-          <div className="input-container register-form_pass-container">
+          <div className="relative">
             <input
-              className="register-form__pass-input"
+              className="register-form__pass-input w-[400px] py-[14px] pl-[46px] pr-[16px] text-lg rounded-md"
               {...passwordRegister}
               type="password"
               onFocus={() => setPasswordCheck(true)}
@@ -244,14 +220,16 @@ const RegisterForm: React.FC = () => {
                 passwordRef.current = e;
               }}
             />
-            <div className="input-icon">
+            <div className="absolute inline top-[25%] left-[4%]">
               <FontAwesomeIcon size={"lg"} icon={["fas", "lock"]} />
             </div>
-            <span className="register-form__pass-input-label">Password</span>
+            <span className="register-form__pass-input-label absolute top-[12px] left-[12%] pointer-events-none transition-all duration-500">
+              Password
+            </span>
             <button
               type="button"
               onClick={togglePassHandler}
-              className="show-hide-button"
+              className="p-2 rounded-3xl bg-transparent absolute top-[12.5%] right-[2%] transition-all duration-300 hover:bg-[#171717] hover:border-transparent"
             >
               {/* <img
                 className="show-hide-button__icon"
@@ -290,13 +268,16 @@ const RegisterForm: React.FC = () => {
               ></p>
             </div>
           </CSSTransition>
-          <div className="register-form__bottom-buttons">
+          <div className="flex w-[100%] justify-around items-center mt-[30px]">
             <input
-              className="submit-button bg-[#646464]"
+              className="bg-[#646464] cursor-pointer px-6 py-3 border-0 font-normal transition-all duration-300 rounded-md hover:bg-[#939393]"
               type="submit"
               value="Submit"
             />
-            <Link to={"/login"} className="login-redirect-button"></Link>
+            <Link
+              to={"/login"}
+              className="login-redirect-button relative w-[200px] h-[48px] text-[#e6e6e6] bg-[#646464] transition-all duration-300 rounded-md hover:bg-[#939393] before:content-['Already_have_account?'] before:text-[#e6e6e6] before:absolute before:flex before:justify-center before:w-[100%] before:top-[10px] before:transition-all before:duration-300 before:pointer-events-none after:content-['Login_here'] after:text-[#e6e6e6] after:abosulte after:flex after:justify-center after-w-[100%] after:bottom-[-30px] after:opacity-0 after:pointer-events-none after:transition-all after:duration-300 hover:after:bottom-[12px] hover:after:opacity-100 hover:before:top-[-30px] hover:before:opacity-0"
+            ></Link>
           </div>
           {
             <RegisterMessage

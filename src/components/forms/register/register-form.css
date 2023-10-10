@@ -8,8 +8,7 @@
   background-color: #171717;
   padding: 100px 75px 50px 75px;
   border-radius: 8px;
-  /* border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px; */
+
   position: relative;
 }
 
@@ -20,64 +19,6 @@
   justify-content: center;
   position: relative;
   gap: 40px;
-}
-
-.register-form.arrow-back-container {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  border-radius: 50%;
-  padding: 5px;
-  transition: all 0.3s;
-}
-
-.register-form.arrow-back-container:hover {
-  background-color: #5a5a5a;
-}
-
-.register-form-title {
-  font-size: 2.4rem;
-}
-
-.register-form-title.subtitle {
-  display: block;
-  margin-top: 20px;
-  font-size: 2rem;
-}
-
-.register-form-title.subtitle.emoji {
-  transform: rotate(90deg);
-  display: inline-block;
-  margin: 0 0 0 20px;
-}
-
-.input-container {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  display: inline;
-  top: 25%;
-  left: 4%;
-}
-
-.register-form__email-input,
-.register-form__pass-input {
-  padding: 12px 16px 12px 46px;
-  font-size: 18px;
-  border-radius: 5px;
-  width: 400px;
-}
-
-.register-form__email-input-label,
-.register-form__pass-input-label {
-  position: absolute;
-  top: 12px;
-  left: 12%;
-  font-size: 16px;
-  pointer-events: none;
-  transition: all 0.4s;
 }
 
 .register-form__email-input:focus ~ .register-form__email-input-label,
@@ -143,30 +84,6 @@
   bottom: 12%;
 }
 
-.show-hide-button {
-  padding: 8px;
-  border-radius: 20px;
-  background-color: transparent;
-  position: absolute;
-  top: 12.5%;
-  right: 2%;
-  transition: all 0.3s;
-}
-
-.show-hide-button:hover {
-  border-color: transparent;
-  background: #171717;
-}
-
-.show-hide-button img {
-  width: 24px;
-  height: auto;
-}
-
-.show-hide-button:focus {
-  outline: none;
-}
-
 .password-empty {
   width: 0%;
 }
@@ -194,89 +111,4 @@
 .pass-str-check-filling-description {
   font-size: 16px;
   margin-top: 7px;
-}
-
-.register-form__bottom-buttons {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.submit-button,
-.login-redirect-button {
-  border-radius: 5px;
-}
-
-.submit-button {
-  padding: 12px 24px;
-  cursor: pointer;
-  background-color: #646464;
-  border: none;
-  font-family: "Lato", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  transition: all 0.2s;
-}
-
-.submit-button:hover {
-  background-color: #939393;
-}
-
-.login-redirect-button {
-  position: relative;
-  width: 200px;
-  height: 43px;
-  color: #e6e6e6;
-  background-color: #646464;
-  transition: all 0.2s;
-}
-
-.login-redirect-button:hover {
-  background-color: #939393;
-}
-
-.login-redirect-button::before {
-  content: "Already have account?";
-  color: #e6e6e6;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  top: 10px;
-  transition: all 0.3s;
-  pointer-events: none;
-}
-
-.login-redirect-button::after {
-  content: "Login here";
-  color: #e6e6e6;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  bottom: -30px;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s;
-}
-
-.login-redirect-button:hover::after {
-  bottom: 10px;
-  opacity: 1;
-}
-
-.login-redirect-button:hover::before {
-  top: -30px;
-  opacity: 0;
-}
-
-.register-form__img-container {
-  display: flex;
-}
-
-.register-form__img {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
 }
