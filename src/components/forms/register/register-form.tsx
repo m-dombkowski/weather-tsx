@@ -5,12 +5,8 @@ import { passwordStrength } from "check-password-strength";
 import { floatingLabels } from "../../../utils";
 import { CSSTransition } from "react-transition-group";
 import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
-import mountainPhoto from "../../../assets/mountain-near-green-tress-at-night.jpg";
 import RegisterMessage from "./register-message";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register-form.css";
-// import { auth } from "../../../services/firebase/firebase-auth";
-import { handleSubmitError } from "./submit-error";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { supabase } from "../../../services/supabase";
@@ -221,7 +217,7 @@ const RegisterForm: React.FC = () => {
               }}
             />
             <div className="absolute inline top-[25%] left-[4%]">
-              <FontAwesomeIcon size={"lg"} icon={["fas", "lock"]} />
+              <FontAwesomeIcon size={"lg"} icon={["fas", "key"]} />
             </div>
             <span className="register-form__pass-input-label absolute top-[12px] left-[12%] pointer-events-none transition-all duration-500">
               Password
@@ -231,11 +227,6 @@ const RegisterForm: React.FC = () => {
               onClick={togglePassHandler}
               className="p-2 rounded-3xl bg-transparent absolute top-[12.5%] right-[2%] transition-all duration-300 hover:bg-[#171717] hover:border-transparent"
             >
-              {/* <img
-                className="show-hide-button__icon"
-                src={showIcon}
-                alt="eye button for showing/hiding password"
-              /> */}
               {togglePassword ? (
                 <FontAwesomeIcon
                   size={"lg"}
@@ -268,15 +259,15 @@ const RegisterForm: React.FC = () => {
               ></p>
             </div>
           </CSSTransition>
-          <div className="flex w-[100%] justify-around items-center mt-[30px]">
+          <div className="flex w-[100%] justify-between items-center mt-[30px]">
             <input
-              className="bg-[#646464] cursor-pointer px-6 py-3 border-0 font-normal transition-all duration-300 rounded-md hover:bg-[#939393]"
+              className="w-[150px] bg-[#646464] cursor-pointer px-6 py-3 border-0 font-normal transition-all duration-300 rounded-md hover:bg-[#939393]"
               type="submit"
-              value="Submit"
+              value="Sign Up"
             />
             <Link
               to={"/login"}
-              className="login-redirect-button relative w-[200px] h-[48px] text-[#e6e6e6] bg-[#646464] transition-all duration-300 rounded-md hover:bg-[#939393] before:content-['Already_have_account?'] before:text-[#e6e6e6] before:absolute before:flex before:justify-center before:w-[100%] before:top-[10px] before:transition-all before:duration-300 before:pointer-events-none after:content-['Login_here'] after:text-[#e6e6e6] after:abosulte after:flex after:justify-center after-w-[100%] after:bottom-[-30px] after:opacity-0 after:pointer-events-none after:transition-all after:duration-300 hover:after:bottom-[12px] hover:after:opacity-100 hover:before:top-[-30px] hover:before:opacity-0"
+              className="login-redirect-button relative w-[180px] h-[48px] text-[#e6e6e6] bg-[#646464] transition-all duration-300 rounded-md hover:bg-[#939393] before:content-['Already_signed_up?'] before:text-[#e6e6e6] before:absolute before:flex before:justify-center before:w-[100%] before:top-[10px] before:transition-all before:duration-300 before:pointer-events-none after:content-['Sign_in'] after:text-[#e6e6e6] after:abosulte after:flex after:justify-center after:w-[100%] after:bottom-[-30px] after:opacity-0 after:pointer-events-none after:transition-all after:duration-300 after:absolute hover:after:bottom-[15px] hover:after:opacity-100 hover:before:top-[-30px] hover:before:opacity-0"
             ></Link>
           </div>
           {

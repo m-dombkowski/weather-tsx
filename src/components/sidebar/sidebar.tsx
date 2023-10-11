@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
           Fav
         </button>
         <Link to={"register"}>
-          <button className="text-white">Register</button>
+          <button className="text-white">Sign up</button>
         </Link>
         <Link to={"/"}>
           <button className="text-white">Main</button>
