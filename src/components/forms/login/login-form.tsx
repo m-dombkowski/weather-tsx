@@ -8,6 +8,7 @@ import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { supabase } from "../../../services/supabase";
+import LoginMessage from "./login-message";
 
 interface FormInputsInterface {
   email: string;
@@ -27,15 +28,10 @@ const LoginForm: React.FC = () => {
     },
   });
 
-  const fillRef = useRef<HTMLDivElement | null>(null);
-  const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
-  const nodeRef = useRef(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
-  const passStrengthRef = useRef<HTMLParagraphElement | null>(null);
-  const isFocused = document.activeElement === passwordRef.current;
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [registerError, setRegisterError] = useState<string | undefined>("");
+  const [loginError, setLoginError] = useState<string | undefined>("");
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -56,34 +52,15 @@ const LoginForm: React.FC = () => {
       value: true,
       message: `Password field can't be empty`,
     },
-    minLength: {
-      value: 6,
-      message: "Password needs to have at least 6 characters",
-    },
   });
 
   const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     floatingLabels(event, ".register-form__email-input-label");
   };
 
-  const passwordOnFocusLose = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === "") {
-      setPasswordCheck(false);
-    }
-    return;
-  };
-
   const passwordOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue("password", event.target.value);
     floatingLabels(event, ".register-form__pass-input-label");
-
-    if (fillRef.current && event.target.value === "") {
-      setPasswordCheck(false);
-    }
-
-    if (event.target.value.length >= 1) {
-      setPasswordCheck(true);
-    }
   };
 
   const togglePassHandler = () => {
@@ -97,8 +74,11 @@ const LoginForm: React.FC = () => {
   };
 
   const onSubmit = async () => {
+    setLoginError(undefined);
+
+    console.log("loguje");
     if (emailRef.current && passwordRef.current) {
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
@@ -109,14 +89,14 @@ const LoginForm: React.FC = () => {
           navigate("/");
         }, 5000);
       } else {
-        setRegisterError(error.message);
+        setLoginError(error.message);
       }
     }
   };
 
   const onError = () => {
-    setRegisterError(undefined);
-
+    console.log("error");
+    setLoginError(undefined);
     setIsLoggedIn(false);
   };
 
@@ -165,10 +145,8 @@ const LoginForm: React.FC = () => {
               className="register-form__pass-input w-[400px] py-[14px] pl-[46px] pr-[16px] text-lg rounded-md"
               {...passwordRegister}
               type="password"
-              onFocus={() => setPasswordCheck(true)}
               autoComplete="off"
               onChange={passwordOnChange}
-              onBlur={passwordOnFocusLose}
               ref={(e) => {
                 passwordRegister.ref(e);
                 passwordRef.current = e;
@@ -219,6 +197,13 @@ const LoginForm: React.FC = () => {
               className="login-redirect-button relative w-[180px] h-[48px] text-[#e6e6e6] bg-[#646464] transition-all duration-300 rounded-md hover:bg-[#939393] before:content-['No_account_yet?'] before:text-[#e6e6e6] before:absolute before:flex before:justify-center before:w-[100%] before:top-[10px] before:transition-all before:duration-300 before:pointer-events-none after:content-['Sign_up'] after:text-[#e6e6e6] after:abosulte after:flex after:justify-center after:w-[100%] after:bottom-[-30px] after:opacity-0 after:pointer-events-none after:transition-all after:duration-300 after:absolute hover:after:bottom-[15px] hover:after:opacity-100 hover:before:top-[-30px] hover:before:opacity-0"
             ></Link>
           </div>
+          {
+            <LoginMessage
+              success={loggedIn}
+              errors={errors}
+              loginError={loginError}
+            />
+          }
         </form>
       </div>
     </div>

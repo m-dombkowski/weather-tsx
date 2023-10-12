@@ -155,7 +155,6 @@ const RegisterForm: React.FC = () => {
 
   const onError = () => {
     setRegisterError(undefined);
-
     setIsLoggedIn(false);
   };
 

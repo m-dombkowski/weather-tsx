@@ -7,13 +7,13 @@ interface RegisterMessageProps {
     password?: FieldError | undefined;
   };
   success?: boolean;
-  registerError?: string;
+  loginError?: string;
 }
 
-const RegisterMessage: React.FC<RegisterMessageProps> = ({
+const LoginMessage: React.FC<RegisterMessageProps> = ({
   errors,
   success,
-  registerError,
+  loginError,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -49,18 +49,18 @@ const RegisterMessage: React.FC<RegisterMessageProps> = ({
 
       {success === true && (
         <p className="py-3 px-6 rounded-md font-bold bg-[#077a22]">
-          Registered successfully.
+          Logged in successfully.
           <br />
           You will be redirected in few seconds...
         </p>
       )}
-      {registerError !== "" && registerError != undefined && (
+      {loginError !== "" && loginError != undefined && (
         <p className="py-3 px-6 rounded-md font-bold bg-[#ff444f] text-[#383838]error-message ">
-          {registerError}
+          {loginError}
         </p>
       )}
     </div>
   );
 };
 
-export default RegisterMessage;
+export default LoginMessage;

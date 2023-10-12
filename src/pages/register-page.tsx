@@ -1,7 +1,7 @@
 import RegisterForm from "../components/forms/register/register-form";
 
-const RegisterFormPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   return <RegisterForm />;
 };
 
-export default RegisterFormPage;
+export default RegisterPage;
