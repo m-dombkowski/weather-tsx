@@ -33,7 +33,11 @@ const MainPage: React.FC = () => {
 
   return (
     <section className="fixed top-0 left-0 flex justify-center align-center">
-      <Sidebar isLoggedIn={isLoggedIn} userData={userData} />
+      <Sidebar
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        userData={userData}
+      />
       <div className="mt-5 ml-10">
         <SearchBar />
         {selectedCityData != null && <SelectedCity />}

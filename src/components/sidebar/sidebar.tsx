@@ -3,17 +3,30 @@ import FavoriteList from "./favorites/favorites-list";
 import { useState } from "react";
 
 import { Link } from "react-router-dom";
+import { supabase } from "../../services/supabase";
 
 interface SidebarProps {
   isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   userData: User | null | undefined;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isLoggedIn, userData }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isLoggedIn,
+  userData,
+  setIsLoggedIn,
+}) => {
   const [favFlag, setFavFlag] = useState<boolean>(false);
 
   const favHandler = () => {
     setFavFlag(true);
+  };
+
+  const logoutHandler = async () => {
+    const { error } = await supabase.auth.signOut();
+    setIsLoggedIn(false);
+    console.log(isLoggedIn);
+    console.log(error);
   };
 
   console.log(isLoggedIn, userData);
@@ -24,9 +37,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isLoggedIn, userData }) => {
         <button className="text-white" onClick={favHandler}>
           Fav
         </button>
-        <Link to={"register"}>
-          <button className="text-white">Sign up</button>
-        </Link>
+        {!isLoggedIn ? (
+          <Link to={"register"}>
+            <button className="text-white">Sign up</button>
+          </Link>
+        ) : (
+          <button onClick={logoutHandler}>Log out</button>
+        )}
+
         <Link to={"/"}>
           <button className="text-white">Main</button>
         </Link>
