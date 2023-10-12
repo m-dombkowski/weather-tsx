@@ -21,9 +21,10 @@ import {
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import SelectedCityDetailsPage from "./pages/selected-city-details";
-import RegisterFormPage from "./pages/register-page";
+import RegisterPage from "./pages/register-page";
 import MainPage from "./pages/main-page";
 import LoginForm from "./components/forms/login/login-form";
+import LoginPage from "./pages/login-page";
 
 function App() {
   library.add(
@@ -50,10 +51,10 @@ function App() {
       <Routes>
         <Route
           path="register"
-          element={<RegisterFormPage />}
+          element={<RegisterPage />}
           errorElement={<ErrorBoundary />}
         />
-        <Route path="login" element={<LoginForm />} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/city/:cityId" element={<SelectedCityDetailsPage />} />
       </Routes>

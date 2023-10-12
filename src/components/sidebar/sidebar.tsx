@@ -1,14 +1,22 @@
+import { User } from "@supabase/supabase-js";
 import FavoriteList from "./favorites/favorites-list";
 import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isLoggedIn: boolean;
+  userData: User | null | undefined;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isLoggedIn, userData }) => {
   const [favFlag, setFavFlag] = useState<boolean>(false);
 
   const favHandler = () => {
     setFavFlag(true);
   };
+
+  console.log(isLoggedIn, userData);
 
   return (
     <div className="h-100vh w-400px border-r border-solid border-color-white">
