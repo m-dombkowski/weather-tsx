@@ -163,6 +163,7 @@ const RegisterForm: React.FC = () => {
       <div className="register-form-container bg-[#171717] rounded-lg relative p-[100px_75px_50px_75px]">
         <Link
           to={"/"}
+          title="Go back to main page"
           className="absolute top-[5%] left-[5%] rounded-[50%] transition-all duration-300 p-1.5 hover:bg-[#5a5a5a]"
         >
           <img src={arrowBackSvg} alt="icon of arrow" />

@@ -17,6 +17,7 @@ import {
   faDroplet,
   faKey,
   faDoorOpen,
+  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
@@ -43,7 +44,8 @@ function App() {
     faCloudRain,
     faDroplet,
     faKey,
-    faDoorOpen
+    faDoorOpen,
+    faGear
   );
 
   return (
