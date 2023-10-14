@@ -3,13 +3,7 @@ import FavoriteList from "./favorites/favorites-list";
 import { useState } from "react";
 import SidebarMenu from "./sidebar-menu";
 
-interface SidebarProps {
-  isLoggedIn: boolean;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  userData: User | null | undefined;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ isLoggedIn, setIsLoggedIn }) => {
+const Sidebar: React.FC = () => {
   const [favFlag, setFavFlag] = useState<boolean>(false);
 
   const favHandler = () => {
@@ -18,11 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isLoggedIn, setIsLoggedIn }) => {
 
   return (
     <div className="h-100vh w-400px border-r border-solid border-color-white">
-      <SidebarMenu
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        favHandler={favHandler}
-      />
+      <SidebarMenu favHandler={favHandler} />
       {favFlag && <FavoriteList />}
     </div>
   );

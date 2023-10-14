@@ -2,20 +2,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../../services/supabase";
+import { useAppSelector } from "../../hooks/rtk-hooks";
+import { useDispatch } from "react-redux";
+import { unsetUser } from "../../state/slices/auth-state";
 
 interface SidebarMenuProps {
-  isLoggedIn: boolean;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   favHandler: () => void;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({
-  isLoggedIn,
-  setIsLoggedIn,
-  favHandler,
-}) => {
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ favHandler }) => {
   const [logoutMessage, setLogoutMessage] = useState<string>("");
   const logoutMessageRef = useRef<HTMLDivElement | null>(null);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+
   const logoutHandler = async () => {
     const { error } = await supabase.auth.signOut();
     if (error?.message == null) {
@@ -23,7 +23,6 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
     } else {
       setLogoutMessage(error.message);
     }
-
     setTimeout(() => {
       if (logoutMessageRef.current)
         logoutMessageRef.current.style.opacity = "0";
@@ -31,9 +30,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
     setTimeout(() => {
       setLogoutMessage("");
     }, 3400);
-    setIsLoggedIn(false);
-    console.log(isLoggedIn);
-    console.log(error);
+    dispatch(unsetUser());
   };
 
   return (
