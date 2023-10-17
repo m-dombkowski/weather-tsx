@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
-
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
 
   const isAlreadyInFavorites: object | undefined = cityList?.find(
@@ -25,6 +25,10 @@ const SelectedCity: React.FC = () => {
   const addToFavoriteHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
+    if (!isLoggedIn) {
+      console.log("Aby dodac miasto do ulubionych zaloguj sie na swoje konto");
+      return;
+    }
     const button = event.target as HTMLDivElement;
 
     if (button.classList.contains("liked")) {

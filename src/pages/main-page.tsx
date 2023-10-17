@@ -2,9 +2,8 @@ import SearchBar from "../components/search/search-bar";
 import Sidebar from "../components/sidebar/sidebar";
 import { useAppDispatch, useAppSelector } from "../hooks/rtk-hooks";
 import SelectedCity from "../components/selected-city/selected-city";
-import { useEffect, useState } from "react";
-import { supabase } from "../services/supabase";
-import { User } from "@supabase/supabase-js";
+import { useEffect } from "react";
+
 import { getUserData } from "../state/slices/auth-state";
 
 const MainPage: React.FC = () => {

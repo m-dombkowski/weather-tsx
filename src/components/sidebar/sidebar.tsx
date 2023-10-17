@@ -1,10 +1,9 @@
-import { User } from "@supabase/supabase-js";
 import FavoriteList from "./favorites/favorites-list";
 import { useState } from "react";
 import SidebarMenu from "./sidebar-menu";
 
 const Sidebar: React.FC = () => {
-  const [favFlag, setFavFlag] = useState<boolean>(false);
+  const [favFlag, setFavFlag] = useState<boolean>(true);
 
   const favHandler = () => {
     setFavFlag(true);
