@@ -6,13 +6,15 @@ import {
 import "./selected-city.css";
 import { convertUnixToTime } from "../../utils";
 import { CityForecastInterface } from "../../state";
-
 import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
+  const [favError, setFavError] = useState<string>("");
+  const errRef = useRef<HTMLDivElement | null>(null);
 
   const isAlreadyInFavorites: object | undefined = cityList?.find(
     (selectedCity: CityForecastInterface) =>
@@ -25,8 +27,15 @@ const SelectedCity: React.FC = () => {
   const addToFavoriteHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
+    setFavError("");
     if (!isLoggedIn) {
-      console.log("Aby dodac miasto do ulubionych zaloguj sie na swoje konto");
+      setFavError("In order to add city to favorites, please log in.");
+      setTimeout(() => {
+        if (errRef.current) errRef.current.style.opacity = "0";
+      }, 5000);
+      setTimeout(() => {
+        setFavError("");
+      }, 5500);
       return;
     }
     const button = event.target as HTMLDivElement;
@@ -45,7 +54,7 @@ const SelectedCity: React.FC = () => {
   return (
     <>
       {cityData && (
-        <div className="flex flex-col items-center mt-[100%] ml-[100%]">
+        <div className="flex flex-col items-center mt-[75%] ml-[100%]">
           <div className="selected-city-container flex justify-center items-center gap-2.5">
             <span>{cityData.city.name}</span>
             <span>{Math.round(cityData.list[0].main.temp)}°C</span>
@@ -71,6 +80,16 @@ const SelectedCity: React.FC = () => {
               Check detailed forecast
             </button>
           </div>
+          {favError.length > 0 && (
+            <div
+              className="w-[250px] text-center mt-10 relative transition-all duration-500"
+              ref={errRef}
+            >
+              <p className="py-3 px-6 rounded-md font-bold bg-[#ff444f] text-[#383838]">
+                {favError}
+              </p>
+            </div>
+          )}
         </div>
       )}
     </>
