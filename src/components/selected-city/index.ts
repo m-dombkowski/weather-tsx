@@ -64,7 +64,20 @@ export const aqiChecker = (pollutionValue: number, ref: HTMLDivElement) => {
       break;
     default:
       console.log("nie ma");
-
       break;
   }
+};
+
+export const triggerErrMessage = (
+  setErrMessage: React.Dispatch<React.SetStateAction<string>>,
+  ref: React.MutableRefObject<HTMLDivElement | null>,
+  errMessage: string
+) => {
+  setErrMessage(errMessage);
+  setTimeout(() => {
+    if (ref.current) ref.current.style.opacity = "0";
+  }, 5000);
+  setTimeout(() => {
+    setErrMessage("");
+  }, 5500);
 };

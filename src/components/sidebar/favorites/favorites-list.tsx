@@ -5,7 +5,6 @@ import { setSelectedCity } from "../../../state/slices/selected-city";
 
 const FavoriteList: React.FC = () => {
   const citiesList = useAppSelector((state) => state.cities.favoriteCities);
-
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 

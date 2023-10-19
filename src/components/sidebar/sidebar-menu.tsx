@@ -40,8 +40,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ favHandler }) => {
           Fav
         </button>
         {!isLoggedIn ? (
-          <Link to={"register"}>
-            <button className="text-white">Sign up</button>
+          <Link to={"/login"}>
+            <button className="text-white">Sign in</button>
           </Link>
         ) : (
           <button onClick={logoutHandler}>Log out</button>
