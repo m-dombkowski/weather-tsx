@@ -28,6 +28,23 @@ export const addCityToFavs = async (
     .select();
 };
 
+export const removeCityFromFavs = async (
+  userData: User | undefined,
+  cityData: CityForecastInterface | undefined
+) => {
+  const { data: favs } = await supabase.from("favs").select("user,city_id");
+
+  const isAdded = favs?.filter(
+    (el) => el.user == userData?.email && el.city_id == cityData?.city.id
+  );
+  if (isAdded) {
+    const { error } = await supabase
+      .from("favs")
+      .delete()
+      .eq("city_id", isAdded[0].city_id as string);
+  }
+};
+
 export const checkIfCityIsAlreadyInFavs = async (
   userData: User | undefined,
   cityData: CityForecastInterface | undefined,
@@ -41,13 +58,14 @@ export const checkIfCityIsAlreadyInFavs = async (
   const isAdded = favs?.find(
     (el) => el.user == userData?.email && el.city_id == cityData?.city.id
   );
-  if (isAdded) {
-    triggerErrMessage(
-      setFavError,
-      ref,
-      "This city is already on your favorites list"
-    );
-    return;
+
+  if (!isAdded) {
+    return false;
   }
-  addCityToFavs(userData, cityData);
+  triggerErrMessage(
+    setFavError,
+    ref,
+    "This city is already on your favorites list"
+  );
+  return true;
 };

@@ -8,7 +8,12 @@ import { convertUnixToTime } from "../../utils";
 import { CityForecastInterface } from "../../state";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import { checkIfCityIsAlreadyInFavs, supabase } from "../../services/supabase";
+import {
+  addCityToFavs,
+  checkIfCityIsAlreadyInFavs,
+  removeCityFromFavs,
+  supabase,
+} from "../../services/supabase";
 import { triggerErrMessage } from ".";
 
 const SelectedCity: React.FC = () => {
@@ -42,10 +47,21 @@ const SelectedCity: React.FC = () => {
     const button = event.target as HTMLDivElement;
 
     if (button.classList.contains("liked")) {
+      removeCityFromFavs(userData, cityData);
       dispatch(removeFromFavorites(cityData));
     } else {
-      checkIfCityIsAlreadyInFavs(userData, cityData, setFavError, errRef);
-      dispatch(addToFavorites(cityData));
+      const isAlreadyInFavs = await checkIfCityIsAlreadyInFavs(
+        userData,
+        cityData,
+        setFavError,
+        errRef
+      );
+
+      if (!isAlreadyInFavs) {
+        addCityToFavs(userData, cityData);
+        dispatch(addToFavorites(cityData));
+      }
+      return;
     }
   };
 
