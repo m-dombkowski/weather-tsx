@@ -8,10 +8,13 @@ import { convertUnixToTime } from "../../utils";
 import { CityForecastInterface } from "../../state";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { checkIfCityIsAlreadyInFavs, supabase } from "../../services/supabase";
+import { triggerErrMessage } from ".";
 
 const SelectedCity: React.FC = () => {
   const cityList = useAppSelector((state) => state.cities.favoriteCities);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const userData = useAppSelector((state) => state.auth.user);
   const cityData = useAppSelector((state) => state.selectedCity.selectedCity);
   const [favError, setFavError] = useState<string>("");
   const errRef = useRef<HTMLDivElement | null>(null);
@@ -24,18 +27,16 @@ const SelectedCity: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const addToFavoriteHandler = (
+  const addToFavoriteHandler = async (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     setFavError("");
     if (!isLoggedIn) {
-      setFavError("In order to add city to favorites, please log in.");
-      setTimeout(() => {
-        if (errRef.current) errRef.current.style.opacity = "0";
-      }, 5000);
-      setTimeout(() => {
-        setFavError("");
-      }, 5500);
+      triggerErrMessage(
+        setFavError,
+        errRef,
+        "In order to add city to favorites, please log in."
+      );
       return;
     }
     const button = event.target as HTMLDivElement;
@@ -43,6 +44,7 @@ const SelectedCity: React.FC = () => {
     if (button.classList.contains("liked")) {
       dispatch(removeFromFavorites(cityData));
     } else {
+      checkIfCityIsAlreadyInFavs(userData, cityData, setFavError, errRef);
       dispatch(addToFavorites(cityData));
     }
   };

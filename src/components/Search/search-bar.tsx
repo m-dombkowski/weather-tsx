@@ -19,12 +19,6 @@ const SearchBar: React.FC = () => {
     infoWindow?.classList.contains("active") ?? false
       ? infoWindow?.classList.remove("active")
       : infoWindow?.classList.add("active");
-
-    // const {
-    //   data: { user },
-    // } = await supabase.auth.getUser();
-    // let metadata = user?.user_metadata;
-    // console.log(metadata);
   };
 
   return (
