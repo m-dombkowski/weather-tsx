@@ -69,3 +69,19 @@ export const checkIfCityIsAlreadyInFavs = async (
   );
   return true;
 };
+
+export const getUserCities = async (
+  userData: User | undefined,
+  setCities: React.Dispatch<React.SetStateAction<never[]>>
+) => {
+  const { data: favs, error } = await supabase
+    .from("favs")
+    .select("user,city_id");
+
+  const cities = favs?.filter((el) => {
+    el.user === userData?.email;
+  });
+
+  setCities(cities);
+  return cities;
+};

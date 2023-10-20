@@ -12,7 +12,6 @@ import {
   addCityToFavs,
   checkIfCityIsAlreadyInFavs,
   removeCityFromFavs,
-  supabase,
 } from "../../services/supabase";
 import { triggerErrMessage } from ".";
 

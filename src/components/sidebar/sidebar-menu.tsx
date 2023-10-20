@@ -5,6 +5,7 @@ import { supabase } from "../../services/supabase";
 import { useAppSelector } from "../../hooks/rtk-hooks";
 import { useDispatch } from "react-redux";
 import { unsetUser } from "../../state/slices/auth-state";
+import { emptyFavorites } from "../../state/slices/favorite-cities";
 
 interface SidebarMenuProps {
   favHandler: () => void;
@@ -20,6 +21,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ favHandler }) => {
     const { error } = await supabase.auth.signOut();
     if (error?.message == null) {
       setLogoutMessage("You have been logged out");
+      dispatch(emptyFavorites);
     } else {
       setLogoutMessage(error.message);
     }

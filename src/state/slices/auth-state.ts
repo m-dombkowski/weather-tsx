@@ -50,8 +50,10 @@ const authSlice = createSlice({
         (state, action: PayloadAction<User | undefined>) => {
           if (action.payload === undefined) {
             state.isLoggedIn = false;
+            console.log("fullfield, no payload");
           } else {
             state.isLoggedIn = true;
+            console.log("fullfield with payload");
           }
           state.user = action.payload;
         }
