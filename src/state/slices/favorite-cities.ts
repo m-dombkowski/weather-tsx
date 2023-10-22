@@ -49,11 +49,18 @@ export const citiesSlice = createSlice({
     emptyFavorites: (state) => {
       state.favoriteCities = [];
     },
+    setFavorites: (state, action) => {
+      state.favoriteCities = action.payload;
+    },
   },
 });
 
-export const { addToFavorites, removeFromFavorites, emptyFavorites } =
-  citiesSlice.actions;
+export const {
+  addToFavorites,
+  removeFromFavorites,
+  emptyFavorites,
+  setFavorites,
+} = citiesSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;

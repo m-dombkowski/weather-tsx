@@ -4,7 +4,7 @@ import citiesSlice from "./slices/favorite-cities";
 import selectedCitySlice from "./slices/selected-city";
 import selectedCityAirPollutionSlice from "./slices/air-pollution";
 import authSlice from "./slices/auth-state";
-// ...
+import favoriteCitiesDb from "./slices/favorite-cities-db";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +13,7 @@ export const store = configureStore({
     errorMessage: errorSlice.reducer,
     airPollution: selectedCityAirPollutionSlice.reducer,
     auth: authSlice,
+    citiesDb: favoriteCitiesDb,
   },
 });
 
