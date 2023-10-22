@@ -62,13 +62,15 @@ export const checkIfCityIsAlreadyInFavs = async (
 };
 
 export const getUserCities = async (userData: User | undefined) => {
+  const arr: { city_id: number }[] = [];
   const { data: favs, error } = await supabase
     .from("favs")
     .select("user,city_id");
 
-  console.log(
-    favs?.filter((el) => {
-      el.user === userData?.email;
-    })
-  );
+  favs?.forEach((el) => {
+    if (el.user == userData?.email) {
+      arr.push(el.city_id);
+    }
+  });
+  return arr;
 };

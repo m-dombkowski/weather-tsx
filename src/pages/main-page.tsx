@@ -12,10 +12,13 @@ const MainPage: React.FC = () => {
       state.selectedCity.selectedCity
   );
 
+  const fav = useAppSelector((state) => state.cities.favoriteCities);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getUserData());
+    console.log(fav);
   }, [dispatch]);
 
   return (

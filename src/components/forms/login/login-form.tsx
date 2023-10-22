@@ -2,13 +2,15 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { floatingLabels } from "../../../utils";
-
 import arrowBackSvg from "../../../assets/arrow-go-back-svgrepo-com.svg";
-
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { supabase } from "../../../services/supabase";
 import LoginMessage from "./login-message";
+import { getUserCities } from "../../../services/supabase/api";
+import { getUserCitiesFromDb } from "../../../state/slices/favorite-cities-db";
+import { useAppDispatch, useAppSelector } from "../../../hooks/rtk-hooks";
+import { setFavorites } from "../../../state/slices/favorite-cities";
 
 interface FormInputsInterface {
   email: string;
@@ -27,13 +29,14 @@ const LoginForm: React.FC = () => {
       password: "",
     },
   });
-
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | undefined>("");
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
+  const favCitiesDb = useAppSelector((state) => state.citiesDb.favoriteCities);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const emailRegister = register("email", {
     required: {
@@ -75,15 +78,21 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async () => {
     setLoginError(undefined);
-
     console.log("loguje");
     if (emailRef.current && passwordRef.current) {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
-      console.log(data, error);
+
       if (error == null) {
+        const ids = await getUserCities(data.user)
+          .then((resp) => resp)
+          .then((data) => {
+            return data;
+          });
+        dispatch(getUserCitiesFromDb(ids));
+        dispatch(setFavorites(favCitiesDb));
         setIsLoggedIn(true);
         setTimeout(() => {
           navigate("/");

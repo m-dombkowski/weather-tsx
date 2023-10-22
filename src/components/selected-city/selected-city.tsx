@@ -12,7 +12,7 @@ import {
   addCityToFavs,
   checkIfCityIsAlreadyInFavs,
   removeCityFromFavs,
-} from "../../services/supabase";
+} from "../../services/supabase/api";
 import { triggerErrMessage } from ".";
 
 const SelectedCity: React.FC = () => {
