@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { CityForecastInterface } from "..";
+import { CityForecastInterface, CityInterface } from "..";
 
 // Define a type/interface for the slice state
 interface FavCitiesState {
@@ -50,7 +50,9 @@ export const citiesSlice = createSlice({
       state.favoriteCities = [];
     },
     setFavorites: (state, action) => {
+      console.log(action.payload);
       state.favoriteCities = action.payload;
+      console.log(state.favoriteCities);
     },
   },
 });

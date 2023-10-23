@@ -92,7 +92,7 @@ const LoginForm: React.FC = () => {
             return data;
           });
         dispatch(getUserCitiesFromDb(ids));
-        dispatch(setFavorites(favCitiesDb));
+
         setIsLoggedIn(true);
         setTimeout(() => {
           navigate("/");

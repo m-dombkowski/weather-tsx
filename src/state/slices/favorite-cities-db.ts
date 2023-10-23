@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CityForecastInterface } from "..";
+import { CityForecastInterface, CityInterface } from "..";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -21,7 +21,12 @@ export const getUserCitiesFromDb = createAsyncThunk(
 );
 
 interface FavCitiesFromDbInterface {
-  favoriteCities: CityForecastInterface[] | [] | undefined | never;
+  favoriteCities:
+    | CityForecastInterface[]
+    | CityInterface[]
+    | []
+    | undefined
+    | never;
 }
 
 const initialState: FavCitiesFromDbInterface = {

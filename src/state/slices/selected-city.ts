@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { CityForecastInterface } from "..";
+import { CityForecastInterface, CityInterface } from "..";
 
 // Define a type for the slice state
 interface SelectedCityState {
-  selectedCity: CityForecastInterface | undefined;
+  selectedCity: CityForecastInterface | CityInterface | undefined;
 }
 
 // Define the initial state using that type
@@ -19,7 +19,7 @@ export const selectedCitySlice = createSlice({
   reducers: {
     setSelectedCity: (
       state,
-      action: PayloadAction<CityForecastInterface | undefined>
+      action: PayloadAction<CityForecastInterface | CityInterface | undefined>
     ) => {
       const selectedCityData = action.payload;
       state.selectedCity = selectedCityData;
@@ -27,7 +27,8 @@ export const selectedCitySlice = createSlice({
     setSelectedCityName: (state, action: PayloadAction<string>) => {
       const properCityName = action.payload;
       if (state.selectedCity) {
-        state.selectedCity.city.name = properCityName;
+        console.log(typeof state.selectedCity);
+        // state.selectedCity.city.name = properCityName;
       }
     },
   },
