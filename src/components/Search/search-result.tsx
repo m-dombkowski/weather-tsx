@@ -36,7 +36,8 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
       try {
         if (validateSearchInput(cityQuery)) {
           const axiosResponse = await axios(
-            `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+            // `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+            `${baseURL}data/2.5/weather?q=${cityQuery}&appid=${apiKey}`
           ).catch(({ response }) => {
             if (response.status >= 400) {
               setIsLoading(false);
@@ -48,7 +49,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           });
           setIsLoading(false);
           const data = axiosResponse?.data;
-          console.log("odpalam");
+          console.log(data);
           return data;
         } else {
           setIsLoading(false);
@@ -66,7 +67,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
     const setSearchData = async () => {
       dispatch(setError(""));
       dispatch(setSelectedCity(undefined));
-
+      setCitiesSearchResult([]);
       try {
         if (debounceSearchTerm === "") {
           setIsLoading(false);
@@ -79,7 +80,6 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           }
           if (data.length <= 0) {
             setCitiesSearchResult([]);
-
             throw new Error(
               "There is no city matching your search. Please try again."
             );
@@ -105,6 +105,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
         )
           .then(({ data }) => {
+            console.log(data);
             dispatch(setSelectedCity(data));
             dispatch(setSelectedCityName(buttonValue));
           })

@@ -25,7 +25,10 @@ export const convertUnixToTime = (
 };
 
 export const validateSearchInput = (input: string): boolean => {
-  const regex = /^[a-zA-Z\s]*$/;
+  // const regex = /^[a-z]+(\s+[a-z]+)*$/i;
+  // eslint-disable-next-line no-useless-escape
+  const regex = /^[A-Za-z,\. ]{3,50}$/;
+  // const regex = /[A-Za-z,]+.*\s+/;
   console.log(regex.test(input));
   return regex.test(input);
 };
