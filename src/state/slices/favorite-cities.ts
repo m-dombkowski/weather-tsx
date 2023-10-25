@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { CityForecastInterface, CityInterface } from "..";
+import { CityForecastInterface } from "..";
 
 // Define a type/interface for the slice state
 interface FavCitiesState {
@@ -26,28 +26,38 @@ export const citiesSlice = createSlice({
             (selectedCity: CityForecastInterface) =>
               selectedCity.city.id === action.payload?.city.id
           );
-        if (!isAlreadyInFavorites) {
+        if (!isAlreadyInFavorites && action.payload) {
           state.favoriteCities.push(action.payload as never);
+          localStorage.setItem(
+            action.payload.city.id.toString(),
+            JSON.stringify(action.payload)
+          );
+          console.log(current(state.favoriteCities));
         }
         return;
-      } else if (state.favoriteCities) {
+      } else if (state.favoriteCities && action.payload) {
         state.favoriteCities.push(action.payload as never);
+        // localStorage.setItem(
+        //   action.payload.city.id.toString(),
+        //   JSON.stringify(action.payload)
+        // );
       }
     },
     removeFromFavorites: (
       state,
       action: PayloadAction<CityForecastInterface | undefined>
     ) => {
-      if (state.favoriteCities) {
+      if (state.favoriteCities && action.payload) {
         const filtered = state.favoriteCities.filter(
           (city: CityForecastInterface) =>
             city.city.id !== action.payload?.city.id
         );
         state.favoriteCities = filtered;
+        // localStorage.removeItem(action.payload.city.id.toString());
       }
     },
     emptyFavorites: (state) => {
-      state.favoriteCities = [];
+      state.favoriteCities = undefined;
     },
     setFavorites: (state, action) => {
       console.log(action.payload);

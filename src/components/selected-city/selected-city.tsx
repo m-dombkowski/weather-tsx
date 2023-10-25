@@ -7,9 +7,9 @@ import "./selected-city.css";
 import { convertUnixToTime } from "../../utils";
 import { CityForecastInterface } from "../../state";
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  addCityToFavs,
+  addCityToFavsDb,
   checkIfCityIsAlreadyInFavs,
   removeCityFromFavs,
 } from "../../services/supabase/api";
@@ -31,7 +31,7 @@ const SelectedCity: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const addToFavoriteHandler = async (
+  const manageFavorites = async (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     setFavError("");
@@ -49,20 +49,22 @@ const SelectedCity: React.FC = () => {
       removeCityFromFavs(userData, cityData);
       dispatch(removeFromFavorites(cityData));
     } else {
-      const isAlreadyInFavs = await checkIfCityIsAlreadyInFavs(
-        userData,
-        cityData,
-        setFavError,
-        errRef
-      );
+      // const isAlreadyInFavs = await checkIfCityIsAlreadyInFavs(
+      //   userData,
+      //   cityData,
+      //   setFavError,
+      //   errRef
+      // );
 
-      if (!isAlreadyInFavs) {
-        addCityToFavs(userData, cityData);
-        dispatch(addToFavorites(cityData));
-      }
+      // if (!isAlreadyInFavs) {
+      //   addCityToFavsDb(userData, cityData);
+      // }
+      dispatch(addToFavorites(cityData));
       return;
     }
   };
+
+  useEffect(() => {}, []);
 
   const detailedForecastOnClick = () => {
     navigate(`/city/${cityData?.city.id}`);
@@ -83,7 +85,7 @@ const SelectedCity: React.FC = () => {
             </p>
             <div className="ml-auto">
               <div
-                onClick={addToFavoriteHandler}
+                onClick={manageFavorites}
                 className={
                   isAlreadyInFavorites === undefined
                     ? "heart-like-button"

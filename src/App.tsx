@@ -24,7 +24,6 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import SelectedCityDetailsPage from "./pages/selected-city-details";
 import RegisterPage from "./pages/register-page";
 import MainPage from "./pages/main-page";
-import LoginForm from "./components/forms/login/login-form";
 import LoginPage from "./pages/login-page";
 
 function App() {

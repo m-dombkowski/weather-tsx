@@ -18,7 +18,10 @@ const FavoriteList: React.FC = () => {
                 <li
                   key={index}
                   className="group single-city flex justify-center items-center  py-2 px-5 text-left rounded-lg transition duration-300 border-solid border-2 border-transparent hover:bg-[#3b3b3b] hover:border-[#646cff] hover:cursor-pointer"
-                  onClick={() => dispatch(setSelectedCity(city))}
+                  onClick={() => {
+                    console.log(citiesList);
+                    dispatch(setSelectedCity(city));
+                  }}
                 >
                   <span
                     title={city.city.name}

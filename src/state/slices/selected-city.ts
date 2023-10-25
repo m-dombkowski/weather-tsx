@@ -4,7 +4,7 @@ import { CityForecastInterface, CityInterface } from "..";
 
 // Define a type for the slice state
 interface SelectedCityState {
-  selectedCity: CityForecastInterface | CityInterface | undefined;
+  selectedCity: CityForecastInterface | undefined;
 }
 
 // Define the initial state using that type
@@ -19,7 +19,7 @@ export const selectedCitySlice = createSlice({
   reducers: {
     setSelectedCity: (
       state,
-      action: PayloadAction<CityForecastInterface | CityInterface | undefined>
+      action: PayloadAction<CityForecastInterface | undefined>
     ) => {
       const selectedCityData = action.payload;
       state.selectedCity = selectedCityData;
@@ -28,7 +28,7 @@ export const selectedCitySlice = createSlice({
       const properCityName = action.payload;
       if (state.selectedCity) {
         console.log(typeof state.selectedCity);
-        // state.selectedCity.city.name = properCityName;
+        state.selectedCity.city.name = properCityName;
       }
     },
   },

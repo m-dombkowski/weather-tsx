@@ -6,6 +6,7 @@ import { useAppSelector } from "../../hooks/rtk-hooks";
 import { useDispatch } from "react-redux";
 import { unsetUser } from "../../state/slices/auth-state";
 import { emptyFavorites } from "../../state/slices/favorite-cities";
+import { setSelectedCity } from "../../state/slices/selected-city";
 
 interface SidebarMenuProps {
   favHandler: () => void;
@@ -22,6 +23,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ favHandler }) => {
     if (error?.message == null) {
       setLogoutMessage("You have been logged out");
       dispatch(emptyFavorites);
+      dispatch(setSelectedCity(undefined));
+      // localStorage.clear();
     } else {
       setLogoutMessage(error.message);
     }

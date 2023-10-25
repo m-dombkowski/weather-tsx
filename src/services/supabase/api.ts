@@ -1,9 +1,9 @@
-import { User, createClient } from "@supabase/supabase-js";
+import { User } from "@supabase/supabase-js";
 import { CityForecastInterface } from "../../state";
 import { triggerErrMessage } from "../../components/selected-city";
 import { supabase } from ".";
 
-export const addCityToFavs = async (
+export const addCityToFavsDb = async (
   userData: User | undefined,
   cityData: CityForecastInterface | undefined
 ) => {

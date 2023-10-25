@@ -16,6 +16,7 @@ import {
 import { setError } from "../../state/slices/errors";
 import { validateSearchInput } from "../../utils";
 import { setSelectedCityAirPollution } from "../../state/slices/air-pollution";
+import { instanceOf } from "prop-types";
 
 interface SearchResultProps {
   setSearchInput?: Dispatch<SetStateAction<string>>;
@@ -36,8 +37,8 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
       try {
         if (validateSearchInput(cityQuery)) {
           const axiosResponse = await axios(
-            // `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
-            `${baseURL}data/2.5/weather?q=${cityQuery}&appid=${apiKey}`
+            `${baseURL}geo/1.0/direct?q=${cityQuery}&limit=${limit}&appid=${apiKey}`
+            // `${baseURL}data/2.5/weather?q=${cityQuery}&appid=${apiKey}&limit=${limit}`
           ).catch(({ response }) => {
             if (response.status >= 400) {
               setIsLoading(false);
@@ -101,22 +102,52 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
       const cityData = citiesSearchResult[cityIndex];
 
       if (cityData.name === buttonValue && +cityIndex === tabIndex) {
-        axios(
-          `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
-        )
-          .then(({ data }) => {
-            console.log(data);
-            dispatch(setSelectedCity(data));
-            dispatch(setSelectedCityName(buttonValue));
-          })
-          .catch((response) => {
-            if (response.status >= 400)
-              dispatch(
-                setError(
-                  "Oopsie, this should not have happened. Please reach app creator"
-                )
-              );
-          });
+        console.log(cityData);
+        try {
+          const forecast = await axios(
+            `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
+          );
+
+          if (forecast.status >= 400) {
+            throw new Error(
+              "There has been a problem with api call, please try again soon or contact app creator if problem persists"
+            );
+          }
+          console.log(forecast.data);
+          dispatch(setSelectedCityName(buttonValue));
+
+          const getCityByID = await axios(
+            `${baseURL}/data/2.5/group?id=${forecast.data.city.id}&appid=${apiKey}`
+          );
+
+          if (getCityByID.status >= 400) {
+            throw new Error(
+              "There has been a problem with api call, please try again soon or contact app creator if problem persists"
+            );
+          }
+
+          dispatch(setSelectedCity(getCityByID.data.list[0]));
+        } catch (err) {
+          if (err instanceof Error) {
+            dispatch(setError(err.message));
+          }
+        }
+        // const forecast = axios(
+        //   `${baseURL}data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=metric`
+        // )
+        //   .then(({ data }) => {
+        //     console.log(data);
+        //     dispatch(setSelectedCity(data));
+        //     dispatch(setSelectedCityName(buttonValue));
+        //   })
+        //   .catch((response) => {
+        //     if (response.status >= 400)
+        //       dispatch(
+        //         setError(
+        //           "Oopsie, this should not have happened. Please reach app creator"
+        //         )
+        //       );
+        //   });
 
         axios(
           `${baseURL}data/2.5/air_pollution?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}`
