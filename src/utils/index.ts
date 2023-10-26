@@ -1,14 +1,18 @@
-import { CityForecastInterface } from "../state";
+import { CityForecastInterface, CityInterface } from "../state";
 
 export const convertUnixToTime = (
   unixTimestamp: number,
-  cityData: CityForecastInterface
+  cityData: CityInterface | CityForecastInterface
 ) => {
   let date;
-  if (cityData.city.timezone !== 7200) {
-    date = new Date((unixTimestamp + cityData.city.timezone - 14400) * 1000);
+
+  const timezone =
+    "sys" in cityData ? cityData.sys.timezone : cityData?.city.timezone;
+
+  if (timezone !== 7200) {
+    date = new Date((unixTimestamp + timezone - 7200) * 1000);
   } else {
-    date = new Date((unixTimestamp - 7200) * 1000);
+    date = new Date(unixTimestamp * 1000);
   }
 
   const formattedDate = date

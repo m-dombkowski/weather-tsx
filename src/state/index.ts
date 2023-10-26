@@ -1,45 +1,41 @@
 export interface CityInterface {
+  clouds: {
+    all: number;
+  };
   coord: {
     lon: number;
     lat: number;
   };
-  weather: [
-    {
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }
-  ];
-  base: string;
+  dt: number;
+  id: number;
   main: {
-    temp: number;
     feels_like: number;
+    humidity: number;
+    pressure: number;
+    temp: number;
     temp_min: number;
     temp_max: number;
-    pressure: number;
-    humidity: number;
   };
-  visibility: number;
-  wind: {
-    speed: number;
-    deg: number;
-  };
-  clouds: {
-    all: number;
-  };
-  dt: number;
+  name: string;
   sys: {
-    type: number;
-    id: number;
+    timezone: number;
     country: string;
     sunrise: number;
     sunset: number;
   };
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
+  visibility: number;
+  weather: [
+    {
+      description: string;
+      icon: string;
+      id: number;
+      main: string;
+    }
+  ];
+  wind: {
+    speed: number;
+    deg: number;
+  };
 }
 
 export interface CityForecastInterface {
