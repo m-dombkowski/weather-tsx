@@ -117,7 +117,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
           dispatch(setSelectedCityName(buttonValue));
 
           const getCityByID = await axios(
-            `${baseURL}/data/2.5/group?id=${forecast.data.city.id}&appid=${apiKey}`
+            `${baseURL}/data/2.5/group?id=${forecast.data.city.id}&appid=${apiKey}&units=metric`
           );
 
           if (getCityByID.status >= 400) {
@@ -125,7 +125,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchInput }) => {
               "There has been a problem with api call, please try again soon or contact app creator if problem persists"
             );
           }
-
+          console.log(getCityByID.data.list[0]);
           dispatch(setSelectedCity(getCityByID.data.list[0]));
         } catch (err) {
           if (err instanceof Error) {

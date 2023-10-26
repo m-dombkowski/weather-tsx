@@ -1,11 +1,11 @@
 import { User } from "@supabase/supabase-js";
-import { CityForecastInterface } from "../../state";
+import { CityInterface } from "../../state";
 import { triggerErrMessage } from "../../components/selected-city";
 import { supabase } from ".";
 
 export const addCityToFavsDb = async (
   userData: User | undefined,
-  cityData: CityForecastInterface | undefined
+  cityData: CityInterface | undefined
 ) => {
   const { data, error } = await supabase
     .from("favs")
@@ -13,7 +13,7 @@ export const addCityToFavsDb = async (
       {
         user: userData?.email,
         city_data: cityData,
-        city_id: cityData?.city.id,
+        city_id: cityData?.id,
       },
     ])
     .select();
@@ -21,12 +21,12 @@ export const addCityToFavsDb = async (
 
 export const removeCityFromFavs = async (
   userData: User | undefined,
-  cityData: CityForecastInterface | undefined
+  cityData: CityInterface | undefined
 ) => {
   const { data: favs } = await supabase.from("favs").select("user,city_id");
 
   const isAdded = favs?.filter(
-    (el) => el.user == userData?.email && el.city_id == cityData?.city.id
+    (el) => el.user == userData?.email && el.city_id == cityData?.id
   );
   if (isAdded) {
     const { error } = await supabase
@@ -38,7 +38,7 @@ export const removeCityFromFavs = async (
 
 export const checkIfCityIsAlreadyInFavs = async (
   userData: User | undefined,
-  cityData: CityForecastInterface | undefined,
+  cityData: CityInterface | undefined,
   setFavError: React.Dispatch<React.SetStateAction<string>>,
   ref: React.MutableRefObject<HTMLDivElement | null>
 ) => {
@@ -47,7 +47,7 @@ export const checkIfCityIsAlreadyInFavs = async (
     .select("user,city_id");
 
   const isAdded = favs?.find(
-    (el) => el.user == userData?.email && el.city_id == cityData?.city.id
+    (el) => el.user == userData?.email && el.city_id == cityData?.id
   );
 
   if (!isAdded) {

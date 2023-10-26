@@ -5,7 +5,7 @@ import {
 } from "../../state/slices/favorite-cities";
 import "./selected-city.css";
 import { convertUnixToTime } from "../../utils";
-import { CityForecastInterface } from "../../state";
+import { CityInterface } from "../../state";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -24,8 +24,7 @@ const SelectedCity: React.FC = () => {
   const errRef = useRef<HTMLDivElement | null>(null);
 
   const isAlreadyInFavorites: object | undefined = cityList?.find(
-    (selectedCity: CityForecastInterface) =>
-      selectedCity.city.id === cityData?.city.id
+    (selectedCity: CityInterface) => selectedCity.id === cityData?.id
   );
   const dispatch = useAppDispatch();
 
@@ -44,6 +43,7 @@ const SelectedCity: React.FC = () => {
       return;
     }
     const button = event.target as HTMLDivElement;
+    console.log("klikam");
 
     if (button.classList.contains("liked")) {
       removeCityFromFavs(userData, cityData);
@@ -67,7 +67,7 @@ const SelectedCity: React.FC = () => {
   useEffect(() => {}, []);
 
   const detailedForecastOnClick = () => {
-    navigate(`/city/${cityData?.city.id}`);
+    navigate(`/city/${cityData?.id}`);
   };
 
   return (
@@ -75,13 +75,13 @@ const SelectedCity: React.FC = () => {
       {cityData && (
         <div className="flex flex-col items-center mt-[75%] ml-[100%]">
           <div className="selected-city-container flex justify-center items-center gap-2.5">
-            <span>{cityData.city.name}</span>
-            <span>{Math.round(cityData.list[0].main.temp)}°C</span>
+            <span>{cityData.name}</span>
+            <span>{Math.round(cityData.main.temp)}°C</span>
             <img
-              src={`http://openweathermap.org/img/wn/${cityData.list[0].weather[0].icon}@2x.png`}
+              src={`http://openweathermap.org/img/wn/${cityData.weather[0].icon}@2x.png`}
             />
             <p className="w-[50px]">
-              {convertUnixToTime(cityData.list[0].dt, cityData)}
+              {convertUnixToTime(cityData.dt, cityData)}
             </p>
             <div className="ml-auto">
               <div

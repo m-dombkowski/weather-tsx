@@ -1,10 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { CityForecastInterface } from "..";
+import { CityInterface } from "..";
 
 // Define a type/interface for the slice state
 interface FavCitiesState {
-  favoriteCities: CityForecastInterface[] | [] | undefined | never;
+  favoriteCities: CityInterface[] | [] | undefined | never;
 }
 
 // Define the initial state using that type
@@ -18,18 +18,18 @@ export const citiesSlice = createSlice({
   reducers: {
     addToFavorites: (
       state,
-      action: PayloadAction<CityForecastInterface | undefined>
+      action: PayloadAction<CityInterface | undefined>
     ) => {
       if (state.favoriteCities && state.favoriteCities.length > 0) {
         const isAlreadyInFavorites: object | undefined =
           state.favoriteCities.find(
-            (selectedCity: CityForecastInterface) =>
-              selectedCity.city.id === action.payload?.city.id
+            (selectedCity: CityInterface) =>
+              selectedCity.id === action.payload?.id
           );
         if (!isAlreadyInFavorites && action.payload) {
           state.favoriteCities.push(action.payload as never);
           localStorage.setItem(
-            action.payload.city.id.toString(),
+            action.payload.id.toString(),
             JSON.stringify(action.payload)
           );
           console.log(current(state.favoriteCities));
@@ -38,22 +38,21 @@ export const citiesSlice = createSlice({
       } else if (state.favoriteCities && action.payload) {
         state.favoriteCities.push(action.payload as never);
         // localStorage.setItem(
-        //   action.payload.city.id.toString(),
+        //   action.payload.id.toString(),
         //   JSON.stringify(action.payload)
         // );
       }
     },
     removeFromFavorites: (
       state,
-      action: PayloadAction<CityForecastInterface | undefined>
+      action: PayloadAction<CityInterface | undefined>
     ) => {
       if (state.favoriteCities && action.payload) {
         const filtered = state.favoriteCities.filter(
-          (city: CityForecastInterface) =>
-            city.city.id !== action.payload?.city.id
+          (city: CityInterface) => city.id !== action.payload?.id
         );
         state.favoriteCities = filtered;
-        // localStorage.removeItem(action.payload.city.id.toString());
+        // localStorage.removeItem(action.payload.id.toString());
       }
     },
     emptyFavorites: (state) => {
