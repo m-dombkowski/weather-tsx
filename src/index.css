@@ -26,6 +26,11 @@
   margin: auto;
 }
 
+button:focus-visible,
+a:focus-visible {
+  outline: none;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -78,4 +83,8 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+:-moz-focusring {
+  outline: none;
 }

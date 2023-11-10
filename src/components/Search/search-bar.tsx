@@ -27,7 +27,7 @@ const SearchBar: React.FC = () => {
         <div className="flex gap-5 items-center justify-center">
           <input
             onChange={(event) => setSearchInput(event.target.value)}
-            className="py-3 px-6 min-w-300px"
+            className="py-3 px-6 min-w-300px focus-visible:border-[#646cff]"
             type="search"
             placeholder="Search for a city"
           />

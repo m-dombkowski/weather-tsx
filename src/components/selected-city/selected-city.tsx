@@ -73,8 +73,8 @@ const SelectedCity: React.FC = () => {
   return (
     <>
       {cityData && (
-        <div className="flex flex-col items-center mt-[75%] ml-[100%]">
-          <div className="selected-city-container flex justify-center items-center gap-2.5">
+        <div className="flex flex-col items-center bg-black w-[700px] pl-[4%] pr-0 py-[4%];">
+          <div className="selected-city-container flex w-[100%] items-center justify-between">
             <span>{cityData.name}</span>
             <span>{Math.round(cityData.main.temp)}°C</span>
             <img
@@ -83,7 +83,7 @@ const SelectedCity: React.FC = () => {
             <p className="w-[50px]">
               {convertUnixToTime(cityData.dt, cityData)}
             </p>
-            <div className="ml-auto">
+            <div>
               <div
                 onClick={manageFavorites}
                 className={
