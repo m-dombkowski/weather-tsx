@@ -10,7 +10,7 @@ export const getUserCitiesFromDb = createAsyncThunk(
   async (ids: { city_id: number }[]) => {
     try {
       const call = await axios(
-        `${baseURL}/data/2.5/group?id=${ids}&appid=${apiKey}`
+        `${baseURL}/data/2.5/group?id=${ids}&appid=${apiKey}&units=metric`
       );
 
       return call.data.list;

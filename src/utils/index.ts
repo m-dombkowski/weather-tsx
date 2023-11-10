@@ -10,7 +10,7 @@ export const convertUnixToTime = (
     "sys" in cityData ? cityData.sys.timezone : cityData?.city.timezone;
 
   if (timezone !== 7200) {
-    date = new Date((unixTimestamp + timezone - 7200) * 1000);
+    date = new Date((unixTimestamp + timezone - 3600) * 1000);
   } else {
     date = new Date(unixTimestamp * 1000);
   }
